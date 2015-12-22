@@ -24,8 +24,8 @@ public class Filter {
     }
 
     public static void warm(List<Double> value, IirFilter iir){
-        for (int i = 0; i < value.size(); i++) {
-            double nv = iir.step(value.get(i));
+        for (Double aValue : value) {
+            double nv = iir.step(aValue);
         }
     }
 }

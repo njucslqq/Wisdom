@@ -1,10 +1,6 @@
 package tongtong.qiangqiang;
 
-import cn.quanttech.quantera.common.data.TimeFrame;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * Author: Qiangqiang Li

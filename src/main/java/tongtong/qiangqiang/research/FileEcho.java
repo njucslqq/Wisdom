@@ -12,12 +12,9 @@ import java.io.IOException;
  */
 public class FileEcho {
 
-    private String file;
-
     private FileWriter w;
 
     public FileEcho(String file){
-        this.file = file;
         try {
             w = new FileWriter(file);
         } catch (IOException e) {
