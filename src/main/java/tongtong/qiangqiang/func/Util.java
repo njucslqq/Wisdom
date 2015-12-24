@@ -29,6 +29,14 @@ public class Util {
         return ema;
     }
 
+    public static List<Double> defaultWeights(int N) {
+        List<Double> res = new ArrayList<>();
+        double sum = N * (N + 1) / 2.0;
+        for (int i = 1; i <= N; i++)
+            res.add(i / sum);
+        return res;
+    }
+
     public static double wma(final List<Double> price, final List<Double> weight) {
         double sum = 0.0;
         for (int i = 0; i < price.size(); i++)

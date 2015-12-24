@@ -12,9 +12,12 @@ import java.io.IOException;
  */
 public class FileEcho {
 
+    private String file;
+
     private FileWriter w;
 
     public FileEcho(String file){
+        this.file = file;
         try {
             w = new FileWriter(file);
         } catch (IOException e) {
@@ -33,6 +36,22 @@ public class FileEcho {
                 w.write(v.toString());
             }
             w.write("\r\n");
+            w.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void write(Object...values){
+        boolean first = true;
+        try {
+            for(Object v : values) {
+                if (!first)
+                    w.write(",");
+                else
+                    first = false;
+                w.write(v.toString());
+            }
             w.flush();
         }catch (Exception e){
             e.printStackTrace();
