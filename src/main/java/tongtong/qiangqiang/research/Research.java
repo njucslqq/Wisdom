@@ -37,9 +37,9 @@ public class Research {
     public static final String BASE = "D:\\investment\\signal\\single\\";
 
     public static void main(String[] args) {
-        String code = "IF1512";
+        String code = "IF1601";
         LocalDate warmDay = of(2015, 12, 14);
-        LocalDate targetDay = of(2015, 12, 15);
+        LocalDate targetDay = of(2015, 12, 22);
         List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
         List<Double> targetData = extract(ticks(code, targetDay), "lastPrice");
 
