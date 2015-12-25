@@ -3,7 +3,6 @@ package tongtong.qiangqiang.mock;
 import biz.source_code.dsp.filter.IirFilter;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TickInfo;
-import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.research.FileEcho;
 
 import java.time.LocalDate;
@@ -12,12 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static biz.source_code.dsp.filter.FilterCharacteristicsType.butterworth;
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
-import static tongtong.qiangqiang.data.H.bars;
+import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
+import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.H.ticks;
-import static tongtong.qiangqiang.func.Util.defaultWeights;
-import static tongtong.qiangqiang.func.Util.extract;
-import static tongtong.qiangqiang.func.Util.wma;
+import static tongtong.qiangqiang.func.Util.*;
 import static tongtong.qiangqiang.research.Filter.warm;
 import static tongtong.qiangqiang.research.Research.BASE;
 import static tongtong.qiangqiang.research.Research.getLowPassFilter;
@@ -31,12 +28,12 @@ import static tongtong.qiangqiang.research.Research.getLowPassFilter;
  */
 public class MockTick extends MockBase {
 
-    String code = "rb1601";
-    LocalDate warmDay = LocalDate.of(2015, 12, 14);
-    List<Double> warmData = extract(bars(code, TimeFrame.MIN_1, warmDay), "lastPrice");
+    String code = "IF1601";
+    LocalDate warmDay = of(2015, 12, 14);
+    List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
     List<Double> tmp = new ArrayList<>();
     double bond = 0.09;
-    int size = 29;
+    int size = 127;
 
     IirFilter iir = null;
 
@@ -55,12 +52,12 @@ public class MockTick extends MockBase {
     @Override
     void init() {
         setSecurity(code);
-        setResolution(MIN_1);
-        setStart(LocalDate.of(2015, 12, 15));
-        setEnd(LocalDate.of(2015, 12, 23));
+        setResolution(TICK);
+        setStart(of(2015, 12, 15));
+        setEnd(of(2015, 12, 15));
 
         iir = getLowPassFilter(butterworth, bond);
-        warm(warmData, iir);
+        warm(window(warmData, size), iir);
     }
 
     @Override

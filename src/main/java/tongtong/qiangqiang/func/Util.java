@@ -1,9 +1,11 @@
 package tongtong.qiangqiang.func;
 
 import cn.quanttech.quantera.common.data.BaseData;
+import jwave.datatypes.natives.Complex;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -35,6 +37,23 @@ public class Util {
         for (int i = 1; i <= N; i++)
             res.add(i / sum);
         return res;
+    }
+
+    public static List<Double> window(List<Double> data, int size){
+        List<Double> res = new LinkedList<>();
+        for(int i=0; i<data.size(); i+=size){
+            int to = Math.min(data.size(), i+size);
+            res.add(wma(data.subList(i, to), defaultWeights(to -i)));
+        }
+        return res;
+    }
+
+    public static Complex[] toComplex(List<Double> data){
+        Complex[] complex = new Complex[data.size()];
+        for (int i=0;i<data.size();i++) {
+            complex[i]= new Complex(data.get(i), 0);
+        }
+        return complex;
     }
 
     public static double wma(final List<Double> price, final List<Double> weight) {

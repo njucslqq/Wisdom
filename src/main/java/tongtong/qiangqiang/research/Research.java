@@ -6,23 +6,24 @@ import biz.source_code.dsp.filter.FilterPassType;
 import biz.source_code.dsp.filter.IirFilter;
 import biz.source_code.dsp.filter.IirFilterCoefficients;
 import cn.quanttech.quantera.common.data.TickInfo;
+import jwave.Transform;
+import jwave.TransformBuilder;
+import jwave.datatypes.natives.Complex;
+import jwave.transforms.DiscreteFourierTransform;
 import tongtong.qiangqiang.func.Util;
 import tongtong.qiangqiang.func.WindowHandler;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static biz.source_code.dsp.filter.FilterCharacteristicsType.butterworth;
-import static biz.source_code.dsp.filter.FilterPassType.bandpass;
 import static biz.source_code.dsp.filter.FilterPassType.highpass;
 import static biz.source_code.dsp.filter.FilterPassType.lowpass;
 import static biz.source_code.dsp.filter.IirFilterDesignFisher.design;
+import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.H.ticks;
-import static tongtong.qiangqiang.func.Util.defaultWeights;
-import static tongtong.qiangqiang.func.Util.extract;
-import static tongtong.qiangqiang.func.Util.wma;
+import static tongtong.qiangqiang.func.Util.*;
 
 /**
  * Author: Qiangqiang Li
@@ -36,15 +37,44 @@ public class Research {
     public static final String BASE = "D:\\investment\\signal\\single\\";
 
     public static void main(String[] args) {
-        int size = 13;
         String code = "IF1512";
-        LocalDate day = LocalDate.of(2015, 11, 27);
-        List<Double> win = window(code, day, size);
+        LocalDate warmDay = of(2015, 12, 14);
+        LocalDate targetDay = of(2015, 12, 15);
+        List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
+        List<Double> targetData = extract(ticks(code, targetDay), "lastPrice");
 
-        LocalDate warDay = LocalDate.of(2015, 11, 26);
-        List<Double> warm = extract(ticks(code, warDay), "lastPrice");
-        double bond = 0.1;
-        lowPassFilter(warm, win, bond);
+        //wave
+        String file = BASE + "jwave-" + code + "-" + targetDay.toString() + "bfore.csv";
+        wave(targetData, file);
+
+        int size = 29;
+        warmData = Util.window(warmData, size);
+        targetData = Util.window(targetData, size);
+
+        //wave
+        String file2 = BASE + "jwave-" + code + "-" + targetDay.toString() + "after.csv";
+        wave(targetData, file2);
+
+        /*double bond = 0.09;
+        String base = BASE + code + "-" + targetDay.toString() + "-" + size + "-";
+        lowPassFilter(warmData, targetData, bond, base);
+        */
+    }
+
+    public static void wave(List<Double> data, String file) {
+        int size = 2;
+        while (size <= data.size())
+            size <<= 1;
+        size >>= 1;
+        Complex[] time = Util.toComplex(data.subList(0, size));
+        Transform transform = new Transform(new DiscreteFourierTransform());
+        Complex[] frequency = transform.forward(time);
+        FileEcho echo = new FileEcho(file);
+        for (int i = 0; i < time.length; i++)
+            if (i < 200)
+                echo.writeln(time[i].getReal(), frequency[i].getMag());
+            else
+                echo.writeln(time[i].getReal());
     }
 
     private static String identity(FilterPassType pass, FilterCharacteristicsType algo, int order, double ripple, double fcf1, double fcf2) {
@@ -62,9 +92,9 @@ public class Research {
         IirFilter iir = new IirFilter(coe);
 
         String code = "IF1512";
-        List<Double> warm = extract(ticks(code, LocalDate.of(2015, 12, 1), LocalDate.of(2015, 12, 7)), "lastPrice");
+        List<Double> warm = extract(ticks(code, of(2015, 12, 1), of(2015, 12, 7)), "lastPrice");
         Filter.warm(warm, iir);
-        LocalDate day = LocalDate.of(2015, 12, 8);
+        LocalDate day = of(2015, 12, 8);
         for (int i = 0; i < 3; i++) {
             LocalDate thisDay = day.plusDays(i);
             String file = BASE + code + "-" + thisDay.toString() + "-" + identity(pass, algo, order, ripple, fcf1, fcf2) + ".csv";
@@ -74,7 +104,7 @@ public class Research {
         }
     }
 
-    private static void lowPassFilter(List<Double> warm, List<Double> value, double threshold) {
+    private static void lowPassFilter(List<Double> warmData, List<Double> targetData, double threshold, String base) {
         FilterPassType pass = lowpass;
         FilterCharacteristicsType algo = butterworth;
         int order = 2;
@@ -84,13 +114,13 @@ public class Research {
         IirFilterCoefficients coe = design(pass, algo, order, ripple, threshold, fcf2);
         System.out.println("阶数: " + coe.a.length + "," + coe.b.length);
         IirFilter iir = new IirFilter(coe);
-        Filter.warm(warm, iir);
+        Filter.warm(warmData, iir);
 
-        String file = BASE + identity(pass, algo, order, ripple, threshold, fcf2) + ".csv";
-        Filter.filter(file, value, iir, 0);
+        String file = base + identity(pass, algo, order, ripple, threshold, fcf2) + ".csv";
+        Filter.filter(file, targetData, iir, 0);
     }
 
-    public static IirFilter getLowPassFilter(FilterCharacteristicsType algo, double threshold){
+    public static IirFilter getLowPassFilter(FilterCharacteristicsType algo, double threshold) {
         FilterPassType pass = lowpass;
         int order = 2;
         double ripple = 2;
