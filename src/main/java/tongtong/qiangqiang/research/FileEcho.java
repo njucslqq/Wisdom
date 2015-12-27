@@ -57,4 +57,12 @@ public class FileEcho {
             e.printStackTrace();
         }
     }
+
+    public void close(){
+        try {
+            w.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

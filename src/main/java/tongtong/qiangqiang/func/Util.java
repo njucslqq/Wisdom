@@ -39,21 +39,28 @@ public class Util {
         return res;
     }
 
-    public static List<Double> window(List<Double> data, int size){
+    public static List<Double> window(List<Double> data, int size) {
         List<Double> res = new LinkedList<>();
-        for(int i=0; i<data.size(); i+=size){
-            int to = Math.min(data.size(), i+size);
-            res.add(wma(data.subList(i, to), defaultWeights(to -i)));
+        for (int i = 0; i < data.size(); i += size) {
+            int to = Math.min(data.size(), i + size);
+            res.add(wma(data.subList(i, to), defaultWeights(to - i)));
         }
         return res;
     }
 
-    public static Complex[] toComplex(List<Double> data){
+    public static Complex[] toComplex(List<Double> data) {
         Complex[] complex = new Complex[data.size()];
-        for (int i=0;i<data.size();i++) {
-            complex[i]= new Complex(data.get(i), 0);
+        for (int i = 0; i < data.size(); i++) {
+            complex[i] = new Complex(data.get(i), 0);
         }
         return complex;
+    }
+
+    public static List<Double> toReal(Complex[] data) {
+        List<Double> real = new ArrayList<>();
+        for (int i = 0; i < data.length; i++)
+            real.add(data[i].getReal());
+        return real;
     }
 
     public static double wma(final List<Double> price, final List<Double> weight) {
