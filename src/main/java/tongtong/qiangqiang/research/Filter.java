@@ -20,7 +20,7 @@ import static tongtong.qiangqiang.func.Util.toComplex;
  */
 public class Filter {
 
-    public enum WaveType{
+    public enum WaveType {
         FOURIER, WAVELETS
     }
 
@@ -34,21 +34,21 @@ public class Filter {
         }
     }
 
-    public static void warm(List<Double> value, IirFilter iir){
+    public static void warm(List<Double> value, IirFilter iir) {
         for (int i = 0; i < value.size(); i++) {
             double nv = iir.step(value.get(i));
         }
     }
 
-    public static void filterByAmplitude(List<Double> data, WaveType wave, int number, String file){
-        switch (wave){
+    public static void filterByAmplitude(List<Double> data, WaveType wave, int number, String file) {
+        switch (wave) {
             case FOURIER:
-                fourier(data, number, file);
+                fourierNumber(data, number, file);
                 break;
         }
     }
 
-    public static void fourier(final List<Double> data, final int number, final String file){
+    public static void fourierNumber(final List<Double> data, final int number, final String file) {
         DiscreteFourierTransform fourier = new DiscreteFourierTransform();
         Complex[] input = toComplex(data);
         Complex[] output = fourier.forward(input);
@@ -56,21 +56,54 @@ public class Filter {
         List<Double> reverseData1 = Util.toReal(input1);
 
         List<Pair<Complex, Integer>> amplitude = new ArrayList<>();
-        for (int i=0;i<output.length;i++)
+        for (int i = 0; i < output.length; i++)
             amplitude.add(Pair.of(output[i], i));
-        amplitude.sort((a, b) -> ((Double)b.getLeft().getMag()).compareTo(a.getLeft().getMag()));
-        for (int i=0; i<amplitude.size();i++)
+        amplitude.sort((a, b) -> ((Double) b.getLeft().getMag()).compareTo(a.getLeft().getMag()));
+        for (int i = 0; i < amplitude.size(); i++)
             System.out.println(amplitude.get(i).getLeft().getMag());
         int n = Math.min(number, output.length);
-        for (int i=n;i<amplitude.size();i++) {
+        for (int i = n; i < amplitude.size(); i++) {
             output[amplitude.get(i).getRight()].setReal(0);
             output[amplitude.get(i).getRight()].setImag(0);
         }
         input = fourier.reverse(output);
         List<Double> reverseData2 = Util.toReal(input);
         FileEcho echo = new FileEcho(file);
-        for (int i=0; i<data.size() && i<reverseData2.size();i++)
+        for (int i = 0; i < data.size() && i < reverseData2.size(); i++)
             echo.writeln(data.get(i), reverseData1.get(i), reverseData2.get(i));
+        echo.close();
+    }
+
+    public static void fourierPercent(final List<Double> data, final double percent, final String file) {
+        DiscreteFourierTransform fourier = new DiscreteFourierTransform();
+        Complex[] input = toComplex(data);
+        Complex[] output = fourier.forward(input);
+
+        double sum = 0.0;
+        List<Pair<Complex, Integer>> amplitude = new ArrayList<>();
+        for (int i = 0; i < output.length; i++) {
+            amplitude.add(Pair.of(output[i], i));
+            sum += output[i].getMag();
+        }
+        double current = 0.0;
+        amplitude.sort((a, b) -> ((Double) b.getLeft().getMag()).compareTo(a.getLeft().getMag()));
+        int index = 0;
+        for (; index < amplitude.size(); index++) {
+            System.out.println(amplitude.get(index).getLeft().getMag());
+            current += amplitude.get(index).getLeft().getMag();
+            if (current >= sum * percent)
+                break;
+        }
+        int n = index + 1;
+        for (int i = n; i < amplitude.size(); i++) {
+            output[amplitude.get(i).getRight()].setReal(0);
+            output[amplitude.get(i).getRight()].setImag(0);
+        }
+        input = fourier.reverse(output);
+        List<Double> reverseData2 = Util.toMagnitude(input);
+        FileEcho echo = new FileEcho(file);
+        for (int i = 0; i < data.size() && i < reverseData2.size(); i++)
+            echo.writeln(data.get(i), reverseData2.get(i));
         echo.close();
     }
 }

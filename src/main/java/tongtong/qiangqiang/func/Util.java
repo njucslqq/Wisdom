@@ -63,6 +63,13 @@ public class Util {
         return real;
     }
 
+    public static List<Double> toMagnitude(Complex[] data) {
+        List<Double> real = new ArrayList<>();
+        for (int i = 0; i < data.length; i++)
+            real.add(data[i].getMag());
+        return real;
+    }
+
     public static double wma(final List<Double> price, final List<Double> weight) {
         double sum = 0.0;
         for (int i = 0; i < price.size(); i++)

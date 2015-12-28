@@ -5,11 +5,9 @@ import biz.source_code.dsp.filter.FilterCharacteristicsType;
 import biz.source_code.dsp.filter.FilterPassType;
 import biz.source_code.dsp.filter.IirFilter;
 import biz.source_code.dsp.filter.IirFilterCoefficients;
-import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import jwave.Transform;
-import jwave.TransformBuilder;
 import jwave.datatypes.natives.Complex;
 import jwave.transforms.DiscreteFourierTransform;
 import tongtong.qiangqiang.func.Util;
@@ -23,11 +21,12 @@ import static biz.source_code.dsp.filter.FilterCharacteristicsType.butterworth;
 import static biz.source_code.dsp.filter.FilterPassType.highpass;
 import static biz.source_code.dsp.filter.FilterPassType.lowpass;
 import static biz.source_code.dsp.filter.IirFilterDesignFisher.design;
-import static cn.quanttech.quantera.CONST.OUTRA_QUANDIS_URL;
+import static cn.quanttech.quantera.CONST.INTRA_QUANDIS_URL;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.H.ticks;
 import static tongtong.qiangqiang.func.Util.*;
-import static tongtong.qiangqiang.research.Filter.WaveType.FOURIER;
+
+
 
 /**
  * Author: Qiangqiang Li
@@ -41,17 +40,24 @@ public class Research {
     public static final String BASE = "./signal/";
 
     public static void main(String[] args) {
-        DataCenterUtil.setNetDomain(OUTRA_QUANDIS_URL);
+        DataCenterUtil.setNetDomain(INTRA_QUANDIS_URL);
 
         String code = "IF1601";
         LocalDate warmDay = of(2015, 12, 14);
         LocalDate targetDay = of(2015, 12, 22);
         //List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
-        List<Double> targetData = extract(ticks(code, targetDay), "lastPrice");
+        List<Double> targetData = extract(ticks(code, targetDay), "lastPrice");//.subList(0, 1231);
 
-        int number = 23;
-        String file = BASE + code + targetDay.toString() + "FilterbyAmplitude[" + number + "].csv";
-        Filter.filterByAmplitude(targetData, FOURIER, number, file);
+
+        //int size = 13;
+        //targetData = Util.window(targetData, size);
+
+        //int number = 3;
+        double percent = 0.1;
+        String file = BASE + code + "[" + targetData.size() + "]" + targetDay.toString() + "FilterbyAmplitude[" + percent + "].csv";
+        Filter.fourierPercent(targetData, percent, file);
+
+
 
         /*
         //wave

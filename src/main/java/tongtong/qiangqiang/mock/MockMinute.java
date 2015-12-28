@@ -69,7 +69,7 @@ public class MockMinute extends MockBase {
 
         tmp.add(bar.closePrice);
         if (tmp.size() == size) {
-            double avg = wma(tmp, defaultWeights(size)); //tmp.stream().mapToDouble(d -> d).sum() / size;
+            double avg = wma(tmp, defaultWeights(size)); //tmp.stream().mapToDouble(d -> d).sum() / windowSize;
             win.add(0, avg);
             smooth.add(0, iir.step(avg));
             tmp.clear();
