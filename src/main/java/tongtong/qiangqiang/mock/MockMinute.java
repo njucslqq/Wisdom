@@ -16,7 +16,6 @@ import static tongtong.qiangqiang.data.H.bars;
 import static tongtong.qiangqiang.func.Util.*;
 import static tongtong.qiangqiang.research.Filter.warm;
 import static tongtong.qiangqiang.research.Research.BASE;
-import static tongtong.qiangqiang.research.Research.getLowPassFilter;
 
 /**
  * Author: Qiangqiang Li
@@ -55,7 +54,7 @@ public class MockMinute extends MockBase {
         setStart(LocalDate.of(2015, 11, 26));
         setEnd(LocalDate.of(2015, 12, 4));
 
-        iir = getLowPassFilter(butterworth, bond);
+        iir = null;
         warm(warmData, iir);
     }
 

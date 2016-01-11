@@ -15,7 +15,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static tongtong.qiangqiang.func.Util.log2;
 import static tongtong.qiangqiang.func.Util.toComplex;
 import static tongtong.qiangqiang.func.Util.toMagnitude;
 
@@ -70,7 +69,7 @@ public class Filter {
 
     public static List<Double> lowPassFilter(Transform t, List<Double> data, int top) {
         Complex[] input = toComplex(data);
-        Complex[] output = t.forward(input); t.forwdoub
+        Complex[] output = t.forward(input);
         int index = output.length;
         if (t.getBasicTransform() instanceof WaveletTransform) {
             index = 1 << top;
