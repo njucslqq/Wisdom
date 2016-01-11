@@ -5,12 +5,13 @@ import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
+import jwave.Transform;
+import jwave.transforms.DiscreteFourierTransform;
 import tongtong.qiangqiang.research.FileEcho;
 import tongtong.qiangqiang.research.Filter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,7 +19,6 @@ import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.H.ticks;
 import static tongtong.qiangqiang.func.Util.*;
-import static tongtong.qiangqiang.research.Research.BASE;
 
 /**
  * Author: Qiangqiang Li
@@ -81,7 +81,7 @@ public class MockTick extends MockBase {
                 List<Double> reverse = new ArrayList<>();
                 for (Double d : list)
                     reverse.add(0, d);
-                Filter.fourierNumber(reverse, number, BASE + code + "[" + win.size() + "].csv");
+                Filter.filterUsingNumber(new Transform(new DiscreteFourierTransform()), reverse, number, BASE + code + "[" + win.size() + "].csv");
             }
 
             tmp.clear();

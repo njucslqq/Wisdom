@@ -1,15 +1,23 @@
 package tongtong.qiangqiang.research;
 
 import biz.source_code.dsp.filter.IirFilter;
+import jwave.Transform;
 import jwave.datatypes.natives.Complex;
+import jwave.transforms.AncientEgyptianDecomposition;
 import jwave.transforms.DiscreteFourierTransform;
+import jwave.transforms.FastWaveletTransform;
+import jwave.transforms.WaveletTransform;
+import jwave.transforms.wavelets.haar.Haar1;
 import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.func.Util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static tongtong.qiangqiang.func.Util.log2;
 import static tongtong.qiangqiang.func.Util.toComplex;
+import static tongtong.qiangqiang.func.Util.toMagnitude;
 
 /**
  * Author: Qiangqiang Li
@@ -40,19 +48,58 @@ public class Filter {
         }
     }
 
+    public static void lowPass(Transform t, List<Double> data, double percent, File file) {
+        int size = data.size();
+        int top = (int) (size * percent);
+        if (t.getBasicTransform() instanceof WaveletTransform) {
+            size = 2;
+            int exp = 1;
+            while (size <= data.size()) {
+                size <<= 1;
+                exp++;
+            }
+            size >>= 1;
+            exp--;
+            top = (int) (exp * percent);
+        }
+        List<Double> res = lowPassFilter(t, data.subList(0, size), top);
+        FileEcho echo = new FileEcho(file.getAbsolutePath());
+        echo.writeList(data, res);
+        echo.close();
+    }
+
+    public static List<Double> lowPassFilter(Transform t, List<Double> data, int top) {
+        Complex[] input = toComplex(data);
+        Complex[] output = t.forward(input); t.forwdoub
+        int index = output.length;
+        if (t.getBasicTransform() instanceof WaveletTransform) {
+            index = 1 << top;
+        } else if (t.getBasicTransform() instanceof DiscreteFourierTransform) {
+            index = top;
+        }
+        for (; index < output.length; index++) {
+            output[index].setReal(0);
+            output[index].setImag(0);
+        }
+        input = t.reverse(output);
+        return toMagnitude(input);
+    }
+
     public static void filterByAmplitude(List<Double> data, WaveType wave, int number, String file) {
         switch (wave) {
             case FOURIER:
-                fourierNumber(data, number, file);
+                filterUsingNumber(new Transform(new DiscreteFourierTransform()), data, number, file);
+                break;
+            case WAVELETS:
+                filterUsingNumber(new Transform(new AncientEgyptianDecomposition(new FastWaveletTransform(new Haar1()))), data, number, file);
                 break;
         }
     }
 
-    public static void fourierNumber(final List<Double> data, final int number, final String file) {
-        DiscreteFourierTransform fourier = new DiscreteFourierTransform();
+    public static void filterUsingNumber(Transform t, final List<Double> data, final int number, final String file) {
         Complex[] input = toComplex(data);
-        Complex[] output = fourier.forward(input);
-        Complex[] input1 = fourier.reverse(output);
+        Complex[] output = t.forward(input);
+        Complex[] input1 = t.reverse(output);
         List<Double> reverseData1 = Util.toReal(input1);
 
         List<Pair<Complex, Integer>> amplitude = new ArrayList<>();
@@ -66,7 +113,7 @@ public class Filter {
             output[amplitude.get(i).getRight()].setReal(0);
             output[amplitude.get(i).getRight()].setImag(0);
         }
-        input = fourier.reverse(output);
+        input = t.reverse(output);
         List<Double> reverseData2 = Util.toReal(input);
         FileEcho echo = new FileEcho(file);
         for (int i = 0; i < data.size() && i < reverseData2.size(); i++)
@@ -74,10 +121,9 @@ public class Filter {
         echo.close();
     }
 
-    public static void fourierPercent(final List<Double> data, final double percent, final String file) {
-        DiscreteFourierTransform fourier = new DiscreteFourierTransform();
+    public static void filterUsingPercent(Transform t, final List<Double> data, final double percent, final String file) {
         Complex[] input = toComplex(data);
-        Complex[] output = fourier.forward(input);
+        Complex[] output = t.forward(input);
 
         double sum = 0.0;
         List<Pair<Complex, Integer>> amplitude = new ArrayList<>();
@@ -99,8 +145,8 @@ public class Filter {
             output[amplitude.get(i).getRight()].setReal(0);
             output[amplitude.get(i).getRight()].setImag(0);
         }
-        input = fourier.reverse(output);
-        List<Double> reverseData2 = Util.toMagnitude(input);
+        input = t.reverse(output);
+        List<Double> reverseData2 = toMagnitude(input);
         FileEcho echo = new FileEcho(file);
         for (int i = 0; i < data.size() && i < reverseData2.size(); i++)
             echo.writeln(data.get(i), reverseData2.get(i));

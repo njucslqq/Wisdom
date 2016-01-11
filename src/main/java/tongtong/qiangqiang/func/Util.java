@@ -17,6 +17,10 @@ import java.util.List;
  */
 public class Util {
 
+    public static double log2(double a){
+        return Math.log10(a)/Math.log10(2);
+    }
+
     public static double sma(List<Double> price) {
         if (price.isEmpty()) return 0.0;
         return price.stream().mapToDouble(d -> d).sum() / price.size();

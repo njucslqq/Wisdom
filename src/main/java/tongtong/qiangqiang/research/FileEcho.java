@@ -2,6 +2,7 @@ package tongtong.qiangqiang.research;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Author: Qiangqiang Li
@@ -16,7 +17,7 @@ public class FileEcho {
 
     private FileWriter w;
 
-    public FileEcho(String file){
+    public FileEcho(String file) {
         this.file = file;
         try {
             w = new FileWriter(file);
@@ -25,10 +26,20 @@ public class FileEcho {
         }
     }
 
-    public void writeln(Object...values){
+    public void writeList(List<Double>... lists) {
+
+
+    }
+
+    public void writeList(List<Double> a, List<Double> b) {
+        for (int i = 0; i < a.size() && i < b.size(); i++)
+            writeln(a.get(i), b.get(i));
+    }
+
+    public void writeln(Object... values) {
         boolean first = true;
         try {
-            for(Object v : values) {
+            for (Object v : values) {
                 if (!first)
                     w.write(",");
                 else
@@ -37,15 +48,15 @@ public class FileEcho {
             }
             w.write("\r\n");
             w.flush();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void write(Object...values){
+    public void write(Object... values) {
         boolean first = true;
         try {
-            for(Object v : values) {
+            for (Object v : values) {
                 if (!first)
                     w.write(",");
                 else
@@ -53,12 +64,12 @@ public class FileEcho {
                 w.write(v.toString());
             }
             w.flush();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void close(){
+    public void close() {
         try {
             w.close();
         } catch (IOException e) {

@@ -10,9 +10,12 @@ import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import jwave.Transform;
 import jwave.datatypes.natives.Complex;
 import jwave.transforms.DiscreteFourierTransform;
+import jwave.transforms.FastWaveletTransform;
+import jwave.transforms.wavelets.daubechies.Daubechies3;
 import tongtong.qiangqiang.func.Util;
 import tongtong.qiangqiang.func.WindowHandler;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +30,6 @@ import static tongtong.qiangqiang.data.H.ticks;
 import static tongtong.qiangqiang.func.Util.*;
 
 
-
 /**
  * Author: Qiangqiang Li
  * <p>
@@ -39,6 +41,8 @@ public class Research {
 
     public static final String BASE = "./signal/";
 
+    public static final String FILE = "lowpass.csv";
+
     public static void main(String[] args) {
         DataCenterUtil.setNetDomain(INTRA_QUANDIS_URL);
 
@@ -47,17 +51,20 @@ public class Research {
         LocalDate targetDay = of(2015, 12, 22);
         //List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
         List<Double> targetData = extract(ticks(code, targetDay), "lastPrice");//.subList(0, 1231);
+        targetData.remove(0);
+
+        Transform t = new Transform(new FastWaveletTransform(new Daubechies3()));
+        File file = new File(BASE + FILE);
+        Filter.lowPass(t, targetData, 0.4, file);
 
 
         //int size = 13;
         //targetData = Util.window(targetData, size);
 
-        //int number = 3;
-        double percent = 0.1;
-        String file = BASE + code + "[" + targetData.size() + "]" + targetDay.toString() + "FilterbyAmplitude[" + percent + "].csv";
-        Filter.fourierPercent(targetData, percent, file);
-
-
+        /*int number = 161;
+        //double percent = 0.1;
+        String file = BASE + code + WAVELETS.toString() + "[" + targetData.size() + "]" + targetDay.toString() + "FilterbyAmplitude[" + number + "].csv";
+        Filter.filterByAmplitude(targetData, WAVELETS, number, file);
 
         /*
         //wave
