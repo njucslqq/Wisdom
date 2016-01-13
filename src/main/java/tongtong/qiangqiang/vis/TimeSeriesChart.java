@@ -44,7 +44,7 @@ public class TimeSeriesChart extends ApplicationFrame {
         ChartPanel panel = new ChartPanel(chart);
         panel.setFillZoomRectangle(true);
         panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new java.awt.Dimension(1900, 1000));
+        panel.setPreferredSize(new java.awt.Dimension(1900, 510));
         setContentPane(panel);
 
         pack();
@@ -70,7 +70,7 @@ public class TimeSeriesChart extends ApplicationFrame {
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
-        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        plot.setAxisOffset(new RectangleInsets(1.0, 1.0, 1.0, 1.0));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
 
