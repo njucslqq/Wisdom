@@ -62,5 +62,32 @@
     <orderEntry type="library" name="Maven: nz.ac.waikato.cms.weka:weka-dev:3.7.10" level="project" />
     <orderEntry type="library" name="Maven: net.sf.squirrel-sql.thirdparty-non-maven:java-cup:0.11a" level="project" />
     <orderEntry type="library" name="Maven: org.pentaho.pentaho-commons:pentaho-package-manager:1.0.8" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/prefuse.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jfreechart-1.0.19.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/jcommon-1.0.23.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
