@@ -43,8 +43,10 @@ public abstract class MockBase {
 
     public void simulate() {
         List<? extends BaseData> data = null;
-        if (resolution.equals(TICK))
+        if (resolution.equals(TICK)) {
             data = ticks(security, start, end);
+            data.remove(0);
+        }
         else
             data = bars(security, resolution, start, end);
         for (int i=0; i<data.size(); i++)
@@ -56,4 +58,63 @@ public abstract class MockBase {
     abstract void onData(BaseData data, int index);
 
     abstract void onComplete();
+
+    /**
+     * trade
+      */
+    protected boolean LONG = false;
+
+    protected boolean SHORT = false;
+
+    protected double longPrice = 0;
+
+    protected double shortPrice = 0;
+
+    protected double longDiff = 0;
+
+    protected double shortDiff = 0;
+
+    protected int longTime = 0;
+
+    protected int shortTime = 0;
+
+    protected boolean buyOpen(double price){
+        if (!LONG){
+            LONG = true;
+            longPrice = price;
+            longTime++;
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean sellClose(double price){
+        if (LONG){
+            LONG = false;
+            System.out.println("原来利润: "+longDiff+", 增加利润："+(price-longPrice));
+            longDiff += price - longPrice;
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean sellOpen(double price){
+        if(!SHORT){
+            SHORT = true;
+            shortPrice = price;
+            shortTime++;
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean buyClose(double price){
+        if(SHORT){
+            SHORT = false;
+            System.out.println("原来利润: "+shortDiff+", 增加利润："+(shortPrice - price));
+            shortDiff += shortPrice - price;
+            return true;
+        }
+        return false;
+    }
 }

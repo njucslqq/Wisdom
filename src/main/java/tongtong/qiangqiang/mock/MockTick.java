@@ -1,15 +1,16 @@
 package tongtong.qiangqiang.mock;
 
-import biz.source_code.dsp.filter.IirFilter;
 import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import jwave.Transform;
-import jwave.transforms.DiscreteFourierTransform;
+import jwave.transforms.FastWaveletTransform;
+import jwave.transforms.wavelets.daubechies.Daubechies3;
+import tongtong.qiangqiang.func.Util;
 import tongtong.qiangqiang.research.FileEcho;
-import tongtong.qiangqiang.research.Filter;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.H.ticks;
 import static tongtong.qiangqiang.func.Util.*;
+import static tongtong.qiangqiang.research.Filter.lowPassFilter;
 
 /**
  * Author: Qiangqiang Li
@@ -29,71 +31,109 @@ import static tongtong.qiangqiang.func.Util.*;
  */
 public class MockTick extends MockBase {
 
-    public static final String BASE = "./signal/mock/";
+    public static final String BASE = "./signal/";
+
+    public static final String FILE = "trade.csv";
+
+    public static final int ALL = 2048;
+
+    public static final int TAIL = 61;
+
+    public static final int HEAD = ALL - TAIL;
+
+    public static final int TOP = 4;
+
+    int span = 50;
+
+    int delay = 15;
 
     String code = "IF1601";
-    LocalDate warmDay = of(2015, 12, 14);
-    //List<Double> warmData = extract(ticks(code, warmDay), "lastPrice");
-    List<Double> tmp = new ArrayList<>();
-    double bond = 0.09;
-    int windowSize = 1;
-    int filterSize = 71;
-    int number = 23;
 
-    IirFilter iir = null;
+    LocalDate ext = of(2015, 12, 22);
 
-    List<Double> win = new LinkedList<>();
-    List<Double> smooth = new LinkedList<>();
+    List<Double> extra = extract(ticks(code, ext), "lastPrice");
 
-    boolean LONG = false;
-    boolean SHORT = false;
-    double longPrice = 0;
-    double shortPrice = 0;
-    double longDiff = 0;
-    double shortDiff = 0;
-
-    FileEcho echo = new FileEcho(BASE + "openclose.csv");
+    List<Double> price = new LinkedList<>();
 
     @Override
     void init() {
         setSecurity(code);
         setResolution(TICK);
-        setStart(of(2015, 12, 22));
-        setEnd(of(2015, 12, 22));
-
-        //iir = getLowPassFilter(butterworth, bond);
-        //warm(window(warmData, windowSize), iir);
+        setStart(of(2015, 12, 21));
+        setEnd(of(2015, 12, 21));
     }
 
     @Override
-    void onData(BaseData data, int index) {
-        TickInfo tick = (TickInfo) data;
-        if (tick.lastPrice <= 0.001)
+    void onData(BaseData dataUnit, int index) {
+        TickInfo tick = (TickInfo) dataUnit;
+        price.add(tick.lastPrice);
+        if (index + 2 < delay )
             return;
 
-        tmp.add(tick.lastPrice);
-        if (tmp.size() == windowSize) {
-            double avg = wma(tmp, defaultWeights(windowSize));
-            win.add(0, avg);
+        List<Double> data = new ArrayList<>();
+        if (index + 1 < HEAD) {
+            int count = HEAD - (index + 1);
+            data.addAll(extra.subList(0, count));
+            data.addAll(price.subList(0, index + 1));
+        } else
+            data.addAll(price.subList(index + 1 - HEAD, index + 1));
+        for (int j = 0; j < TAIL; j++)
+            data.add(price.get(index));
 
-            if (win.size() >= filterSize) {
-                List<Double> list = win.subList(0, win.size());
-                List<Double> reverse = new ArrayList<>();
-                for (Double d : list)
-                    reverse.add(0, d);
-                Filter.filterUsingNumber(new Transform(new DiscreteFourierTransform()), reverse, number, BASE + code + "[" + win.size() + "].csv");
+        Transform t = new Transform(new FastWaveletTransform(new Daubechies3()));
+        List<Double> res = lowPassFilter(t, data, TOP);
+
+
+        int nfast = 17;
+        int nslow = 23;
+        double fast = Util.wma(res.subList(HEAD - nfast, HEAD), Util.defaultWeights(nfast));
+        double slow = Util.wma(res.subList(HEAD - nslow, HEAD), Util.defaultWeights(nslow));
+
+
+        if(fast > slow) {
+            boolean f = buyOpen(tick.lastPrice);
+            buyClose(tick.lastPrice);
+            if (f) {
+                /*if(longTime % span ==0) {
+                    File file = new File(BASE + index + "[开仓" + TOP + "]" + FILE);
+                    FileEcho echo = new FileEcho(file.getAbsolutePath());
+                    int i = HEAD > (index + 1) ? HEAD - index - 1 : 0;
+                    for (; i < HEAD; i++)
+                        echo.writeln(data.get(i), res.get(i));
+                    echo.close();
+                }*/
+
+                //price.remove(index);
+                //price.add(tick.lastPrice + 15);
             }
-
-            tmp.clear();
         }
+        else if(fast < slow){
+            sellOpen(tick.lastPrice);
+            boolean f = sellClose(tick.lastPrice);
+            if (f){
+                /*if(longTime % span ==0) {
+                    File file = new File(BASE + index + "[平仓" + TOP + "]" + FILE);
+                    FileEcho echo = new FileEcho(file.getAbsolutePath());
+                    int i = HEAD > (index + 1) ? HEAD - index - 1 : 0;
+                    for (; i < HEAD; i++)
+                        echo.writeln(data.get(i), res.get(i));
+                    echo.close();
+                }*/
 
-        //echo.write("\r\n");
+                //price.remove(index);
+                //price.add(tick.lastPrice + 30);
+            }
+        }
     }
 
     @Override
     void onComplete() {
         System.out.println("多头盈利：" + longDiff);
         System.out.println("空头盈利：" + shortDiff);
+        //FileEcho echo = new FileEcho(BASE + FILE);
+        /*for (Double d : price)
+            echo.writeln(d);
+        echo.close();*/
     }
 
     public static void main(String[] args) {
