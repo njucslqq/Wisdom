@@ -44,7 +44,7 @@ public class TimeSeriesChart extends ApplicationFrame {
         ChartPanel panel = new ChartPanel(chart);
         panel.setFillZoomRectangle(true);
         panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new java.awt.Dimension(500, 270));
+        panel.setPreferredSize(new java.awt.Dimension(1900, 1000));
         setContentPane(panel);
 
         pack();

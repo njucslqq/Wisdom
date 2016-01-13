@@ -39,15 +39,15 @@ public class Research {
 
     public static final String FILE = "lowpass.csv";
 
-    public static final int ALL = 2048;
+    public static final int ALL = 1024;
 
-    public static final int TAIL = 100;
+    public static final int TAIL = 37;
 
     public static final int HEAD = ALL - TAIL;
 
-    public static final int TOP = 4;
+    public static final int TOP = 3;
 
-    public static final String FMT = "MM-dd HH-mm-ss";
+    public static final String FMT = "HH-mm-ss.S";
 
     public static void main(String[] args) {
         setNetDomain(INTRA_QUANDIS_URL);
@@ -58,11 +58,11 @@ public class Research {
         int sample = 10;
         String code = "IF1601";
         LocalDate date = of(2015, 12, 22);
-        List<BarInfo> tickList = H.bars(code, TimeFrame.MIN_1, date.minusDays(20), date.plusDays(30));
+        List<TickInfo> tickList = H.ticks(code, date); //H.bars(code, TimeFrame.MIN_1, date.minusDays(20), date.plusDays(30));
         tickList.remove(0);
-        List<Double> price = extract(tickList, "closePrice");
+        List<Double> price = extract(tickList, "lastPrice");
 
-        int index = 0;
+        int index = 1024;
         for (; index < price.size(); index++) {
             List<Double> data = new ArrayList<>();
             if (index + 1 < HEAD) {
@@ -82,15 +82,15 @@ public class Research {
             int i = HEAD > (index + 1) ? 0 : index + 1 - HEAD;
             int j = HEAD > (index + 1) ? HEAD - index - 1 : 0;
             for (; i <= index; i++,j++) {
-                before.addOrUpdate(new Minute(Date.from(tickList.get(i).tradingTime.atZone(ZoneId.systemDefault()).toInstant())), price.get(i));
-                after.addOrUpdate(new Minute(Date.from(tickList.get(i).tradingTime.atZone(ZoneId.systemDefault()).toInstant())), res.get(j));
+                before.addOrUpdate(new Millisecond(Date.from(tickList.get(i).tradingTime.atZone(ZoneId.systemDefault()).toInstant())), price.get(i));
+                after.addOrUpdate(new Millisecond(Date.from(tickList.get(i).tradingTime.atZone(ZoneId.systemDefault()).toInstant())), res.get(j));
             }
 
             tscB.vis(FMT, before);
             tscA.vis(FMT, after);
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
