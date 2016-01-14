@@ -8,9 +8,7 @@ import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.daubechies.Daubechies3;
 import tongtong.qiangqiang.func.Util;
-import tongtong.qiangqiang.research.FileEcho;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -29,7 +27,7 @@ import static tongtong.qiangqiang.research.Filter.lowPassFilter;
  * <p>
  * 2015-12-24.
  */
-public class MockTick extends MockBase {
+public class MockDriver extends MockBase {
 
     public static final String BASE = "./signal/";
 
@@ -138,7 +136,7 @@ public class MockTick extends MockBase {
 
     public static void main(String[] args) {
         DataCenterUtil.setNetDomain(CONST.INTRA_QUANDIS_URL);
-        MockTick m = new MockTick();
+        MockDriver m = new MockDriver();
         m.init();
         m.simulate();
         m.onComplete();
