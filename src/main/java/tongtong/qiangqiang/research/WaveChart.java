@@ -1,6 +1,7 @@
 package tongtong.qiangqiang.research;
 
 import jwave.Transform;
+import jwave.transforms.AncientEgyptianDecomposition;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.Wavelet;
 import org.apache.commons.lang3.tuple.Pair;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static java.time.ZoneId.systemDefault;
 import static java.util.Date.from;
+import static tongtong.qiangqiang.research.Filter.highPassFilter;
 import static tongtong.qiangqiang.research.Filter.lowPassFilter;
 import static tongtong.qiangqiang.research.WaveChart.Direction.DOWN;
 import static tongtong.qiangqiang.research.WaveChart.Direction.MEDIUM;
@@ -82,57 +84,22 @@ public class WaveChart extends TradeBase {
             e.printStackTrace();
         }
 
-        TimeSeriesChart tsTarget = new TimeSeriesChart("Time Series");
         TimeSeriesChart tsTransform = new TimeSeriesChart("Time Series");
-
         for (int index = 0; index < after.size(); index++) {
-            List<Double> data = new ArrayList<>();
-            int aStart = 0, bStart = 0, count = 1;
-            if (index + 1 < HEAD) {
-                aStart = 0;
-                count = index + 1;
-            } else {
-                aStart = index + 1 - HEAD;
-                count = HEAD;
-            }
-            bStart = HEAD - count;
-            data.addAll(after.subList(0, HEAD - count));
-            data.addAll(after.subList(aStart, aStart + count));
-            for (int j = 0; j < TAIL; j++)
-                data.add(after.get(index));
-
-            Transform t = new Transform(new FastWaveletTransform(wavelet));
-            List<Double> res = lowPassFilter(t, data, TOP);
-
-            List<Double> smooth = after.subList(aStart, aStart + count);
-            List<Double> wave = res.subList(bStart, bStart + count);
-            showList(tsTarget, smooth, "smooth data");
-            showList(tsTransform, wave, "wave data");
-
-            int focus = 3;
-            int length = smooth.size();
-            if (length >= focus) {
-                Pair<Double, Double> smoothID = evaluate(smooth.subList(length - focus, length));
-                Pair<Double, Double> waveID = evaluate(wave.subList(length - focus, length));
-
-                Direction shortDir = estimate(smoothID, 0.75, 0.75);
-                Direction longDir = estimate(waveID, 0.75, 0.75);
-                double curPrice = before.get(index);
-                /*if(shortDir == UP && longDir == UP)
-                    buyOpen(before.get(index));
-                if(shortDir == DOWN && longDir == DOWN)
-                    sellOpen(before.get(index));
-                    */
-                if(shortDir == UP) {
-                    //buyClose(curPrice);
+            showList(tsTransform, after.subList(0, index + 1), "smooth");
+            int focus = 2;
+            if (index + 1 >= focus) {
+                Pair<Double, Double> smoothID = evaluate(after.subList(index + 1 - focus, index + 1));
+                Direction dir = estimate(smoothID, 0.75, 0.75);
+                double curPrice = before.get(Math.min(index * 60 + 59, before.size() - 1));
+                if (dir == UP) {
+                    buyClose(curPrice);
                     buyOpen(curPrice);
-                }
-                else if (shortDir == DOWN){
+                } else if (dir == DOWN) {
                     sellClose(curPrice);
-                    //sellOpen(curPrice);
+                    sellOpen(curPrice);
                 }
             }
-
             try {
                 Thread.sleep(ms);
             } catch (InterruptedException e) {
@@ -156,10 +123,10 @@ public class WaveChart extends TradeBase {
         return Pair.of(LIS(smooth) * 1.0 / smooth.size(), LDS(smooth) * 1.0 / smooth.size());
     }
 
-    private Direction estimate(Pair<Double, Double> IncDec, double up, double down){
-        if(IncDec.getLeft() > up)
+    private Direction estimate(Pair<Double, Double> IncDec, double up, double down) {
+        if (IncDec.getLeft() > up)
             return UP;
-        if(IncDec.getRight() > down)
+        if (IncDec.getRight() > down)
             return DOWN;
         return MEDIUM;
     }

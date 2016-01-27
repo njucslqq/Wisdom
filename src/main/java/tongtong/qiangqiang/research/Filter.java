@@ -84,6 +84,24 @@ public class Filter {
         return toMagnitude(input);
     }
 
+    public static List<Double> highPassFilter(Transform t, List<Double> data, int top) {
+        Complex[] input = toComplex(data);
+        Complex[] output = t.forward(input);
+        int index = output.length;
+        if (t.getBasicTransform() instanceof WaveletTransform) {
+            index = 1 << top;
+        } else if (t.getBasicTransform() instanceof DiscreteFourierTransform) {
+            index = top;
+        }
+
+        for (int i=0; i < index; i++) {
+            output[i].setReal(0);
+            output[i].setImag(0);
+        }
+        input = t.reverse(output);
+        return toMagnitude(input);
+    }
+
     public static void filterByAmplitude(List<Double> data, WaveType wave, int number, String file) {
         switch (wave) {
             case FOURIER:

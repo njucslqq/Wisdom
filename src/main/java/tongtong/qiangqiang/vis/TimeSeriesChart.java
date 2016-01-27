@@ -8,6 +8,7 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
@@ -17,6 +18,11 @@ import org.jfree.ui.RefineryUtilities;
 
 import java.awt.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import static java.time.ZoneId.systemDefault;
+import static java.util.Date.from;
 
 /**
  * Author: Qiangqiang Li
@@ -52,6 +58,18 @@ public class TimeSeriesChart extends ApplicationFrame {
         setVisible(true);
     }
 
+    public void vis(String fmt, List<Double>... series) {
+        LocalDateTime start = LocalDateTime.now();
+        TimeSeries[] ts = new TimeSeries[series.length];
+        for (int i = 0; i < series.length; i++) {
+            ts[i] = new TimeSeries("Time Series");
+            for (int j = 0; j < series[i].size(); j++)
+                ts[i].add(new Second(from(start.plusSeconds(j).atZone(systemDefault()).toInstant())), series[i].get(j));
+        }
+
+        vis(fmt, ts);
+    }
+
     private JFreeChart createChart(XYDataset dataset, String fmt) {
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(
@@ -70,7 +88,7 @@ public class TimeSeriesChart extends ApplicationFrame {
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
-        plot.setAxisOffset(new RectangleInsets(1.0, 1.0, 1.0, 1.0));
+        plot.setAxisOffset(new RectangleInsets(5.0D, 5.0D, 5.0D, 5.0D));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
 
@@ -86,6 +104,5 @@ public class TimeSeriesChart extends ApplicationFrame {
         axis.setDateFormatOverride(new SimpleDateFormat(fmt));
 
         return chart;
-
     }
 }

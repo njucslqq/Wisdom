@@ -65,6 +65,9 @@ public class MockDriver extends MockBase {
     void onData(BaseData dataUnit, int index) {
         TickInfo tick = (TickInfo) dataUnit;
         price.add(tick.lastPrice);
+
+
+
         if (index + 2 < delay )
             return;
 

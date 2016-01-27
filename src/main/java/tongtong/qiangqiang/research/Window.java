@@ -2,6 +2,7 @@ package tongtong.qiangqiang.research;
 
 import tongtong.qiangqiang.func.WindowHandler;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,15 +14,12 @@ import java.util.List;
  */
 public class Window {
 
-    public static void win(String file, List<Double> value, int size, WindowHandler handler){
-        FileEcho echo = new FileEcho(file);
-        echo.writeln("value", "window");
-        for(int i=0; i<value.size(); i++){
-            int index = i*size;
-            if (index < value.size())
-                echo.writeln(value.get(i), (Double)handler.handle(value.subList(index, Math.min(index+size, value.size()))));
-            else
-                echo.writeln(value.get(i));
+    public static List<Double> win(List<Double> value, int size, WindowHandler handler) {
+        List<Double> res = new LinkedList<>();
+        for (int i = 0; i < value.size(); i += size) {
+            int j = Math.min(value.size(), i + size);
+            res.add(handler.handle(value.subList(i, j)));
         }
+        return res;
     }
 }

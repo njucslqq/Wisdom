@@ -17,6 +17,17 @@ import java.util.List;
  */
 public class Util {
 
+    public static List<Double> smooth(List<Double> input, int len1){
+        List<Double> smooth = new ArrayList<>();
+        for (int i = 0; i < input.size(); i++) {
+            if (i < len1)
+                smooth.add(wma(input.subList(0, i + 1), defaultWeights(i + 1)));
+            else
+                smooth.add(wma(input.subList(i + 1 - len1, i + 1), defaultWeights(len1)));
+        }
+        return smooth;
+    }
+
     public static double log2(double a){
         return Math.log10(a)/Math.log10(2);
     }
