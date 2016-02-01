@@ -1,56 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\1816[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\1816lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\2699[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\2699lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3333[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3334[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3582[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3582lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3941[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\3942[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\4465[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\4465lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\5015[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\5051[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\50[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\50lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\5348[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\5348lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\6134[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\6136[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\6231[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\6231lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7114[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7114lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7486(开仓4)trade.xlsx" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7486[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7487[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7997[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\7997lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\8150[开仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\8153[平仓4]trade.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\933[4]lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\signal\933lowpass.csv" afterPath="" />
-      <change type="DELETED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\func\WindowHandler.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signal/learning-test.arff" afterPath="$PROJECT_DIR$/signal/learning-test.arff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/signal/learning-train.arff" afterPath="$PROJECT_DIR$/signal/learning-train.arff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\data\H.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/Historical.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\func\ListMap.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/func/ListMapper.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\func\Util.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/func/GeneralUtilizer.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\FileEcho.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/FileEcho.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\Filter.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/Filter.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\Learning.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/Learning.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\Research.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/Research.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\WaveChart.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/WaveChart.java" />
-      <change type="MOVED" beforePath="D:\project\prototype\Github\lqq\Wisdom\src\main\java\tongtong\qiangqiang\research\Window.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/Window.java" />
-    </list>
+    <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="" />
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -127,13 +78,6 @@
               <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="learning-train.arff" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/signal/learning-train.arff">
-          <provider selected="true" editor-type-id="LargeFileEditor">
-            <state />
           </provider>
         </entry>
       </file>
@@ -1006,7 +950,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1018,7 +962,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.226943" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2761194" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2761194" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1506,17 +1450,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="70" selection-start-line="27" selection-start-column="70" selection-end-line="27" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/signal/learning-train.arff">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-79.28571">
-          <caret line="111" column="31" selection-start-line="111" selection-start-column="31" selection-end-line="111" selection-end-column="31" />
           <folding />
         </state>
       </provider>
