@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
-import static tongtong.qiangqiang.data.H.bars;
-import static tongtong.qiangqiang.data.H.ticks;
+import static tongtong.qiangqiang.data.Historical.bars;
+import static tongtong.qiangqiang.data.Historical.ticks;
 
 /**
  * Author: Qiangqiang Li

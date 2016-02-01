@@ -7,7 +7,7 @@ import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.daubechies.Daubechies3;
-import tongtong.qiangqiang.func.Util;
+import tongtong.qiangqiang.func.GeneralUtilizer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.List;
 
 import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
 import static java.time.LocalDate.of;
-import static tongtong.qiangqiang.data.H.ticks;
-import static tongtong.qiangqiang.func.Util.*;
-import static tongtong.qiangqiang.research.Filter.lowPassFilter;
+import static tongtong.qiangqiang.data.Historical.ticks;
+import static tongtong.qiangqiang.func.GeneralUtilizer.*;
+import static tongtong.qiangqiang.hunt.Filter.lowPassFilter;
 
 /**
  * Author: Qiangqiang Li
@@ -87,8 +87,8 @@ public class MockDriver extends MockBase {
 
         int nfast = 17;
         int nslow = 23;
-        double fast = Util.wma(res.subList(HEAD - nfast, HEAD), Util.defaultWeights(nfast));
-        double slow = Util.wma(res.subList(HEAD - nslow, HEAD), Util.defaultWeights(nslow));
+        double fast = GeneralUtilizer.wma(res.subList(HEAD - nfast, HEAD), GeneralUtilizer.defaultWeights(nfast));
+        double slow = GeneralUtilizer.wma(res.subList(HEAD - nslow, HEAD), GeneralUtilizer.defaultWeights(nslow));
 
 
         if(fast > slow) {
