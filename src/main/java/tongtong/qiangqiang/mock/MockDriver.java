@@ -1,24 +1,46 @@
 package tongtong.qiangqiang.mock;
 
 import cn.quanttech.quantera.CONST;
+import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
+import com.google.common.collect.ImmutableList;
 import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.daubechies.Daubechies3;
+import jwave.transforms.wavelets.daubechies.Daubechies5;
+import tongtong.qiangqiang.data.FileEcho;
+import tongtong.qiangqiang.data.indicator.SuperIndicator;
+import tongtong.qiangqiang.data.indicator.advance.*;
+import tongtong.qiangqiang.data.indicator.basic.*;
 import tongtong.qiangqiang.func.GeneralUtilizer;
+import tongtong.qiangqiang.hunt.Filter;
+import tongtong.qiangqiang.hunt.Learning;
+import tongtong.qiangqiang.vis.TimeSeriesChart;
+import weka.classifiers.trees.J48;
+import weka.core.Instances;
+import weka.core.converters.ArffLoader;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
 import static java.time.LocalDate.of;
+import static tongtong.qiangqiang.data.Historical.bars;
 import static tongtong.qiangqiang.data.Historical.ticks;
 import static tongtong.qiangqiang.func.GeneralUtilizer.*;
 import static tongtong.qiangqiang.hunt.Filter.lowPassFilter;
+import static tongtong.qiangqiang.hunt.Learning.*;
+import static tongtong.qiangqiang.hunt.Learning.Direction.*;
+import static tongtong.qiangqiang.hunt.Learning.calculate;
 
 /**
  * Author: Qiangqiang Li
@@ -29,101 +51,109 @@ import static tongtong.qiangqiang.hunt.Filter.lowPassFilter;
  */
 public class MockDriver extends MockBase {
 
-    public static final String BASE = "./signal/";
+    String code = "rb1605";
 
-    public static final String FILE = "trade.csv";
+    String train = "./signal/learning-train.arff";
 
-    public static final int ALL = 2048;
+    String test = "./signal/learning-test.arff";
 
-    public static final int TAIL = 61;
+    TimeSeriesChart comp = new TimeSeriesChart("Comparison");
 
-    public static final int HEAD = ALL - TAIL;
+    J48 m_classifier = new J48();
 
-    public static final int TOP = 4;
+    LinkedList<Double> close = new LinkedList<>();
 
-    int span = 50;
+    LinkedList<Direction> dir = new LinkedList<>();
 
-    int delay = 15;
+    FileEcho echo = null;
 
-    String code = "IF1601";
-
-    LocalDate ext = of(2015, 12, 22);
-
-    List<Double> extra = extract(ticks(code, ext), "lastPrice");
-
-    List<Double> price = new LinkedList<>();
+    List<SuperIndicator> indicators = ImmutableList.of(
+            new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31), new WMA(41), new WMA(53), new WMA(61), new WMA(67), new WMA(73), new WMA(79), new WMA(87), new WMA(93),
+            new MACD(11, 23, 7), new MACD(15, 27, 9), new MACD(19, 33, 13), new MACD(23, 39, 19), new MACD(33, 43, 31), new MACD(41, 53, 39), new MACD(53, 67, 43), new MACD(61, 73, 53), new MACD(71, 83, 63), new MACD(83, 97, 71),
+            new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33), new EMA(39), new EMA(43), new EMA(51), new EMA(61), new EMA(67), new EMA(79), new EMA(87), new EMA(97),
+            new WilliamsR(11), new WilliamsR(13), new WilliamsR(17), new WilliamsR(23), new WilliamsR(35), new WilliamsR(39), new WilliamsR(47), new WilliamsR(59), new WilliamsR(73), new WilliamsR(87),
+            new BOLL(7, 0.15), new BOLL(13, 0.15), new BOLL(17, 0.15), new BOLL(23, 0.15), new BOLL(27, 0.15), new BOLL(34, 0.15), new BOLL(43, 0.15), new BOLL(51, 0.15), new BOLL(62, 0.15), new BOLL(79, 0.15), new BOLL(87, 0.15),
+            new MTM(),
+            new DMA(7, 13, 5), new DMA(13, 17, 9), new DMA(17, 25, 13), new DMA(25, 34, 21), new DMA(34, 47, 31), new DMA(47, 59, 31), new DMA(59, 71, 41), new DMA(67, 81, 51), new DMA(79, 91, 61), new DMA(89, 101, 71),
+            new OSC(7), new OSC(11), new OSC(15), new OSC(21), new OSC(27), new OSC(34), new OSC(41), new OSC(57), new OSC(69), new OSC(81), new OSC(91),
+            new RSI(11), new RSI(15), new RSI(21), new RSI(31), new RSI(41), new RSI(51), new RSI(67), new RSI(81), new RSI(91),
+            new TRIX(13, 7), new TRIX(17, 11), new TRIX(27, 17), new TRIX(39, 21), new TRIX(47, 27), new TRIX(61, 39), new TRIX(73, 49), new TRIX(83, 59)
+    );
 
     @Override
     void init() {
         setSecurity(code);
-        setResolution(TICK);
-        setStart(of(2015, 12, 21));
-        setEnd(of(2015, 12, 21));
+        setResolution(MIN_1);
+        setStart(of(2016, 1, 26));
+        setEnd(of(2016, 2, 2));
+
+        LocalDate startTime = of(2016, 1, 10);
+        LocalDate endTime = of(2016, 1, 25);
+        List<BarInfo> data = bars(code, MIN_1, startTime, endTime);
+        Map<String, BasicIndicator> attributes = calculate(data, indicators);
+        generate(data, attributes, 512, data.size(), train);
+
+        Learning.use(train, train);
+        Learning.cross(train);
+
+        try {
+            ArffLoader arf = new ArffLoader();
+            arf.setFile(new File(train));
+            Instances instancesTrain = arf.getDataSet();
+            instancesTrain.setClassIndex(instancesTrain.numAttributes() - 1);
+
+            String options[] = new String[3];
+            options[0] = "-R";
+            options[1] = "-M";
+            options[2] = "3";
+
+            m_classifier.setOptions(options);
+            m_classifier.buildClassifier(instancesTrain);
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
     }
 
     @Override
     void onData(BaseData dataUnit, int index) {
-        TickInfo tick = (TickInfo) dataUnit;
-        price.add(tick.lastPrice);
+        BarInfo bar = (BarInfo) dataUnit;
+        close.add(bar.closePrice);
 
+        Map<String, BasicIndicator> attributes = step(bar, indicators);
+        if (echo == null)
+            echo = attributes(attributes, test);
 
+        List<Object> line = new ArrayList<>();
+        for (BasicIndicator ind : attributes.values())
+            line.add(ind.data.getLast());
+        line.add("?");
+        echo.writeln(line);
 
-        if (index + 2 < delay )
-            return;
+        try {
+            ArffLoader arf = new ArffLoader();
+            arf.setFile(new File(test));
 
-        List<Double> data = new ArrayList<>();
-        if (index + 1 < HEAD) {
-            int count = HEAD - (index + 1);
-            data.addAll(extra.subList(0, count));
-            data.addAll(price.subList(0, index + 1));
-        } else
-            data.addAll(price.subList(index + 1 - HEAD, index + 1));
-        for (int j = 0; j < TAIL; j++)
-            data.add(price.get(index));
+            Instances instancesTest = arf.getDataSet();
+            instancesTest.setClassIndex(instancesTest.numAttributes() - 1);
 
-        Transform t = new Transform(new FastWaveletTransform(new Daubechies3()));
-        List<Double> res = lowPassFilter(t, data, TOP);
+            double predicted = m_classifier.classifyInstance(instancesTest.lastInstance());
+            String clazz = instancesTest.classAttribute().value((int) predicted);
+            Direction direction = valueOf(clazz);
+            dir.add(direction);
+            System.out.println("分类值： " + direction);
+            comp.vis("HH-mm", close.subList(0, index + 1));
 
-
-        int nfast = 17;
-        int nslow = 23;
-        double fast = GeneralUtilizer.wma(res.subList(HEAD - nfast, HEAD), GeneralUtilizer.defaultWeights(nfast));
-        double slow = GeneralUtilizer.wma(res.subList(HEAD - nslow, HEAD), GeneralUtilizer.defaultWeights(nslow));
-
-
-        if(fast > slow) {
-            boolean f = buyOpen(tick.lastPrice);
-            buyClose(tick.lastPrice);
-            if (f) {
-                /*if(longTime % span ==0) {
-                    File file = new File(BASE + index + "[开仓" + TOP + "]" + FILE);
-                    FileEcho echo = new FileEcho(file.getAbsolutePath());
-                    int i = HEAD > (index + 1) ? HEAD - index - 1 : 0;
-                    for (; i < HEAD; i++)
-                        echo.writeln(data.get(i), res.get(i));
-                    echo.close();
-                }*/
-
-                //price.remove(index);
-                //price.add(tick.lastPrice + 15);
+            //int size = dir.size();
+            if (direction == UP) {//size >= 1 && dir.get(size - 1) == UP && dir.get(size - 2) == UP && !LONG)
+                buyClose(bar.closePrice);
+                buyOpen(bar.closePrice);
             }
-        }
-        else if(fast < slow){
-            sellOpen(tick.lastPrice);
-            boolean f = sellClose(tick.lastPrice);
-            if (f){
-                /*if(longTime % span ==0) {
-                    File file = new File(BASE + index + "[平仓" + TOP + "]" + FILE);
-                    FileEcho echo = new FileEcho(file.getAbsolutePath());
-                    int i = HEAD > (index + 1) ? HEAD - index - 1 : 0;
-                    for (; i < HEAD; i++)
-                        echo.writeln(data.get(i), res.get(i));
-                    echo.close();
-                }*/
-
-                //price.remove(index);
-                //price.add(tick.lastPrice + 30);
+            if (direction == DOWN){
+                sellClose(bar.closePrice);
+                sellOpen(bar.closePrice);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -131,6 +161,7 @@ public class MockDriver extends MockBase {
     void onComplete() {
         System.out.println("多头盈利：" + longDiff);
         System.out.println("空头盈利：" + shortDiff);
+        echo.close();
         //FileEcho echo = new FileEcho(BASE + FILE);
         /*for (Double d : price)
             echo.writeln(d);

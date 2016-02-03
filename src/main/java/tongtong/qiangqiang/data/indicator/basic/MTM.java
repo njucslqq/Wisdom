@@ -1,12 +1,5 @@
 package tongtong.qiangqiang.data.indicator.basic;
 
-import tongtong.qiangqiang.data.indicator.advance.AdvanceWindowIndicator;
-import tongtong.qiangqiang.data.indicator.basic.BasicIndicator;
-import tongtong.qiangqiang.data.indicator.basic.BasicWindowIndicator;
-import tongtong.qiangqiang.func.GeneralUtilizer;
-
-import static tongtong.qiangqiang.func.GeneralUtilizer.valueDefault;
-
 /**
  * Author: Qiangqiang Li
  * <p>

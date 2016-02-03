@@ -27,7 +27,7 @@ public class WMA extends MovingAverage {
 
     @Override
     public String name() {
-        return "WMA" + n;
+        return "WMA[" + n + "]";
     }
 
     @Override

@@ -27,7 +27,7 @@ public class WilliamsR extends BasicWindowIndicator {
 
     @Override
     public String name() {
-        return "WilliamR" + n;
+        return "WilliamR[" + n + "]";
     }
 
     @Override

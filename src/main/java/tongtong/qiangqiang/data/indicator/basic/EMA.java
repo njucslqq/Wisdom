@@ -31,6 +31,6 @@ public class EMA extends MovingAverage {
 
     @Override
     public String name() {
-        return "EMA" + n;
+        return "EMA[" + n + "]";
     }
 }

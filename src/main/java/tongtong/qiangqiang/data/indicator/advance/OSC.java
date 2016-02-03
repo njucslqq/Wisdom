@@ -40,7 +40,7 @@ public class OSC extends AdvanceIndicator {
 
     @Override
     public String name() {
-        return "OSC" + n;
+        return "OSC[" + n + "]";
     }
 
     @Override
