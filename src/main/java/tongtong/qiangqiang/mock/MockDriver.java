@@ -3,19 +3,12 @@ package tongtong.qiangqiang.mock;
 import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
-import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import com.google.common.collect.ImmutableList;
-import jwave.Transform;
-import jwave.transforms.FastWaveletTransform;
-import jwave.transforms.wavelets.daubechies.Daubechies3;
-import jwave.transforms.wavelets.daubechies.Daubechies5;
 import tongtong.qiangqiang.data.FileEcho;
 import tongtong.qiangqiang.data.indicator.SuperIndicator;
 import tongtong.qiangqiang.data.indicator.advance.*;
 import tongtong.qiangqiang.data.indicator.basic.*;
-import tongtong.qiangqiang.func.GeneralUtilizer;
-import tongtong.qiangqiang.hunt.Filter;
 import tongtong.qiangqiang.hunt.Learning;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 import weka.classifiers.trees.J48;
@@ -23,24 +16,18 @@ import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
-import static cn.quanttech.quantera.common.data.TimeFrame.TICK;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.Historical.bars;
-import static tongtong.qiangqiang.data.Historical.ticks;
-import static tongtong.qiangqiang.func.GeneralUtilizer.*;
-import static tongtong.qiangqiang.hunt.Filter.lowPassFilter;
-import static tongtong.qiangqiang.hunt.Learning.*;
+import static tongtong.qiangqiang.hunt.Learning.Direction;
 import static tongtong.qiangqiang.hunt.Learning.Direction.*;
-import static tongtong.qiangqiang.hunt.Learning.calculate;
+import static tongtong.qiangqiang.hunt.Learning.writeAttributes;
 
 /**
  * Author: Qiangqiang Li
@@ -86,32 +73,6 @@ public class MockDriver extends MockBase {
         setResolution(MIN_1);
         setStart(of(2016, 1, 26));
         setEnd(of(2016, 2, 2));
-
-        LocalDate startTime = of(2016, 1, 10);
-        LocalDate endTime = of(2016, 1, 25);
-        List<BarInfo> data = bars(code, MIN_1, startTime, endTime);
-        Map<String, BasicIndicator> attributes = calculate(data, indicators);
-        generate(data, attributes, 512, data.size(), train);
-
-        Learning.use(train, train);
-        Learning.cross(train);
-
-        try {
-            ArffLoader arf = new ArffLoader();
-            arf.setFile(new File(train));
-            Instances instancesTrain = arf.getDataSet();
-            instancesTrain.setClassIndex(instancesTrain.numAttributes() - 1);
-
-            String options[] = new String[3];
-            options[0] = "-R";
-            options[1] = "-M";
-            options[2] = "3";
-
-            m_classifier.setOptions(options);
-            m_classifier.buildClassifier(instancesTrain);
-        } catch (Exception exc) {
-            exc.printStackTrace();
-        }
     }
 
     @Override
@@ -119,9 +80,9 @@ public class MockDriver extends MockBase {
         BarInfo bar = (BarInfo) dataUnit;
         close.add(bar.closePrice);
 
-        Map<String, BasicIndicator> attributes = step(bar, indicators);
+        Map<String, BasicIndicator> attributes = null;
         if (echo == null)
-            echo = attributes(attributes, test);
+            echo = writeAttributes(attributes, test);
 
         List<Object> line = new ArrayList<>();
         for (BasicIndicator ind : attributes.values())
