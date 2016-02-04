@@ -1,7 +1,9 @@
 package tongtong.qiangqiang.data.indicator;
 
+import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.data.indicator.basic.BasicIndicator;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,11 +67,13 @@ public interface SuperIndicator {
 
     int skip();
 
+    int size();
+
     String name();
 
     double update(Object o);
 
     BasicIndicator primary();
 
-    Map<String, BasicIndicator> fields(String prefix);
+    List<Pair<String, BasicIndicator>> fields(String prefix);
 }

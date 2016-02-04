@@ -33,6 +33,11 @@ public class RSI extends AdvanceWindowIndicator {
     }
 
     @Override
+    public int size() {
+        return rsi.size();
+    }
+
+    @Override
     public String name() {
         return "RSI[" + n + "]";
     }

@@ -39,6 +39,11 @@ public class BOLL extends AdvanceWindowIndicator {
     }
 
     @Override
+    public int size() {
+        return middle.size();
+    }
+
+    @Override
     public String name() {
         return "BOLL[" + n + "][" + k + "]";
     }

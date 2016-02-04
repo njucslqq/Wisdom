@@ -39,6 +39,11 @@ public class OSC extends AdvanceIndicator {
     }
 
     @Override
+    public int size() {
+        return osc.size();
+    }
+
+    @Override
     public String name() {
         return "OSC[" + n + "]";
     }

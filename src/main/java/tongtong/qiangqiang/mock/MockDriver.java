@@ -77,45 +77,7 @@ public class MockDriver extends MockBase {
 
     @Override
     void onData(BaseData dataUnit, int index) {
-        BarInfo bar = (BarInfo) dataUnit;
-        close.add(bar.closePrice);
 
-        Map<String, BasicIndicator> attributes = null;
-        if (echo == null)
-            echo = writeAttributes(attributes, test);
-
-        List<Object> line = new ArrayList<>();
-        for (BasicIndicator ind : attributes.values())
-            line.add(ind.data.getLast());
-        line.add("?");
-        echo.writeln(line);
-
-        try {
-            ArffLoader arf = new ArffLoader();
-            arf.setFile(new File(test));
-
-            Instances instancesTest = arf.getDataSet();
-            instancesTest.setClassIndex(instancesTest.numAttributes() - 1);
-
-            double predicted = m_classifier.classifyInstance(instancesTest.lastInstance());
-            String clazz = instancesTest.classAttribute().value((int) predicted);
-            Direction direction = valueOf(clazz);
-            dir.add(direction);
-            System.out.println("分类值： " + direction);
-            comp.vis("HH-mm", close.subList(0, index + 1));
-
-            //int size = dir.size();
-            if (direction == UP) {//size >= 1 && dir.get(size - 1) == UP && dir.get(size - 2) == UP && !LONG)
-                buyClose(bar.closePrice);
-                buyOpen(bar.closePrice);
-            }
-            if (direction == DOWN){
-                sellClose(bar.closePrice);
-                sellOpen(bar.closePrice);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -57,6 +57,11 @@ public class DMA extends AdvanceIndicator {
     }
 
     @Override
+    public int size() {
+        return ama.size();
+    }
+
+    @Override
     public String name() {
         return "DMA[" + m + "][" + n + "][" + k + "]";
     }

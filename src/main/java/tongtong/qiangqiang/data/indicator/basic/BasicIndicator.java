@@ -1,9 +1,12 @@
 package tongtong.qiangqiang.data.indicator.basic;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.data.indicator.SuperIndicator;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,17 +21,26 @@ public abstract class BasicIndicator implements SuperIndicator {
     public final LinkedList<Double> data = new LinkedList<>();
 
     @Override
+    public int size(){
+        return data.size();
+    }
+
+    @Override
     public BasicIndicator primary() {
         return this;
     }
 
     @Override
-    public Map<String, BasicIndicator> fields(String prefix) {
+    public List<Pair<String, BasicIndicator>> fields(String prefix) {
         try {
-            return ImmutableMap.of(prefix + "." + name(), this, prefix + "." + name() + ".derivative", this.derivative(new DEF()));
+            String str = prefix + "-" + name();
+            return ImmutableList.of(
+                    Pair.of(str, this),
+                    Pair.of(str + "-derivative", this.derivative(new DEF()))
+            );
         } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
-            return ImmutableMap.of();
+            return ImmutableList.of();
         }
     }
 }

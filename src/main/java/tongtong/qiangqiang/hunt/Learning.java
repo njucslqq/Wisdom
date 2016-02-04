@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableList;
 import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.daubechies.Daubechies5;
+import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.data.FileEcho;
 import tongtong.qiangqiang.data.indicator.SuperIndicator;
 import tongtong.qiangqiang.data.indicator.advance.*;
@@ -52,6 +53,21 @@ public class Learning {
         UP, DOWN
     }
 
+    public static class WaveletConfig {
+
+        public final Transform transform;
+
+        public final int size;
+
+        public final int top;
+
+        public WaveletConfig(Transform transform, int size, int top) {
+            this.transform = transform;
+            this.size = size;
+            this.top = top;
+        }
+    }
+
     public static List<Direction> judge(List<Double> output) {
         Stage[] stage = new Stage[output.size()];
         int offset = 1;
@@ -93,29 +109,14 @@ public class Learning {
         return Arrays.asList(dir);
     }
 
-    public static FileEcho writeAttributes(Map<String, BasicIndicator> attributes, String file) {
+    public static FileEcho writeAttributes(List<Pair<String, BasicIndicator>> attributes, String file) {
         FileEcho echo = new FileEcho(file);
-        echo.writeln("@relation direction");
-        for (String key : attributes.keySet())
-            echo.writeln("@attribute " + key + " real");
+        echo.writeln("@relation indicators-direction");
+        for (Pair<String, BasicIndicator> p : attributes)
+            echo.writeln("@attribute " + p.getLeft() + " real");
         echo.writeln("@attribute direction {UP, DOWN}");
         echo.writeln("@data");
         return echo;
-    }
-
-    public static class WaveletConfig {
-
-        public final Transform transform;
-
-        public final int size;
-
-        public final int top;
-
-        public WaveletConfig(Transform transform, int size, int top) {
-            this.transform = transform;
-            this.size = size;
-            this.top = top;
-        }
     }
 
     public static int log2(int size) {
@@ -157,13 +158,15 @@ public class Learning {
     }
 
     public static void generateTrain(List<BarInfo> bars, List<SuperIndicator> indicators, WaveletConfig config, String file) {
+        int priori = indicators.get(0).size();
+
         List<Double> close = extract(bars, "closePrice");
         TimeSeriesChart original = new TimeSeriesChart("Original");
         TimeSeriesChart wavelet = new TimeSeriesChart("Wavelet");
 
         indicators.parallelStream().forEach(indicator -> bars.forEach(indicator::update));
-        Map<String, BasicIndicator> attributes = new ConcurrentHashMap<>();
-        indicators.parallelStream().forEach(indicator -> attributes.putAll(indicator.fields("")));
+        List<Pair<String, BasicIndicator>> attributes = new LinkedList<>();
+        indicators.forEach(indicator -> attributes.addAll(indicator.fields("")));
         FileEcho echo = writeAttributes(attributes, file);
 
         int size = config.size;
@@ -178,8 +181,8 @@ public class Learning {
             List<Direction> direction = judge(smooth);
             for (int j=0; j<len; j++) {
                 List<Object> line = new ArrayList<>();
-                for (BasicIndicator indicator : attributes.values())
-                    line.add(indicator.data.get(j + i));
+                for (Pair<String, BasicIndicator> p : attributes)
+                    line.add(p.getRight().data.get(j + i + priori));
                 line.add(direction.get(j+boundary));
                 echo.writeln(line);
             }
@@ -243,15 +246,15 @@ public class Learning {
     }
 
     public static void main(String[] args) {
-        DataCenterUtil.setNetDomain(CONST.OUTRA_QUANDIS_URL);
+        DataCenterUtil.setNetDomain(CONST.INTRA_QUANDIS_URL);
 
         String train = "./../../signal/learning-train.arff";
         String test = "./../../signal/learning-test.arff";
 
-        String code = "rb1605";
-        LocalDate start = of(2016, 1, 16);
-        LocalDate end = of(2016, 1, 20);
-        LocalDate extra = of(2016, 1, 23);
+        String code = "p1605";
+        LocalDate start = of(2015, 12, 7);
+        LocalDate end = of(2016, 1, 18);
+        LocalDate extra = of(2016, 1, 19);
 
         List<SuperIndicator> indicators = ImmutableList.of(
                 new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31), new WMA(41), new WMA(53), new WMA(61), new WMA(67), new WMA(73), new WMA(79), new WMA(87), new WMA(93),
@@ -273,20 +276,17 @@ public class Learning {
 
         List<BarInfo> data = bars(code, MIN_1, start, end);
         generateTrain(data, indicators, config, train);
-
-        List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
-        generateTrain(testData, indicators, config, test);
-
-
         crossValidate(train, randomForest(20, 257));
         crossValidate(train, j48(3));
 
-        try {
+        /*try {
             Thread.sleep(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
+        List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
+        generateTrain(testData, indicators, config, test);
         validateModel(train, test, randomForest(20, 257));
         validateModel(train, test, j48(3));
     }

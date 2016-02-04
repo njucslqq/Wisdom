@@ -62,6 +62,11 @@ public class MACD extends AdvanceIndicator {
     }
 
     @Override
+    public int size() {
+        return macd.size();
+    }
+
+    @Override
     public String name() {
         return "MACD[" + m + "][" + n + "][" + k + "]";
     }

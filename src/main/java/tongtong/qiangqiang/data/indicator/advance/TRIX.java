@@ -46,6 +46,11 @@ public class TRIX extends AdvanceIndicator {
     }
 
     @Override
+    public int size() {
+        return trix.size();
+    }
+
+    @Override
     public String name() {
         return "TRIX[" + m + "][" + n + "]";
     }

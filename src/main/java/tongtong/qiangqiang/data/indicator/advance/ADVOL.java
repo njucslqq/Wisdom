@@ -16,6 +16,11 @@ public class ADVOL extends AdvanceIndicator {
     }
 
     @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
     public String name() {
         return null;
     }
