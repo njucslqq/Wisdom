@@ -34,10 +34,17 @@ public abstract class BasicIndicator implements SuperIndicator {
     public List<Pair<String, BasicIndicator>> fields(String prefix) {
         try {
             String str = prefix + "-" + name();
-            return ImmutableList.of(
-                    Pair.of(str, this),
-                    Pair.of(str + "-derivative", this.derivative(new DEF()))
-            );
+            if (this instanceof MovingAverage) {
+                return ImmutableList.of(
+                        Pair.of(str + "-derivative", this.derivative(new DEF()))
+                );
+            }
+            else {
+                return ImmutableList.of(
+                        Pair.of(str, this),
+                        Pair.of(str + "-derivative", this.derivative(new DEF()))
+                );
+            }
         } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             return ImmutableList.of();

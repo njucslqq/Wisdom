@@ -181,11 +181,11 @@ public class Learning {
             List<Double> window = close.subList(from, from + size);
             List<Double> smooth = lowPassFilter(config.transform, window, top);
             List<Direction> direction = judge(smooth);
-            for (int j=0; j<len; j++) {
+            for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, BasicIndicator> p : attributes)
                     line.add(p.getRight().data.get(j + i + priori));
-                line.add(direction.get(j+gap));
+                line.add(direction.get(j + gap));
                 echo.writeln(line);
             }
             if (visualize) {
@@ -193,9 +193,13 @@ public class Learning {
                     List<Double> fast = ((BasicIndicator) indicators.get(0)).data.subList(from + priori, from + priori + size);
                     List<Double> middle = ((BasicIndicator) indicators.get(2)).data.subList(from + priori, from + priori + size);
                     List<Double> slow = ((BasicIndicator) indicators.get(5)).data.subList(from + priori, from + priori + size);
-                    original.vis("HH-mm", fast.subList(gap, gap+len), middle.subList(gap, gap+len), slow.subList(gap, gap+len), window.subList(gap, gap+len));
-                    wavelet.vis("HH-mm", smooth.subList(gap, gap+len));
-                    Thread.sleep(20000);
+                    original.vis("HH-mm",
+                            fast.subList(gap, gap + len),
+                            middle.subList(gap, gap + len),
+                            slow.subList(gap, gap + len),
+                            window.subList(gap, gap + len));
+                    wavelet.vis("HH-mm", smooth.subList(gap, gap + len));
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -253,13 +257,13 @@ public class Learning {
     }
 
     public static void main(String[] args) {
-        DataCenterUtil.setNetDomain(CONST.INTRA_QUANDIS_URL);
+        DataCenterUtil.setNetDomain(CONST.OUTRA_QUANDIS_URL);
 
         String train = "./../../signal/learning-train-1.arff";
         String test = "./../../signal/learning-test-1.arff";
 
         String code = "p1605";
-        LocalDate start = of(2016, 1, 1);
+        LocalDate start = of(2016, 1, 12);
         LocalDate end = of(2016, 2, 10);
         LocalDate extra = of(2016, 2, 16);
 
@@ -268,7 +272,7 @@ public class Learning {
                 new MACD(11, 23, 7), new MACD(15, 27, 9), new MACD(19, 33, 13), new MACD(23, 39, 19), new MACD(33, 43, 31), new MACD(41, 53, 39), new MACD(53, 67, 43), new MACD(61, 73, 53), new MACD(71, 83, 63), new MACD(83, 97, 71),
                 new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33), new EMA(39), new EMA(43), new EMA(51), new EMA(61), new EMA(67), new EMA(79), new EMA(87), new EMA(97),
                 new WilliamsR(11), new WilliamsR(13), new WilliamsR(17), new WilliamsR(23), new WilliamsR(35), new WilliamsR(39), new WilliamsR(47), new WilliamsR(59), new WilliamsR(73), new WilliamsR(87),
-                new BOLL(7, 0.15), new BOLL(13, 0.15), new BOLL(17, 0.15), new BOLL(23, 0.15), new BOLL(27, 0.15), new BOLL(34, 0.15), new BOLL(43, 0.15), new BOLL(51, 0.15), new BOLL(62, 0.15), new BOLL(79, 0.15), new BOLL(87, 0.15),
+                //new BOLL(7, 0.15), new BOLL(13, 0.15), new BOLL(17, 0.15), new BOLL(23, 0.15), new BOLL(27, 0.15), new BOLL(34, 0.15), new BOLL(43, 0.15), new BOLL(51, 0.15), new BOLL(62, 0.15), new BOLL(79, 0.15), new BOLL(87, 0.15),
                 new MTM(),
                 new DMA(7, 13, 5), new DMA(13, 17, 9), new DMA(17, 25, 13), new DMA(25, 34, 21), new DMA(34, 47, 31), new DMA(47, 59, 31), new DMA(59, 71, 41), new DMA(67, 81, 51), new DMA(79, 91, 61), new DMA(89, 101, 71),
                 new OSC(7), new OSC(11), new OSC(15), new OSC(21), new OSC(27), new OSC(34), new OSC(41), new OSC(57), new OSC(69), new OSC(81), new OSC(91),
@@ -289,9 +293,12 @@ public class Learning {
         WaveletConfig config = new WaveletConfig(t, size, top, gap);
 
         List<BarInfo> data = bars(code, MIN_1, start, end);
-        generateTrain(data, indicators_test, config, train, false);
-        crossValidate(train, randomForest(5, 157));
+        generateTrain(data, indicators, config, train, false);
+        crossValidate(train, randomForest(20, 301));
         crossValidate(train, j48(3));
+
+        validateModel(train, train, randomForest(20, 301));
+        validateModel(train, train, j48(3));
 
         /*try {
             Thread.sleep(10000);
@@ -300,8 +307,8 @@ public class Learning {
         }*/
 
         List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
-        generateTrain(testData, indicators_test, config, test, false);
-        validateModel(train, test, randomForest(5, 157));
+        generateTrain(testData, indicators, config, test, false);
+        validateModel(train, test, randomForest(20, 301));
         validateModel(train, test, j48(3));
     }
 }
