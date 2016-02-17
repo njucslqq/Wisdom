@@ -2,6 +2,8 @@ package tongtong.qiangqiang.data;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,6 +14,8 @@ import java.util.List;
  * 2015-12-22.
  */
 public class FileEcho {
+
+    public static final DecimalFormat DOUBLE_FMT= new DecimalFormat("#.000000");
 
     private String file;
 
@@ -37,20 +41,7 @@ public class FileEcho {
     }
 
     public void writeln(Object... values) {
-        boolean first = true;
-        try {
-            for (Object v : values) {
-                if (!first)
-                    w.write(",");
-                else
-                    first = false;
-                w.write(v.toString());
-            }
-            w.write("\r\n");
-            w.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        writeln(Arrays.asList(values));
     }
 
     public void writeln(List<Object> values) {
@@ -61,10 +52,12 @@ public class FileEcho {
                     w.write(",");
                 else
                     first = false;
-                w.write(v.toString());
+                if (v instanceof Double)
+                    w.write(String.format("%10f", v));
+                else
+                    w.write(v.toString());
             }
             w.write("\r\n");
-            w.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }

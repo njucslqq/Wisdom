@@ -24,7 +24,6 @@ import weka.core.converters.ArffLoader;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static java.lang.Runtime.getRuntime;
@@ -61,10 +60,13 @@ public class Learning {
 
         public final int top;
 
-        public WaveletConfig(Transform transform, int size, int top) {
+        public final int gap;
+
+        public WaveletConfig(Transform transform, int size, int top, int gap) {
             this.transform = transform;
             this.size = size;
             this.top = top;
+            this.gap = gap;
         }
     }
 
@@ -157,7 +159,7 @@ public class Learning {
         return mp;
     }
 
-    public static void generateTrain(List<BarInfo> bars, List<SuperIndicator> indicators, WaveletConfig config, String file) {
+    public static void generateTrain(List<BarInfo> bars, List<SuperIndicator> indicators, WaveletConfig config, String file, boolean visualize) {
         int priori = indicators.get(0).size();
 
         List<Double> close = extract(bars, "closePrice");
@@ -171,11 +173,11 @@ public class Learning {
 
         int size = config.size;
         int top = config.top;
-        int boundary = (int) (size / 10.0);
-        int len = size - 2 * boundary;
+        int gap = config.gap;
+        int len = size - 2 * gap;
 
-        for (int i = boundary; i <= bars.size() - (len + boundary); i += len) {
-            int from = i - boundary;
+        for (int i = gap; i <= bars.size() - (len + gap); i += len) {
+            int from = i - gap;
             List<Double> window = close.subList(from, from + size);
             List<Double> smooth = lowPassFilter(config.transform, window, top);
             List<Direction> direction = judge(smooth);
@@ -183,17 +185,21 @@ public class Learning {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, BasicIndicator> p : attributes)
                     line.add(p.getRight().data.get(j + i + priori));
-                line.add(direction.get(j+boundary));
+                line.add(direction.get(j+gap));
                 echo.writeln(line);
             }
-
-            /*try {
-                original.vis("HH-mm", window);
-                wavelet.vis("HH-mm", smooth);
-                Thread.sleep(15000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
+            if (visualize) {
+                try {
+                    List<Double> fast = ((BasicIndicator) indicators.get(0)).data.subList(from + priori, from + priori + size);
+                    List<Double> middle = ((BasicIndicator) indicators.get(2)).data.subList(from + priori, from + priori + size);
+                    List<Double> slow = ((BasicIndicator) indicators.get(5)).data.subList(from + priori, from + priori + size);
+                    original.vis("HH-mm", fast.subList(gap, gap+len), middle.subList(gap, gap+len), slow.subList(gap, gap+len), window.subList(gap, gap+len));
+                    wavelet.vis("HH-mm", smooth.subList(gap, gap+len));
+                    Thread.sleep(20000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         echo.close();
     }
@@ -213,6 +219,7 @@ public class Learning {
             instancesTest.setClassIndex(instancesTest.numAttributes() - 1);
 
             classifier.buildClassifier(instancesTrain);
+            System.out.println(classifier);
 
             Evaluation eval = new Evaluation(instancesTrain);
             eval.evaluateModel(classifier, instancesTest);
@@ -248,13 +255,13 @@ public class Learning {
     public static void main(String[] args) {
         DataCenterUtil.setNetDomain(CONST.INTRA_QUANDIS_URL);
 
-        String train = "./../../signal/learning-train.arff";
-        String test = "./../../signal/learning-test.arff";
+        String train = "./../../signal/learning-train-1.arff";
+        String test = "./../../signal/learning-test-1.arff";
 
         String code = "p1605";
-        LocalDate start = of(2015, 12, 7);
-        LocalDate end = of(2016, 1, 18);
-        LocalDate extra = of(2016, 1, 19);
+        LocalDate start = of(2016, 1, 1);
+        LocalDate end = of(2016, 2, 10);
+        LocalDate extra = of(2016, 2, 16);
 
         List<SuperIndicator> indicators = ImmutableList.of(
                 new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31), new WMA(41), new WMA(53), new WMA(61), new WMA(67), new WMA(73), new WMA(79), new WMA(87), new WMA(93),
@@ -269,14 +276,21 @@ public class Learning {
                 new TRIX(13, 7), new TRIX(17, 11), new TRIX(27, 17), new TRIX(39, 21), new TRIX(47, 27), new TRIX(61, 39), new TRIX(73, 49), new TRIX(83, 59)
         );
 
-        int size = 512;
-        int top = 3;
+        List<SuperIndicator> indicators_test = ImmutableList.of(
+                new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33), new EMA(39), new EMA(43), new EMA(51), new EMA(61), new EMA(67), new EMA(79), new EMA(87), new EMA(97)
+                //new WMA(5), new WMA(31), new WMA(87),
+                //new MACD(11, 23, 7), new MACD(33, 43, 31), new MACD(83, 97, 71)
+        );
+
+        int size = 128;
+        int top = 2;
+        int gap = 17;
         Transform t = new Transform(new FastWaveletTransform(new Daubechies5()));
-        WaveletConfig config = new WaveletConfig(t, size, top);
+        WaveletConfig config = new WaveletConfig(t, size, top, gap);
 
         List<BarInfo> data = bars(code, MIN_1, start, end);
-        generateTrain(data, indicators, config, train);
-        crossValidate(train, randomForest(20, 257));
+        generateTrain(data, indicators_test, config, train, false);
+        crossValidate(train, randomForest(5, 157));
         crossValidate(train, j48(3));
 
         /*try {
@@ -286,8 +300,8 @@ public class Learning {
         }*/
 
         List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
-        generateTrain(testData, indicators, config, test);
-        validateModel(train, test, randomForest(20, 257));
+        generateTrain(testData, indicators_test, config, test, false);
+        validateModel(train, test, randomForest(5, 157));
         validateModel(train, test, j48(3));
     }
 }
