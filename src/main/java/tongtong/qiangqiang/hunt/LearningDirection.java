@@ -2,6 +2,8 @@ package tongtong.qiangqiang.hunt;
 
 import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BarInfo;
+import cn.quanttech.quantera.common.data.BaseData;
+import cn.quanttech.quantera.common.data.TickInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import com.google.common.collect.ImmutableList;
 import jwave.Transform;
@@ -29,11 +31,12 @@ import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static java.lang.Runtime.getRuntime;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.Historical.bars;
+import static tongtong.qiangqiang.data.Historical.ticks;
 import static tongtong.qiangqiang.func.GeneralUtilizer.extract;
 import static tongtong.qiangqiang.hunt.Filter.lowPassFilter;
-import static tongtong.qiangqiang.hunt.Learning.Direction.DOWN;
-import static tongtong.qiangqiang.hunt.Learning.Direction.UP;
-import static tongtong.qiangqiang.hunt.Learning.Stage.*;
+import static tongtong.qiangqiang.hunt.LearningDirection.Direction.DOWN;
+import static tongtong.qiangqiang.hunt.LearningDirection.Direction.UP;
+import static tongtong.qiangqiang.hunt.LearningDirection.Stage.*;
 
 /**
  * Author: Qiangqiang Li
@@ -42,7 +45,7 @@ import static tongtong.qiangqiang.hunt.Learning.Stage.*;
  * <p>
  * 2016-01-27.
  */
-public class Learning {
+public class LearningDirection {
 
     public enum Stage {
         TOP, BOTTOM, MIDDLE
@@ -142,6 +145,7 @@ public class Learning {
     public static J48 j48(int nMin) {
         J48 c45 = new J48();
         c45.setReducedErrorPruning(true);
+        c45.setUseLaplace(false);
         c45.setMinNumObj(nMin);
         return c45;
     }
@@ -159,10 +163,10 @@ public class Learning {
         return mp;
     }
 
-    public static void generateTrain(List<BarInfo> bars, List<SuperIndicator> indicators, WaveletConfig config, String file, boolean visualize) {
+    public static void generateTrain(List<? extends BaseData> bars, List<SuperIndicator> indicators, WaveletConfig config, String file, boolean visualize) {
         int priori = indicators.get(0).size();
 
-        List<Double> close = extract(bars, "closePrice");
+        List<Double> close = extract(bars, "lastPrice");
         TimeSeriesChart original = new TimeSeriesChart("Original");
         TimeSeriesChart wavelet = new TimeSeriesChart("Wavelet");
 
@@ -199,12 +203,26 @@ public class Learning {
                             slow.subList(gap, gap + len),
                             window.subList(gap, gap + len));
                     wavelet.vis("HH-mm", smooth.subList(gap, gap + len));
-                    Thread.sleep(1000);
+                    Thread.sleep(15000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
+        echo.close();
+    }
+
+    public static void appendGenerate(String file, List<SuperIndicator> indicators, BarInfo bar){
+        indicators.parallelStream().forEach(indicator -> indicator.update(bar));
+        List<Pair<String, BasicIndicator>> attributes = new LinkedList<>();
+        indicators.forEach(indicator -> attributes.addAll(indicator.fields("")));
+        FileEcho echo = writeAttributes(attributes, file);
+
+        List<Object> line = new ArrayList<>();
+        for (Pair<String, BasicIndicator> p : attributes)
+            line.add(p.getRight().data.getLast());
+        line.add("?");
+        echo.writeln(line);
         echo.close();
     }
 
@@ -256,8 +274,23 @@ public class Learning {
         }
     }
 
+    public static Classifier buildClassifier(String train, Classifier classifier){
+        try {
+            ArffLoader arf = new ArffLoader();
+            arf.setFile(new File(train));
+
+            Instances instancesTrain = arf.getDataSet();
+            instancesTrain.setClassIndex(instancesTrain.numAttributes() - 1);
+
+            classifier.buildClassifier(instancesTrain);
+        } catch (Exception exc) {
+            exc.printStackTrace();
+        }
+        return classifier;
+    }
+
     public static void main(String[] args) {
-        DataCenterUtil.setNetDomain(CONST.OUTRA_QUANDIS_URL);
+        DataCenterUtil.setNetDomain(CONST.INTRA_QUANDIS_URL);
 
         String train = "./../../signal/learning-train-1.arff";
         String test = "./../../signal/learning-test-1.arff";
@@ -281,9 +314,10 @@ public class Learning {
         );
 
         List<SuperIndicator> indicators_test = ImmutableList.of(
-                new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33), new EMA(39), new EMA(43), new EMA(51), new EMA(61), new EMA(67), new EMA(79), new EMA(87), new EMA(97)
-                //new WMA(5), new WMA(31), new WMA(87),
-                //new MACD(11, 23, 7), new MACD(33, 43, 31), new MACD(83, 97, 71)
+                new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31),
+                new MACD(7, 17, 5), new MACD(11, 23, 7), new MACD(15, 27, 9), new MACD(19, 33, 13), new MACD(23, 39, 19), new MACD(33, 43, 31),
+                new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33),
+                new DMA(7, 13, 5), new DMA(13, 17, 9), new DMA(17, 25, 13), new DMA(25, 34, 21)
         );
 
         int size = 128;
@@ -292,13 +326,13 @@ public class Learning {
         Transform t = new Transform(new FastWaveletTransform(new Daubechies5()));
         WaveletConfig config = new WaveletConfig(t, size, top, gap);
 
-        List<BarInfo> data = bars(code, MIN_1, start, end);
-        generateTrain(data, indicators, config, train, false);
-        crossValidate(train, randomForest(20, 301));
-        crossValidate(train, j48(3));
+        List<? extends BaseData> data = bars(code, MIN_1, start, end);
+        generateTrain(data, indicators_test, config, train, false);
+        //crossValidate(train, randomForest(7, 201));
+        crossValidate(train, j48(113));
 
-        validateModel(train, train, randomForest(20, 301));
-        validateModel(train, train, j48(3));
+        //validateModel(train, train, randomForest(7, 201));
+        validateModel(train, train, j48(113));
 
         /*try {
             Thread.sleep(10000);
@@ -306,9 +340,9 @@ public class Learning {
             e.printStackTrace();
         }*/
 
-        List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
-        generateTrain(testData, indicators, config, test, false);
-        validateModel(train, test, randomForest(20, 301));
-        validateModel(train, test, j48(3));
+        List<? extends BaseData> testData = bars(code, MIN_1, end.plusDays(1), extra);
+        generateTrain(testData, indicators_test, config, test, false);
+        //validateModel(train, test, randomForest(7, 201));
+        validateModel(train, test, j48(113));
     }
 }
