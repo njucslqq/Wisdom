@@ -5,30 +5,21 @@ import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import com.google.common.collect.ImmutableList;
-import jwave.Transform;
-import jwave.transforms.FastWaveletTransform;
-import jwave.transforms.wavelets.daubechies.Daubechies5;
-import tongtong.qiangqiang.data.indicator.SuperIndicator;
-import tongtong.qiangqiang.data.indicator.advance.*;
-import tongtong.qiangqiang.data.indicator.basic.*;
-import tongtong.qiangqiang.hunt.LearningDirection;
-import tongtong.qiangqiang.hunt.LearningDirection.WaveletConfig;
+import tongtong.qiangqiang.data.factor.advance.indicators.DEMA;
+import tongtong.qiangqiang.data.factor.advance.indicators.DMA;
+import tongtong.qiangqiang.data.factor.advance.indicators.MACD;
+import tongtong.qiangqiang.data.factor.basic.indicators.EMA;
+import tongtong.qiangqiang.data.factor.basic.indicators.WMA;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 import weka.classifiers.Classifier;
 import weka.classifiers.trees.J48;
-import weka.core.Instances;
-import weka.core.converters.ArffLoader;
 
-import java.io.File;
-import java.time.LocalDate;
 import java.util.*;
 
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
+import static cn.quanttech.quantera.common.data.TimeFrame.MIN_5;
 import static java.time.LocalDate.of;
 import static tongtong.qiangqiang.data.Historical.bars;
 import static tongtong.qiangqiang.hunt.LearningDirection.Direction;
-import static tongtong.qiangqiang.hunt.LearningDirection.Direction.*;
-import static tongtong.qiangqiang.hunt.LearningDirection.j48;
 
 /**
  * Author: Qiangqiang Li
@@ -60,28 +51,18 @@ public class MockDriver extends MockBase {
             new DMA(7, 13, 5), new DMA(13, 17, 9), new DMA(17, 25, 13), new DMA(25, 34, 21)
     );
 
+    DEMA dema = new DEMA(21, 21);
+
+    EMA ema = new EMA(21);
+
+    WMA wma = new WMA(21);
+
     @Override
     void init() {
         setSecurity(code);
-        setResolution(MIN_1);
-        setStart(of(2016, 2, 1));
-        setEnd(of(2016, 2, 2));
-
-        LocalDate startTime = of(2015, 10, 20);
-        LocalDate endTime = of(2016, 1, 29);
-        List<BarInfo> data = bars(code, MIN_1, startTime, endTime);
-
-        int size = 128;
-        int top = 2;
-        int gap = 17;
-        Transform t = new Transform(new FastWaveletTransform(new Daubechies5()));
-        WaveletConfig config = new WaveletConfig(t, size, top, gap);
-
-        int leaf = 511;
-        LearningDirection.generateTrain(data, indicators, config, train, false);
-        LearningDirection.crossValidate(train, j48(leaf));
-        LearningDirection.validateModel(train, train, j48(leaf));
-        m_classifier = LearningDirection.buildClassifier(train, j48(leaf));
+        setResolution(MIN_5);
+        setStart(of(2016, 1, 1));
+        setEnd(of(2016, 3, 2));
     }
 
     @Override
@@ -89,7 +70,24 @@ public class MockDriver extends MockBase {
         BarInfo bar = (BarInfo) dataUnit;
         close.add(bar.closePrice);
 
-        LearningDirection.appendGenerate(test, indicators, bar);
+        wma.update(bar);
+        ema.update(bar);
+        dema.update(bar);
+        if (index > 150){
+            wma.data.removeFirst();
+            ema.data.removeFirst();
+            dema.dema.data.removeFirst();
+            close.removeFirst();
+        }
+        comp.vis("HH:mm:ss", wma.data, ema.data, dema.dema.data, close);
+
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        /*LearningDirection.appendGenerate(test, indicators, bar);
 
         try {
             ArffLoader arf = new ArffLoader();
@@ -105,12 +103,12 @@ public class MockDriver extends MockBase {
 
             System.out.println("分类值： " + direction);
             int size = dir.size();
-            if (size >= 2 && dir.get(size - 1) == UP && dir.get(size - 2) == UP){
+            if (size >= 2 && dir.get(size - 1) == UP && dir.get(size - 2) == UP) {
                 buyClose(bar.closePrice);
                 buyOpen(bar.closePrice);
             }
 
-            if (size >= 2 && dir.get(size - 1) == DOWN && dir.get(size - 2) == DOWN){
+            if (size >= 2 && dir.get(size - 1) == DOWN && dir.get(size - 2) == DOWN) {
                 sellClose(bar.closePrice);
                 sellOpen(bar.closePrice);
             }
@@ -118,7 +116,7 @@ public class MockDriver extends MockBase {
             comp.vis("HH-mm", close.subList(0, index + 1));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override

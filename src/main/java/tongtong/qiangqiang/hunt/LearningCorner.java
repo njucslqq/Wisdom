@@ -4,14 +4,20 @@ import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.datacenter.DataCenterUtil;
 import com.google.common.collect.ImmutableList;
+import com.tictactec.ta.lib.Core;
+import com.tictactec.ta.lib.MInteger;
 import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
 import jwave.transforms.wavelets.daubechies.Daubechies5;
 import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.data.FileEcho;
-import tongtong.qiangqiang.data.indicator.SuperIndicator;
-import tongtong.qiangqiang.data.indicator.advance.*;
-import tongtong.qiangqiang.data.indicator.basic.*;
+import tongtong.qiangqiang.data.factor.Indicator;
+import tongtong.qiangqiang.data.factor.composite.*;
+import tongtong.qiangqiang.data.factor.single.SingleIndicator;
+import tongtong.qiangqiang.data.factor.single.indicators.EMA;
+import tongtong.qiangqiang.data.factor.single.indicators.MTM;
+import tongtong.qiangqiang.data.factor.single.indicators.WMA;
+import tongtong.qiangqiang.data.factor.single.indicators.WilliamsR;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 import weka.classifiers.Classifier;
 import weka.classifiers.evaluation.Evaluation;
@@ -110,10 +116,10 @@ public class LearningCorner {
         return Arrays.asList(stage);
     }
 
-    public static FileEcho writeAttributes(List<Pair<String, BasicIndicator>> attributes, String file) {
+    public static FileEcho writeAttributes(List<Pair<String, SingleIndicator>> attributes, String file) {
         FileEcho echo = new FileEcho(file);
         echo.writeln("@relation indicators-stage");
-        for (Pair<String, BasicIndicator> p : attributes)
+        for (Pair<String, SingleIndicator> p : attributes)
             echo.writeln("@attribute " + p.getLeft() + " real");
         echo.writeln("@attribute direction {TOP, BOTTOM, UP, DOWN}");
         echo.writeln("@data");
@@ -159,16 +165,16 @@ public class LearningCorner {
         return mp;
     }
 
-    public static void generateTrain(List<BarInfo> bars, List<SuperIndicator> indicators, WaveletConfig config, String file, boolean visualize) {
-        int priori = indicators.get(0).size();
+    public static void generateTrain(List<BarInfo> bars, List<Indicator> indicators, WaveletConfig config, String file, boolean visualize) {
+        int priori = indicators.get(0).dataSize();
 
         List<Double> close = extract(bars, "closePrice");
         TimeSeriesChart original = new TimeSeriesChart("Original");
         TimeSeriesChart wavelet = new TimeSeriesChart("Wavelet");
 
         indicators.parallelStream().forEach(indicator -> bars.forEach(indicator::update));
-        List<Pair<String, BasicIndicator>> attributes = new LinkedList<>();
-        indicators.forEach(indicator -> attributes.addAll(indicator.fields("")));
+        List<Pair<String, SingleIndicator>> attributes = new LinkedList<>();
+        indicators.forEach(indicator -> attributes.addAll(null));//indicator.fields("")));
         FileEcho echo = writeAttributes(attributes, file);
 
         Transform t = config.transform;
@@ -188,7 +194,7 @@ public class LearningCorner {
             int from = i + gap;
             for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
-                for (Pair<String, BasicIndicator> p : attributes)
+                for (Pair<String, SingleIndicator> p : attributes)
                     line.add(p.getRight().data.get(priori + i + gap + j));
                 line.add(stage.get(j + gap));
                 echo.writeln(line);
@@ -196,9 +202,9 @@ public class LearningCorner {
 
             if (visualize) {
                 try {
-                    List<Double> fast = ((BasicIndicator) indicators.get(0)).data.subList(i + priori, i + priori + size);
-                    List<Double> middle = ((BasicIndicator) indicators.get(2)).data.subList(i + priori, i + priori + size);
-                    List<Double> slow = ((BasicIndicator) indicators.get(5)).data.subList(i + priori, i + priori + size);
+                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.subList(i + priori, i + priori + size);
+                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.subList(i + priori, i + priori + size);
+                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.subList(i + priori, i + priori + size);
                     original.vis("HH-mm",
                             fast.subList(gap, gap + len),
                             middle.subList(gap, gap + len),
@@ -288,20 +294,19 @@ public class LearningCorner {
         LocalDate end = of(2016, 1, 2);
         LocalDate extra = of(2016, 1, 7);
 
-        List<SuperIndicator> indicators = ImmutableList.of(
+        List<Indicator> indicators = ImmutableList.of(
                 new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31), new WMA(41), new WMA(53), new WMA(61), new WMA(67), new WMA(73), new WMA(79), new WMA(87), new WMA(93),
                 new MACD(11, 23, 7), new MACD(15, 27, 9), new MACD(19, 33, 13), new MACD(23, 39, 19), new MACD(33, 43, 31), new MACD(41, 53, 39), new MACD(53, 67, 43), new MACD(61, 73, 53), new MACD(71, 83, 63), new MACD(83, 97, 71),
                 new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33), new EMA(39), new EMA(43), new EMA(51), new EMA(61), new EMA(67), new EMA(79), new EMA(87), new EMA(97),
                 new WilliamsR(11), new WilliamsR(13), new WilliamsR(17), new WilliamsR(23), new WilliamsR(35), new WilliamsR(39), new WilliamsR(47), new WilliamsR(59), new WilliamsR(73), new WilliamsR(87),
-                new BOLL(7, 0.15), new BOLL(13, 0.15), new BOLL(17, 0.15), new BOLL(23, 0.15), new BOLL(27, 0.15), new BOLL(34, 0.15), new BOLL(43, 0.15), new BOLL(51, 0.15), new BOLL(62, 0.15), new BOLL(79, 0.15), new BOLL(87, 0.15),
-                new MTM(),
+                new MTM(3),
                 new DMA(7, 13, 5), new DMA(13, 17, 9), new DMA(17, 25, 13), new DMA(25, 34, 21), new DMA(34, 47, 31), new DMA(47, 59, 31), new DMA(59, 71, 41), new DMA(67, 81, 51), new DMA(79, 91, 61), new DMA(89, 101, 71),
                 new OSC(7), new OSC(11), new OSC(15), new OSC(21), new OSC(27), new OSC(34), new OSC(41), new OSC(57), new OSC(69), new OSC(81), new OSC(91),
                 new RSI(11), new RSI(15), new RSI(21), new RSI(31), new RSI(41), new RSI(51), new RSI(67), new RSI(81), new RSI(91),
                 new TRIX(13, 7), new TRIX(17, 11), new TRIX(27, 17), new TRIX(39, 21), new TRIX(47, 27), new TRIX(61, 39), new TRIX(73, 49), new TRIX(83, 59)
         );
 
-        List<SuperIndicator> indicators_test = ImmutableList.of(
+        List<Indicator> indicators_test = ImmutableList.of(
                 new WMA(5), new WMA(7), new WMA(9), new WMA(11), new WMA(13), new WMA(15), new WMA(17), new WMA(21), new WMA(27), new WMA(31),
                 new MACD(7, 17, 5), new MACD(11, 23, 7), new MACD(15, 27, 9), new MACD(19, 33, 13), new MACD(23, 39, 19), new MACD(33, 43, 31),
                 new EMA(7), new EMA(13), new EMA(17), new EMA(21), new EMA(25), new EMA(29), new EMA(33),
@@ -327,6 +332,10 @@ public class LearningCorner {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
+
+        MInteger mi = new MInteger();
+        Core c = new Core();
+
 
         List<BarInfo> testData = bars(code, MIN_1, end.plusDays(1), extra);
         generateTrain(testData, indicators_test, config, test, false);
