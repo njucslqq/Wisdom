@@ -1,4 +1,4 @@
-package tongtong.qiangqiang.mock;
+package tongtong.qiangqiang.mind;
 
 import cn.quanttech.quantera.CONST;
 import tongtong.qiangqiang.data.factor.MovingAverage;
@@ -6,9 +6,10 @@ import tongtong.qiangqiang.data.factor.composite.DEMA;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
-import tongtong.qiangqiang.mock.algorithm.MovingAverageDifference;
+import tongtong.qiangqiang.mind.algorithm.MovingAverageDifference;
 
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
+import java.time.LocalDate;
+
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_5;
 import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 
@@ -24,6 +25,10 @@ public class MockDriver {
     public static void main(String[] args) {
         setNetDomain(CONST.INTRA_QUANDIS_URL);
 
+        String security = "rb1605";
+        int share = 1;
+        LocalDate begin = LocalDate.of(2015, 6, 1);
+
         int period = 21;
         MovingAverage[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
 
@@ -31,7 +36,7 @@ public class MockDriver {
             for (int j = 0; j < i; j++) {
                 MovingAverage[] mavgs_fast = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
                 MovingAverage[] mavgs_slow = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-                MovingAverageDifference algorithm = new MovingAverageDifference(mavgs_fast[i], mavgs_slow[j], MIN_5);
+                MovingAverageDifference algorithm = new MovingAverageDifference(mavgs_fast[i], mavgs_slow[j], MIN_5, security, share, begin, "name");
                 algorithm.init();
                 algorithm.simulate();
                 algorithm.onComplete();

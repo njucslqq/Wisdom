@@ -1,10 +1,10 @@
-package tongtong.qiangqiang.mock.algorithm;
+package tongtong.qiangqiang.mind.algorithm;
 
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MovingAverage;
-import tongtong.qiangqiang.mock.MockBase;
+import tongtong.qiangqiang.mind.MockBase;
 
 import java.time.LocalDate;
 
@@ -23,19 +23,28 @@ public class MovingAverageDifference extends MockBase {
 
     public final TimeFrame resolution;
 
-    public MovingAverageDifference(MovingAverage fast, MovingAverage slow, TimeFrame resolution) {
-        super(fast.getClass().getSimpleName() + " - " + slow.getClass().getSimpleName());
-        System.out.println(fast.getClass().getSimpleName() + " - " + slow.getClass().getSimpleName());
+    public final String security;
+
+    public final int share;
+
+    public final LocalDate begin;
+
+    public MovingAverageDifference(MovingAverage fast, MovingAverage slow, TimeFrame resolution, String security, int share, LocalDate begin, String name) {
+        super(name);
+        this.security = security;
+        this.share = share;
+        this.begin = begin;
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
+        System.out.println(name);
     }
 
     @Override
     public void init() {
-        setSecurity("rb1605");
+        setSecurity(security);
         setResolution(resolution);
-        setStart(LocalDate.of(2016, 2, 1));
+        setStart(begin);
         setEnd(LocalDate.now());
     }
 
@@ -48,11 +57,11 @@ public class MovingAverageDifference extends MockBase {
         double s = slow.update(price);
 
         if (f > s) {
-            buyClose(price);
-            buyOpen(price);
+            order.buyClose(security, share, price);
+            order.buy(security, share, price);
         } else {
-            sellClose(price);
-            sellOpen(price);
+            order.sell(security, share, price);
+            order.sellOpen(security, share, price);
         }
     }
 }
