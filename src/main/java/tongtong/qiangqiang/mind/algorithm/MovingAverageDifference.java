@@ -46,6 +46,9 @@ public class MovingAverageDifference extends MockBase {
         setResolution(resolution);
         setStart(begin);
         setEnd(LocalDate.now());
+        //setModel(Model.TRADE);
+        //setType(OrderType.MARKET);
+        //setState(State.MOCK);
     }
 
     @Override

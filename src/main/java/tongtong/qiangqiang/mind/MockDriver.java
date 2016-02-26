@@ -23,13 +23,13 @@ import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 public class MockDriver {
 
     public static void main(String[] args) {
-        setNetDomain(CONST.INTRA_QUANDIS_URL);
+        setNetDomain(CONST.OUTRA_QUANDIS_URL);
 
         String security = "rb1605";
         int share = 1;
-        LocalDate begin = LocalDate.of(2015, 5, 1);
+        LocalDate begin = LocalDate.of(2016, 1, 1);
 
-        int period = 33;
+        int period = 25;
         MovingAverage[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
 
         for (int i = 1; i < mavgs.length; i++)

@@ -117,7 +117,11 @@ public abstract class MockBase {
         }
         else {
             trader = new Trader(this);
-            trader.run();
+            try {
+                trader.run();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
