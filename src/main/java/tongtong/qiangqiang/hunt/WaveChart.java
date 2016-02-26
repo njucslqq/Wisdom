@@ -101,8 +101,8 @@ public class WaveChart extends TradeBase {
             }
         }
 
-        System.out.println("多头盈利：" + longDiff);
-        System.out.println("空头盈利：" + shortDiff);
+        System.out.println("多头盈利：" + lDif);
+        System.out.println("空头盈利：" + sDif);
     }
 
     private void showList(TimeSeriesChart tsc, List<Double> data, String title) {

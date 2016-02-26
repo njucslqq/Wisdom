@@ -9,62 +9,59 @@ package tongtong.qiangqiang.mock;
  */
 public abstract class TradeBase {
 
-    /**
-     * trade
-     */
-    protected boolean LONG = false;
+    protected boolean lPos = false;
 
-    protected boolean SHORT = false;
+    protected boolean sPos = false;
 
-    protected double longPrice = 0;
+    protected double lPrice = 0.;
 
-    protected double shortPrice = 0;
+    protected double sPrice = 0.;
 
-    protected double longDiff = 0;
+    protected double lDif = 0.;
 
-    protected double shortDiff = 0;
+    protected double sDif = 0.;
 
-    protected int longTime = 0;
+    protected int lTime = 0;
 
-    protected int shortTime = 0;
+    protected int sTime = 0;
 
     protected boolean buyOpen(double price) {
-        if (!LONG) {
-            LONG = true;
-            longPrice = price;
-            longTime++;
-            System.out.println("多头开仓: " + price);
+        if (!lPos) {
+            lPos = true;
+            lPrice = price;
+            lTime++;
+            //System.out.println("\n[long  open]: " + price);
             return true;
         }
         return false;
     }
 
     protected boolean sellClose(double price) {
-        if (LONG) {
-            LONG = false;
-            System.out.println("多头平仓，原来利润: " + longDiff + ", 增加利润：" + (price - longPrice));
-            longDiff += price - longPrice;
+        if (lPos) {
+            lPos = false;
+            lDif += price - lPrice;
+            //System.out.println("[long close]: " + price + ", delta: " + (price - lPrice) + ", profit: " + lDif);
             return true;
         }
         return false;
     }
 
     protected boolean sellOpen(double price) {
-        if (!SHORT) {
-            SHORT = true;
-            shortPrice = price;
-            shortTime++;
-            System.out.println("空头开仓: " + price);
+        if (!sPos) {
+            sPos = true;
+            sPrice = price;
+            sTime++;
+            //System.out.println("\n[short open]: " + price);
             return true;
         }
         return false;
     }
 
     protected boolean buyClose(double price) {
-        if (SHORT) {
-            SHORT = false;
-            System.out.println("空头平仓，原来利润: " + shortDiff + ", 增加利润：" + (shortPrice - price));
-            shortDiff += shortPrice - price;
+        if (sPos) {
+            sPos = false;
+            sDif += sPrice - price;
+            //System.out.println("[short close]: " + price + ", delta: " + (sPrice - price) + ", profit: " + sDif);
             return true;
         }
         return false;

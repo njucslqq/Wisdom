@@ -2,20 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/MovingAverage.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/MovingAverage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/BIAS.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/BIAS.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DMA.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DMA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/MACD.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/MACD.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/OSC.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/OSC.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/SingleIndicator.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/SingleIndicator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/EMA.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/EMA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/SMA.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/SMA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/WMA.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/indicators/WMA.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/tool/Constant.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/tool/Constant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/LearningDirection.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/LearningDirection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/WaveChart.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/WaveChart.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java" />
     </list>
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,21 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constant.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/tool/Constant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="45" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DEMA.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DEMA.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+              <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#994#995#0" expanded="true" />
@@ -94,18 +75,6 @@
                 <element signature="e#1603#1604#0" expanded="true" />
                 <element signature="e#1647#1648#0" expanded="true" />
                 <element signature="e#1676#1677#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DEMAResearch.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3181818">
-              <caret line="49" column="37" selection-start-line="45" selection-start-column="5" selection-end-line="49" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,14 +93,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MockDriver.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MockDriver.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.48863637">
+              <caret line="33" column="115" selection-start-line="33" selection-start-column="115" selection-end-line="33" selection-end-column="115" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DEMAResearch.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1130#1131#0" expanded="true" />
+                <element signature="e#1157#1158#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MovingAverageDifference.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/MovingAverageDifference.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,8 +133,11 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
-              <folding />
+              <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+              <folding>
+                <element signature="e#906#907#0" expanded="true" />
+                <element signature="e#962#963#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -150,7 +146,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+              <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -177,8 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/signal/learning-train.arff" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/indicator/basic/DEF.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/indicator/advance/AdvanceIndicator.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/indicator/SuperIndicator.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/indicator/advance/BOLL.java" />
@@ -223,11 +217,13 @@
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/tool/Constant.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/MovingAverage.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DEMA.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/single/SingleIndicator.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/vis/TimeSeriesChart.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/MovingAverageDifference.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java" />
       </list>
     </option>
   </component>
@@ -597,7 +593,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/ta-lib-0.4.0-msvc/ta-lib/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../QuantTech/Quandis" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -1024,12 +1020,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32746115" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3272543" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1098,15 +1094,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java</url>
-          <line>69</line>
+          <line>71</line>
           <properties />
           <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/MovingAverageDifference.java</url>
+          <line>49</line>
+          <properties />
+          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="64" />
+      <option name="time" value="65" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1122,13 +1124,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/common-0.0.1-SNAPSHOT.jar!/cn/quanttech/quantera/datacenter/DataCenterUtil.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4597701">
-          <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/hunt/Research.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1289,7 +1284,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="44" selection-start-line="48" selection-start-column="44" selection-end-line="48" selection-end-column="44" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1299,7 +1294,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="79" column="36" selection-start-line="79" selection-start-column="36" selection-end-line="79" selection-end-column="36" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1309,7 +1304,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="49" selection-start-line="52" selection-start-column="49" selection-end-line="52" selection-end-column="49" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1326,7 +1321,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="45" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1336,7 +1331,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1346,7 +1341,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="19" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1356,7 +1351,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1373,7 +1368,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1383,7 +1378,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="50" column="17" selection-start-line="50" selection-start-column="17" selection-end-line="50" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1393,9 +1388,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1057#1058#0" expanded="true" />
-            <element signature="e#1108#1109#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1057#1058#0" expanded="false" />
+            <element signature="e#1108#1109#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1405,9 +1400,9 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="62" column="31" selection-start-line="62" selection-start-column="31" selection-end-line="62" selection-end-column="31" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1618#1619#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1578#1579#0" expanded="false" />
+            <element signature="e#1618#1619#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1455,7 +1450,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="315" column="23" selection-start-line="315" selection-start-column="23" selection-end-line="315" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1502,50 +1497,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DEMA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#994#995#0" expanded="true" />
-            <element signature="e#1033#1034#0" expanded="true" />
-            <element signature="e#1297#1298#0" expanded="true" />
-            <element signature="e#1342#1343#0" expanded="true" />
-            <element signature="e#1576#1577#0" expanded="true" />
-            <element signature="e#1603#1604#0" expanded="true" />
-            <element signature="e#1647#1648#0" expanded="true" />
-            <element signature="e#1676#1677#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="38" selection-start-line="59" selection-start-column="38" selection-end-line="59" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/Indicator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1575,10 +1526,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/DEMA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#994#995#0" expanded="true" />
+            <element signature="e#1033#1034#0" expanded="true" />
+            <element signature="e#1297#1298#0" expanded="true" />
+            <element signature="e#1342#1343#0" expanded="true" />
+            <element signature="e#1576#1577#0" expanded="true" />
+            <element signature="e#1603#1604#0" expanded="true" />
+            <element signature="e#1647#1648#0" expanded="true" />
+            <element signature="e#1676#1677#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <folding>
+            <element signature="e#906#907#0" expanded="true" />
+            <element signature="e#962#963#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/DEMAResearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3181818">
-          <caret line="49" column="37" selection-start-line="45" selection-start-column="5" selection-end-line="49" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1130#1131#0" expanded="true" />
+            <element signature="e#1157#1158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/TradeBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="14" selection-start-line="63" selection-start-column="14" selection-end-line="63" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/algorithm/MovingAverageDifference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mock/MockDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48863637">
+          <caret line="33" column="115" selection-start-line="33" selection-start-column="115" selection-end-line="33" selection-end-column="115" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

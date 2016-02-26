@@ -8,7 +8,6 @@ import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mock.MockBase;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_5;
 import static java.time.LocalDate.of;
 
@@ -37,6 +36,10 @@ public class DEMAResearch extends MockBase {
 
     TimeSeriesChart tsc2 = new TimeSeriesChart("DEMA-wma");
 
+    public DEMAResearch(String name) {
+        super(name);
+    }
+
     @Override
     public void init() {
         setSecurity("rb1605");
@@ -56,11 +59,10 @@ public class DEMAResearch extends MockBase {
         double slow2 = dema2.update(bar.closePrice);
         double fast2 = dema2_fast.update(bar.closePrice);
 
-        if (wma1 < slow1){
+        if (wma1 < slow2) {
             buyClose(bar.closePrice);
             buyOpen(bar.closePrice);
-        }
-        else {
+        } else {
             sellClose(bar.closePrice);
             sellOpen(bar.closePrice);
         }
@@ -76,11 +78,5 @@ public class DEMAResearch extends MockBase {
             }
 
         }
-    }
-
-    @Override
-    public void onComplete() {
-        System.out.println("Long  Profit: " + longDiff);
-        System.out.println("Short Profit: " + shortDiff);
     }
 }
