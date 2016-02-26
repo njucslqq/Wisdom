@@ -9,5 +9,5 @@ package tongtong.qiangqiang.data.factor.tool;
  */
 public class Constant {
 
-    public final static double EPSILON = 1e-9;
+    public final static double EPSILON = 1e-7;
 }

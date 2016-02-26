@@ -36,9 +36,9 @@ public class MACD extends WindowIndicator<Double> {
 
     public MACD(MovingAverage fast, MovingAverage slow, MovingAverage dea) {
         super(0);
-        m = fast.period();
-        n = slow.period();
-        k = dea.period();
+        m = fast.getPeriod();
+        n = slow.getPeriod();
+        k = dea.getPeriod();
         this.fast = fast;
         this.slow = slow;
         this.dea = dea;

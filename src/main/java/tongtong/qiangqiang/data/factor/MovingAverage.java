@@ -9,5 +9,5 @@ package tongtong.qiangqiang.data.factor;
  */
 public interface MovingAverage extends Indicator<Double> {
 
-    abstract int period();
+    abstract int getPeriod();
 }

@@ -36,7 +36,7 @@ public class OSC extends WindowIndicator<Double> {
 
     public OSC(MovingAverage mavg) {
         super(0);
-        this.period = mavg.period();
+        this.period = mavg.getPeriod();
         this.mavg = mavg;
         this.osc = new Intermediate(period);
     }

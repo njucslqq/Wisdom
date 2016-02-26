@@ -68,7 +68,7 @@ public class WMA extends SingleIndicator<Double> implements MovingAverage {
     }
 
     @Override
-    public int period() {
+    public int getPeriod() {
         return period;
     }
 }

@@ -53,9 +53,9 @@ public abstract class MockBase extends TradeBase {
             onData(data.get(i), i);
     }
 
-    abstract void init();
+    public abstract void init();
 
-    abstract void onData(BaseData data, int index);
+    public abstract void onData(BaseData data, int index);
 
-    abstract void onComplete();
+    public abstract void onComplete();
 }

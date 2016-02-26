@@ -36,7 +36,7 @@ public class BIAS extends WindowIndicator<Double> {
 
     public BIAS(MovingAverage mavg) {
         super(0);
-        this.period = mavg.period();
+        this.period = mavg.getPeriod();
         this.mavg = mavg;
         this.bias = new Intermediate(period);
     }

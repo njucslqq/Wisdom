@@ -33,9 +33,9 @@ public class DMA extends WindowIndicator<Double> {
 
     public DMA(MovingAverage fast, MovingAverage slow, MovingAverage ama) {
         super(0);
-        m = fast.period();
-        n = slow.period();
-        k = ama.period();
+        m = fast.getPeriod();
+        n = slow.getPeriod();
+        k = ama.getPeriod();
         this.fast = fast;
         this.slow = slow;
         this.ama = ama;

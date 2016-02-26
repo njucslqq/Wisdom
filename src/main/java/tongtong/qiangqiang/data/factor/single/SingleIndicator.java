@@ -42,7 +42,7 @@ public abstract class SingleIndicator<T> extends WindowIndicator<T> {
 
     @Override
     public List<Double> sub(int from, int to) {
-        if (from < 0 || to < 0 || from >= data.size() || to >= data.size() || from >= to)
+        if (from < 0 || to < 0 || from > data.size() || to > data.size() || from >= to)
             throw new RuntimeException("index is illegal");
         return data.subList(from, to);
     }
