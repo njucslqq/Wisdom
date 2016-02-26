@@ -44,7 +44,7 @@ public class MockOrder implements Order {
             lPos = true;
             lPrice = price;
             lTime++;
-            System.out.println("\n[long  open]: " + price);
+            //System.out.println("\n[long  open]: " + price);
             profit.add(lDif + sDif);
             return true;
         }
@@ -56,7 +56,7 @@ public class MockOrder implements Order {
         if (lPos) {
             lPos = false;
             lDif += price - lPrice;
-            System.out.println("[long close]: " + price + ", delta: " + (price - lPrice) + ", profit: " + lDif);
+            //System.out.println("[long close]: " + price + ", delta: " + (price - lPrice) + ", profit: " + lDif);
             profit.add(lDif + sDif);
             profitChart.vis("HH:mm:ss", profit);
             return true;
@@ -69,7 +69,7 @@ public class MockOrder implements Order {
         if (sPos) {
             sPos = false;
             sDif += sPrice - price;
-            System.out.println("[short close]: " + price + ", delta: " + (sPrice - price) + ", profit: " + sDif);
+            //System.out.println("[short close]: " + price + ", delta: " + (sPrice - price) + ", profit: " + sDif);
             profit.add(lDif + sDif);
             profitChart.vis("HH:mm:ss", profit);
             return true;
@@ -83,7 +83,7 @@ public class MockOrder implements Order {
             sPos = true;
             sPrice = price;
             sTime++;
-            System.out.println("\n[short open]: " + price);
+            //System.out.println("\n[short open]: " + price);
             profit.add(lDif + sDif);
             return true;
         }

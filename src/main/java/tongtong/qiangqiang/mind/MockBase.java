@@ -121,6 +121,12 @@ public abstract class MockBase {
         }
     }
 
+    public void run(){
+        init();
+        simulate();
+        onComplete();
+    }
+
     public void onComplete(){
         order.conclude();
     }

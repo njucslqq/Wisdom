@@ -27,21 +27,19 @@ public class MockDriver {
 
         String security = "rb1605";
         int share = 1;
-        LocalDate begin = LocalDate.of(2015, 6, 1);
+        LocalDate begin = LocalDate.of(2015, 5, 1);
 
-        int period = 21;
+        int period = 33;
         MovingAverage[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
 
         for (int i = 1; i < mavgs.length; i++)
             for (int j = 0; j < i; j++) {
                 MovingAverage[] mavgs_fast = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
                 MovingAverage[] mavgs_slow = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-                MovingAverageDifference algorithm = new MovingAverageDifference(mavgs_fast[i], mavgs_slow[j], MIN_5, security, share, begin, "name");
-                algorithm.init();
-                algorithm.simulate();
-                algorithm.onComplete();
+                MovingAverageDifference algorithm = new MovingAverageDifference(mavgs_fast[i], mavgs_slow[j], MIN_5, security, share, begin, mavgs_fast[i].getClass().getSimpleName() + " - " + mavgs_slow[j].getClass().getSimpleName());
+                algorithm.run();
                 try {
-                    Thread.sleep(600);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
