@@ -1,6 +1,7 @@
 package tongtong.qiangqiang.data.factor.single;
 
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
+import tongtong.qiangqiang.data.factor.tool.SlidingWindow;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,22 +13,20 @@ import java.util.List;
  * <p>
  * 2016-02-01.
  */
-public abstract class SingleIndicator<T> extends WindowIndicator<T> {
+public abstract class SingleIndicator<T> extends WIN<T> {
 
-    public final LinkedList<Double> data = new LinkedList<>();
+    public final SlidingWindow<Double> data;
 
     public final int cacheSize;
 
     public SingleIndicator(int cacheSize, int windowCapacity) {
         super(windowCapacity);
         this.cacheSize = cacheSize;
+        this.data = new SlidingWindow<>(cacheSize);
     }
 
-    protected double push(double value) {
-        data.addLast(value);
-        if (data.size() > cacheSize)
-            data.removeFirst();
-        return data.getLast();
+    protected void push(Double v){
+        data.add(v);
     }
 
     @Override
@@ -44,6 +43,6 @@ public abstract class SingleIndicator<T> extends WindowIndicator<T> {
     public List<Double> sub(int from, int to) {
         if (from < 0 || to < 0 || from > data.size() || to > data.size() || from >= to)
             throw new RuntimeException("index is illegal");
-        return data.subList(from, to);
+        return data.sub(from, to);
     }
 }

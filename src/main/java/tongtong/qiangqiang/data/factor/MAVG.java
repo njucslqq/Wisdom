@@ -7,7 +7,7 @@ package tongtong.qiangqiang.data.factor;
  * <p>
  * Created on 2016-02-25.
  */
-public interface MovingAverage extends Indicator<Double> {
+public interface MAVG extends Indicator<Double> {
 
-    abstract int getPeriod();
+    int getPeriod();
 }

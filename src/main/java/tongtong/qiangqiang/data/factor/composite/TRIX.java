@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
@@ -14,7 +14,7 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * 2016/1/30.
  */
-public class TRIX extends WindowIndicator<Double> {
+public class TRIX extends WIN<Double> {
 
     public final EMA ema1;
 

@@ -24,7 +24,7 @@ public class Intermediate extends SingleIndicator<Double> {
     @Override
     public double update(Double input) {
         data.add(input);
-        return data.getLast();
+        return data.last(0);
     }
 
     @Override

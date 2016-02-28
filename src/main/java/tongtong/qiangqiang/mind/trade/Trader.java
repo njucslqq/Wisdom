@@ -4,7 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import tongtong.qiangqiang.mind.MockBase;
+import tongtong.qiangqiang.mind.Algorithm;
 
 import static io.netty.buffer.PooledByteBufAllocator.DEFAULT;
 import static io.netty.channel.ChannelOption.*;
@@ -18,13 +18,16 @@ import static io.netty.channel.ChannelOption.*;
  */
 public class Trader {
 
-    public final MockBase algorithm;
+    public final Algorithm algorithm;
 
-    public Trader(MockBase algorithm) {
+    public final int port;
+
+    public Trader(Algorithm algorithm, int port) {
         this.algorithm = algorithm;
+        this.port = port;
     }
 
-    public void run() throws InterruptedException {
+    public void run() {
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
         NioEventLoopGroup worker = new NioEventLoopGroup(Runtime.getRuntime().availableProcessors() * 2);
         try {
@@ -42,6 +45,8 @@ public class Trader {
             System.out.println("\ntrader is now ready to accept connections on port 8080 \n");
 
             ch.closeFuture().sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             boss.shutdownGracefully();
             worker.shutdownGracefully();

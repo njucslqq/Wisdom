@@ -1,6 +1,7 @@
 package tongtong.qiangqiang.data.factor.tool;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Author: Qiangqiang Li
@@ -11,7 +12,7 @@ import java.util.LinkedList;
  */
 public class SlidingWindow<T> {
 
-    public final LinkedList<T> window = new LinkedList<>();
+    private final LinkedList<T> window = new LinkedList<>();
 
     public final int capacity;
 
@@ -41,6 +42,16 @@ public class SlidingWindow<T> {
         if (window.isEmpty())
             throw new RuntimeException("SlidingWindow is empty");
         return window.getLast();
+    }
+
+    public List<T> sub(int from, int to) {
+        if (from < 0 || to < 0 || from > window.size() || to > window.size() || from >= to)
+            throw new RuntimeException("index is illegal");
+        return window.subList(from, to);
+    }
+
+    public List<T> all() {
+        return sub(0, size());
     }
 
     public boolean isEmpty() {

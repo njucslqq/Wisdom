@@ -195,16 +195,16 @@ public class LearningCorner {
             for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, SingleIndicator> p : attributes)
-                    line.add(p.getRight().data.get(priori + i + gap + j));
+                    line.add(p.getRight().data.first(priori + i + gap + j));
                 line.add(stage.get(j + gap));
                 echo.writeln(line);
             }
 
             if (visualize) {
                 try {
-                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.subList(i + priori, i + priori + size);
-                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.subList(i + priori, i + priori + size);
-                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.subList(i + priori, i + priori + size);
+                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.sub(i + priori, i + priori + size);
+                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.sub(i + priori, i + priori + size);
+                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.sub(i + priori, i + priori + size);
                     original.vis("HH-mm",
                             fast.subList(gap, gap + len),
                             middle.subList(gap, gap + len),

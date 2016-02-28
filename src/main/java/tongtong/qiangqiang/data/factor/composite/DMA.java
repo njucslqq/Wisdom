@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
@@ -15,15 +15,15 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * 2016/1/30.
  */
-public class DMA extends WindowIndicator<Double> {
+public class DMA extends WIN<Double> {
 
-    public final MovingAverage fast;
+    public final MAVG fast;
 
-    public final MovingAverage slow;
+    public final MAVG slow;
 
     public final Intermediate dma;
 
-    public final MovingAverage ama;
+    public final MAVG ama;
 
     public final int m;
 
@@ -31,7 +31,7 @@ public class DMA extends WindowIndicator<Double> {
 
     public final int k;
 
-    public DMA(MovingAverage fast, MovingAverage slow, MovingAverage ama) {
+    public DMA(MAVG fast, MAVG slow, MAVG ama) {
         super(0);
         m = fast.getPeriod();
         n = slow.getPeriod();

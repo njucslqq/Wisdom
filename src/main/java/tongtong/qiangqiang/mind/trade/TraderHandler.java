@@ -8,7 +8,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
-import tongtong.qiangqiang.mind.MockBase;
+import tongtong.qiangqiang.mind.Algorithm;
 
 import java.util.List;
 import java.util.Map;
@@ -22,13 +22,13 @@ import java.util.Map;
  */
 public class TraderHandler extends SimpleChannelInboundHandler<HttpObject>{
 
-    public final MockBase algorithm;
+    public final Algorithm algorithm;
 
     public BarInfo bar = null;
 
     public int index = 0;
 
-    public TraderHandler(MockBase algorithm) {
+    public TraderHandler(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
 

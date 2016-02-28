@@ -2,7 +2,7 @@ package tongtong.qiangqiang.data.factor.composite;
 
 
 import cn.quanttech.quantera.common.data.BarInfo;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 
@@ -15,7 +15,7 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Created on 2016-02-25.
  */
-public class MFI extends WindowIndicator<BarInfo> {
+public class MFI extends WIN<BarInfo> {
 
     public final Intermediate mf, pmf, nmf, mfi;
 

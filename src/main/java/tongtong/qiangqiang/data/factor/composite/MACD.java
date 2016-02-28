@@ -1,8 +1,8 @@
 package tongtong.qiangqiang.data.factor.composite;
 
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
@@ -16,13 +16,13 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * 2016/1/30.
  */
-public class MACD extends WindowIndicator<Double> {
+public class MACD extends WIN<Double> {
 
-    public final MovingAverage fast;
+    public final MAVG fast;
 
-    public final MovingAverage slow;
+    public final MAVG slow;
 
-    public final MovingAverage dea;
+    public final MAVG dea;
 
     public final Intermediate dif;
 
@@ -34,7 +34,7 @@ public class MACD extends WindowIndicator<Double> {
 
     public final int k;
 
-    public MACD(MovingAverage fast, MovingAverage slow, MovingAverage dea) {
+    public MACD(MAVG fast, MAVG slow, MAVG dea) {
         super(0);
         m = fast.getPeriod();
         n = slow.getPeriod();

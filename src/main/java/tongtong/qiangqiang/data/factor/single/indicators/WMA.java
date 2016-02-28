@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.data.factor.single.indicators;
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
+import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * 2016/1/30.
  */
-public class WMA extends SingleIndicator<Double> implements MovingAverage {
+public class WMA extends SingleIndicator<Double> implements MAVG {
 
     public final List<Double> weights;
 
@@ -40,10 +40,10 @@ public class WMA extends SingleIndicator<Double> implements MovingAverage {
     public double update(Double input) {
         previous.add(input);
         if (previous.size() < period)
-            data.add(wma(previous.window, weights(previous.size())));
+            data.add(wma(previous.all(), weights(previous.size())));
         else
-            data.add(wma(previous.window, weights));
-        return data.getLast();
+            data.add(wma(previous.all(), weights));
+        return data.last(0);
     }
 
     @Override

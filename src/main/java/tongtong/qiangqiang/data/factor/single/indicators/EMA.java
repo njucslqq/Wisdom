@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.data.factor.single.indicators;
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
+import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -13,7 +13,7 @@ import static java.lang.Math.min;
  * <p>
  * 2016/1/30.
  */
-public class EMA extends SingleIndicator<Double> implements MovingAverage {
+public class EMA extends SingleIndicator<Double> implements MAVG {
 
     public final int period;
 
@@ -33,9 +33,9 @@ public class EMA extends SingleIndicator<Double> implements MovingAverage {
         else {
             int n = min(data.size(), period);
             double k = 2. / (n + 1.);
-            data.add(data.getLast() * (1 - k) + input * k);
+            data.add(data.last(0) * (1 - k) + input * k);
         }
-        return data.getLast();
+        return data.last(0);
     }
 
     @Override

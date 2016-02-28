@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
 import cn.quanttech.quantera.common.data.BarInfo;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
@@ -15,7 +15,7 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Created on 2016-02-25.
  */
-public class KDJ extends WindowIndicator<BarInfo> {
+public class KDJ extends WIN<BarInfo> {
 
     public final Intermediate rsv;
 
@@ -46,8 +46,8 @@ public class KDJ extends WindowIndicator<BarInfo> {
     @Override
     public double update(BarInfo input) {
         previous.add(input);
-        double high = previous.window.stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
-        double low = previous.window.stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
+        double high = previous.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
+        double low = previous.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
         double _rsv = rsv.update(100 * (input.closePrice - low) / (high - low));
         double _k = k.update(_rsv);
         double _d = d.update(_k);

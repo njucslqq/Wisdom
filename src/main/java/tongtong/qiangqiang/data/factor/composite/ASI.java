@@ -2,7 +2,7 @@ package tongtong.qiangqiang.data.factor.composite;
 
 
 import cn.quanttech.quantera.common.data.BarInfo;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 
@@ -18,7 +18,7 @@ import static tongtong.qiangqiang.data.factor.tool.Constant.EPSILON;
  * <p>
  * Created on 2016-02-23.
  */
-public class ASI extends WindowIndicator<BarInfo> {
+public class ASI extends WIN<BarInfo> {
 
     public final Intermediate A, B, C, D, E, F, G, R, X, SI, ASI;
 

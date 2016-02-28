@@ -191,15 +191,15 @@ public class LearningDirection {
             for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, SingleIndicator> p : attributes)
-                    line.add(p.getRight().data.get(j + i + priori));
+                    line.add(p.getRight().data.first(j + i + priori));
                 line.add(direction.get(j + gap));
                 echo.writeln(line);
             }
             if (visualize) {
                 try {
-                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.subList(from + priori, from + priori + size);
-                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.subList(from + priori, from + priori + size);
-                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.subList(from + priori, from + priori + size);
+                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.sub(from + priori, from + priori + size);
+                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.sub(from + priori, from + priori + size);
+                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.sub(from + priori, from + priori + size);
                     original.vis("HH-mm",
                             fast.subList(gap, gap + len),
                             middle.subList(gap, gap + len),

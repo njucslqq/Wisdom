@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
@@ -14,7 +14,7 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Created on 2016-02-25.
  */
-public class BBI extends WindowIndicator<Double> {
+public class BBI extends WIN<Double> {
 
     public final SMA a, b, c, d;
 

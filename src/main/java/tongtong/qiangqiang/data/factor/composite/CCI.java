@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
 import cn.quanttech.quantera.common.data.BarInfo;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
@@ -16,7 +16,7 @@ import static java.lang.Math.abs;
  * <p>
  * Created on 2016-02-25.
  */
-public class CCI extends WindowIndicator<BarInfo> {
+public class CCI extends WIN<BarInfo> {
 
     public final Intermediate tp;
 

@@ -37,6 +37,6 @@ public class ROC extends SingleIndicator<Double> {
         else
             data.add(100 * (input - previous.first(0)) / previous.first(0));
         previous.add(input);
-        return data.getLast();
+        return data.last(0);
     }
 }

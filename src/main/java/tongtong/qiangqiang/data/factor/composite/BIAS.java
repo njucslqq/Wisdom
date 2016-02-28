@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
@@ -15,9 +15,9 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Created on 2016-02-25.
  */
-public class BIAS extends WindowIndicator<Double> {
+public class BIAS extends WIN<Double> {
 
-    public final MovingAverage mavg;
+    public final MAVG mavg;
 
     public final Intermediate bias;
 
@@ -34,7 +34,7 @@ public class BIAS extends WindowIndicator<Double> {
         bias = new Intermediate(cacheSize);
     }
 
-    public BIAS(MovingAverage mavg) {
+    public BIAS(MAVG mavg) {
         super(0);
         this.period = mavg.getPeriod();
         this.mavg = mavg;

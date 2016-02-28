@@ -5,7 +5,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
-import tongtong.qiangqiang.mind.MockBase;
+import tongtong.qiangqiang.mind.Algorithm;
 
 /**
  * Author: Qiangqiang Li
@@ -16,9 +16,9 @@ import tongtong.qiangqiang.mind.MockBase;
  */
 public class TraderInitializer extends ChannelInitializer<SocketChannel>{
 
-    public final MockBase algorithm;
+    public final Algorithm algorithm;
 
-    public TraderInitializer(MockBase algorithm) {
+    public TraderInitializer(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
 

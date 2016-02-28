@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.MovingAverage;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
@@ -15,9 +15,9 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Created on 2016-02-26.
  */
-public class DEMA extends WindowIndicator<Double> implements MovingAverage {
+public class DEMA extends WIN<Double> implements MAVG {
 
-    public final MovingAverage mavg1, mavg2;
+    public final MAVG mavg1, mavg2;
 
     public final Intermediate dema;
 
@@ -35,7 +35,7 @@ public class DEMA extends WindowIndicator<Double> implements MovingAverage {
         this(period, MAX_VALUE);
     }
 
-    public DEMA(MovingAverage mavg1, MovingAverage mavg2) {
+    public DEMA(MAVG mavg1, MAVG mavg2) {
         super(0);
         this.period = mavg1.getPeriod();
         this.mavg1 = mavg1;

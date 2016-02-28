@@ -33,9 +33,9 @@ public class WilliamsR extends SingleIndicator<BarInfo> {
     @Override
     public double update(BarInfo input) {
         previous.add(input);
-        double high = previous.window.stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
-        double low = previous.window.stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
+        double high = previous.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
+        double low = previous.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
         data.add(100. * (high - input.closePrice) / (high - low));
-        return data.getLast();
+        return data.last(0);
     }
 }

@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.data.factor.composite;
 
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
@@ -15,7 +15,7 @@ import static java.lang.Math.max;
  * <p>
  * 2016/1/30.
  */
-public class RSI extends WindowIndicator<Double> {
+public class RSI extends WIN<Double> {
 
     public final EMA upper;
 

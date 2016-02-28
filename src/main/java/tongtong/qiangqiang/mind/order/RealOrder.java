@@ -7,26 +7,36 @@ package tongtong.qiangqiang.mind.order;
  * <p>
  * Created on 2016-02-26.
  */
-public class RealOrder implements Order {
+public class RealOrder extends BaseOrder {
 
-    @Override
-    public boolean buy(String id, int share, double price) {
-        return false;
+    public final String tradingServerAddress;
+
+    public final int tradingServerPort;
+
+    public RealOrder(String name, String tradingServerAddress, int tradingServerPort) {
+        super(name);
+        this.tradingServerAddress = tradingServerAddress;
+        this.tradingServerPort = tradingServerPort;
     }
 
     @Override
-    public boolean sell(String id, int share, double price) {
-        return false;
+    public String buy(String id, int share, double price) {
+        return null;
     }
 
     @Override
-    public boolean buyClose(String id, int share, double price) {
-        return false;
+    public String sell(String id, int share, double price) {
+        return null;
     }
 
     @Override
-    public boolean sellOpen(String id, int share, double price) {
-        return false;
+    public String buyClose(String id, int share, double price) {
+        return null;
+    }
+
+    @Override
+    public String sellOpen(String id, int share, double price) {
+        return null;
     }
 
     @Override

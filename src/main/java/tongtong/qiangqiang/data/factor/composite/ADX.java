@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.data.factor.composite;
 
 import cn.quanttech.quantera.common.data.BarInfo;
-import tongtong.qiangqiang.data.factor.WindowIndicator;
+import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
@@ -17,7 +17,7 @@ import static java.lang.Math.max;
  * <p>
  * Created on 2016-02-25.
  */
-public class ADX extends WindowIndicator<BarInfo> {
+public class ADX extends WIN<BarInfo> {
 
     public final ATR atr;
 
@@ -82,7 +82,7 @@ public class ADX extends WindowIndicator<BarInfo> {
             adx100.update(100 * adx.update(_dx));
         }
         previous.add(input);
-        return adx.data.getLast();
+        return adx.data.last(0);
     }
 
     @Override

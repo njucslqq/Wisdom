@@ -32,7 +32,7 @@ public class MTM extends SingleIndicator<Double> {
         else
             data.add(input - previous.first(0));
         previous.add(input);
-        return data.getLast();
+        return data.last(0);
     }
 
     @Override
