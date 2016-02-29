@@ -43,6 +43,8 @@ public abstract class Algorithm {
 
     private Order type = MARKET;
 
+    private boolean print = false;
+
     private final String name;
 
     private final int port;
@@ -96,10 +98,14 @@ public abstract class Algorithm {
         this.type = type;
     }
 
+    protected void setVerbose(boolean print){
+        this.print = print;
+    }
     protected boolean buy(String id, int share, double price) {
         String rtn = order.buy(id, share, price);
         if (!rtn.isEmpty()) {
-            System.out.println(rtn + " on the " + index + "th bar");
+            if (print)
+                System.out.println(rtn + " on the " + index + "th bar");
             return true;
         }
         return false;
@@ -108,7 +114,8 @@ public abstract class Algorithm {
     protected boolean sell(String id, int share, double price) {
         String rtn = order.sell(id, share, price);
         if (!rtn.isEmpty()) {
-            System.out.println(rtn + " on the " + index + "th bar");
+            if (print)
+                System.out.println(rtn + " on the " + index + "th bar");
             return true;
         }
         return false;
@@ -117,7 +124,8 @@ public abstract class Algorithm {
     protected boolean buyClose(String id, int share, double price) {
         String rtn = order.buyClose(id, share, price);
         if (!rtn.isEmpty()) {
-            System.out.println(rtn + " on the " + index + "th bar");
+            if (print)
+                System.out.println(rtn + " on the " + index + "th bar");
             return true;
         }
         return false;
@@ -126,10 +134,15 @@ public abstract class Algorithm {
     protected boolean sellOpen(String id, int share, double price) {
         String rtn = order.sellOpen(id, share, price);
         if (!rtn.isEmpty()) {
-            System.out.println(rtn + " on the " + index + "th bar");
+            if (print)
+                System.out.println(rtn + " on the " + index + "th bar");
             return true;
         }
         return false;
+    }
+
+    protected void conclude(){
+        order.conclude();
     }
 
     private void configure() {
@@ -175,6 +188,22 @@ public abstract class Algorithm {
         configure();
         simulate();
         onComplete();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double total(){
+        return order.total();
+    }
+
+    public String getSecurity() {
+        return security;
+    }
+
+    public TimeFrame getResolution() {
+        return resolution;
     }
 
     public void onComplete() {

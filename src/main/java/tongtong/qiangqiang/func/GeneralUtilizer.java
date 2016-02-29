@@ -3,12 +3,29 @@ package tongtong.qiangqiang.func;
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TickInfo;
+import cn.quanttech.quantera.common.data.TimeFrame;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.HttpVersion;
 import jwave.datatypes.natives.Complex;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static io.netty.buffer.Unpooled.copiedBuffer;
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
+import static io.netty.util.CharsetUtil.UTF_8;
 
 /**
  * Author: Qiangqiang Li
@@ -34,7 +51,7 @@ public class GeneralUtilizer {
         return 0.;
     }
 
-    public static List<Double> smooth(List<Double> input, int len1){
+    public static List<Double> smooth(List<Double> input, int len1) {
         List<Double> smooth = new ArrayList<>();
         for (int i = 0; i < input.size(); i++) {
             if (i < len1)
@@ -45,8 +62,8 @@ public class GeneralUtilizer {
         return smooth;
     }
 
-    public static double log2(double a){
-        return Math.log10(a)/Math.log10(2);
+    public static double log2(double a) {
+        return Math.log10(a) / Math.log10(2);
     }
 
     public static double sma(List<Double> price) {
@@ -133,5 +150,39 @@ public class GeneralUtilizer {
                     }
         });
         return res;
+    }
+
+    public static BarInfo combine(BarInfo bar, TickInfo tick, TimeFrame resolution) {
+        if (bar == null) {
+            LocalDate date = tick.tradingTime.toLocalDate();
+            LocalTime time = tick.tradingTime.toLocalTime();
+            LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(time.getHour(), time.getMinute()));
+            BarInfo newBar = new BarInfo(tick.secuCode, tick.exchangeID, dateTime, tick.tradingDay, resolution);
+            newBar.openPrice = newBar.highPrice = newBar.lowPrice = newBar.closePrice = tick.lastPrice;
+            newBar.volume += tick.volume;
+            return newBar;
+        } else {
+            LocalDateTime endTime = bar.tradingTime.plusMinutes(bar.barTimeFrame.value());
+            if (tick.tradingTime.isBefore(endTime)) {
+                bar.volume += tick.volume;
+                bar.highPrice = Math.max(bar.highPrice, tick.lastPrice);
+                bar.lowPrice = Math.min(bar.lowPrice, tick.lastPrice);
+                bar.closePrice = tick.lastPrice;
+                return null;
+            } else
+                return combine(null, tick, resolution);
+        }
+    }
+
+    public static FullHttpResponse buildRsp(HttpVersion version, HttpResponseStatus status, ByteBuf buf) {
+        FullHttpResponse response = new DefaultFullHttpResponse(version, status, buf);
+        response.headers().set(CONTENT_TYPE, "text/plain; charset=UTF-8");
+        response.headers().set("Access-Control-Allow-Origin", "http://192.168.10.11:8090");
+        return response;
+    }
+
+    public static void sendString(ChannelHandlerContext ctx, String msg, HttpResponseStatus status){
+        ChannelFuture f = ctx.writeAndFlush(buildRsp(HTTP_1_1, status, copiedBuffer(msg.getBytes(UTF_8))));
+        f.addListener(ChannelFutureListener.CLOSE);
     }
 }

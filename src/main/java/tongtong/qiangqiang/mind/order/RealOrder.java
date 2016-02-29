@@ -13,10 +13,13 @@ public class RealOrder extends BaseOrder {
 
     public final int tradingServerPort;
 
+    public final String baseUrl;
+
     public RealOrder(String name, String tradingServerAddress, int tradingServerPort) {
         super(name);
         this.tradingServerAddress = tradingServerAddress;
         this.tradingServerPort = tradingServerPort;
+        this.baseUrl = "http://"+tradingServerAddress+":"+tradingServerPort+"/";
     }
 
     @Override
@@ -37,6 +40,11 @@ public class RealOrder extends BaseOrder {
     @Override
     public String sellOpen(String id, int share, double price) {
         return null;
+    }
+
+    @Override
+    public double total() {
+        return 0;
     }
 
     @Override

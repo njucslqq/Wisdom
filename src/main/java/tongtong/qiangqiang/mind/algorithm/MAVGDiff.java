@@ -6,9 +6,13 @@ import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.mind.Algorithm;
+import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 
 import java.time.LocalDate;
+
+import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
+import static tongtong.qiangqiang.mind.MindType.State.MOCK;
 
 /**
  * Author: Qiangqiang Li
@@ -33,17 +37,18 @@ public class MAVGDiff extends Algorithm {
 
     public final double slipage = 0.0;
 
-    TimeSeriesChart tsc = new TimeSeriesChart("difference");
-
     public final Intermediate close = new Intermediate();
 
-    public MAVGDiff(String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
-        super(fast.name() + "-" + slow.name());
+    private final TimeSeriesChart tsc;
+
+    public MAVGDiff(String prefix, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
+        super(prefix + " - " + fast.name() + " - " + slow.name());
         this.security = security;
         this.begin = begin;
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
+        tsc = new TimeSeriesChart(fast.name() + " - " + slow.name());
     }
 
     @Override
@@ -52,9 +57,9 @@ public class MAVGDiff extends Algorithm {
         setResolution(resolution);
         setStart(begin);
         setEnd(LocalDate.now());
-        //setModel(Model.TRADE);
+        //setModel(TRADE);
         //setType(OrderType.MARKET);
-        //setState(State.MOCK);
+        //setState(MOCK);
     }
 
     @Override
@@ -65,14 +70,12 @@ public class MAVGDiff extends Algorithm {
         double f = fast.update(price);
         double s = slow.update(price);
 
-        /*int size = 256;
-        if (fast.dataSize()>size){
+        /*int size = 128;
+        if (close.dataSize() < size){
+            tsc.vis("HH:mm:ss", fast.primary().data.all(), slow.primary().data.all(), close.primary().data.all());
+        }
+        else {
             tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }*/
 
         if (f < s) {
@@ -82,5 +85,12 @@ public class MAVGDiff extends Algorithm {
             sell(security, share, price - slipage);
             sellOpen(security, share, price - slipage);
         }
+    }
+
+    @Override
+    public void onComplete(){
+        conclude();
+        int size = 128;
+        //tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
     }
 }

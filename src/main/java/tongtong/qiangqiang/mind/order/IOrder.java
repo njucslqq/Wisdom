@@ -17,5 +17,7 @@ public interface IOrder {
 
     String sellOpen(String id, int share, double price);
 
+    double total();
+
     void conclude();
 }

@@ -64,6 +64,11 @@ public class MockOrder extends BaseOrder {
     }
 
     @Override
+    public double total() {
+        return lDif + sDif;
+    }
+
+    @Override
     public void conclude() {
         System.out.println("\nLong  Profit: " + lDif);
         System.out.println("Short Profit: " + sDif);
