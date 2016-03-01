@@ -15,63 +15,35 @@ public class MockOrder extends BaseOrder {
 
     @Override
     public String buy(String id, int share, double price) {
-        if (!lPos) {
-            lPos = true;
-            lPrice = price;
-            lTime++;
-            profit.add(lDif + sDif);
+        if (buyAction(price))
             return "\n[long  open]: " + price;
-        }
-        return "";
+        else
+            return "";
     }
 
     @Override
     public String sell(String id, int share, double price) {
-        if (lPos) {
-            lPos = false;
-            double delta = (price - lPrice) - 0.2;
-            lDif += delta;
-            profit.add(lDif + sDif);
+        if (sellAction(price)) {
             profitChart.vis("HH:mm:ss", profit);
-            return "[long close]: " + price + ", delta: " + delta + ", profit: " + lDif;
-        }
-        return "";
+            return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
+        } else
+            return "";
     }
 
     @Override
     public String buyClose(String id, int share, double price) {
-        if (sPos) {
-            sPos = false;
-            double delta = (sPrice - price) - 0.2;
-            sDif += delta;
-            profit.add(lDif + sDif);
+        if (buyCloseAction(price)) {
             profitChart.vis("HH:mm:ss", profit);
-            return "[short close]: " + price + ", delta: " + delta + ", profit: " + sDif;
-        }
-        return "";
+            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", profit: " + sDif;
+        } else
+            return "";
     }
 
     @Override
     public String sellOpen(String id, int share, double price) {
-        if (!sPos) {
-            sPos = true;
-            sPrice = price;
-            sTime++;
-            profit.add(lDif + sDif);
+        if (sellOpenAction(price))
             return "\n[short open]: " + price;
-        }
-        return "";
-    }
-
-    @Override
-    public double total() {
-        return lDif + sDif;
-    }
-
-    @Override
-    public void conclude() {
-        System.out.println("\nLong  Profit: " + lDif);
-        System.out.println("Short Profit: " + sDif);
-        profitChart.vis("HH:mm:ss", profit);
+        else
+            return "";
     }
 }

@@ -1,5 +1,7 @@
 package tongtong.qiangqiang.mind.order;
 
+import java.util.List;
+
 /**
  * Author: Qiangqiang Li
  * <p>
@@ -17,7 +19,13 @@ public interface IOrder {
 
     String sellOpen(String id, int share, double price);
 
-    double total();
+    double longReturn();
+
+    double shortReturn();
+
+    double totalReturn();
+
+    List<Double> profit();
 
     void conclude();
 }

@@ -39,6 +39,8 @@ public class TraderHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     public static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("HH:mm:ss.S");
 
+    public static final DateTimeFormatter FMT_PRINT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     public TraderHandler(Algorithm algorithm) {
         this.algorithm = algorithm;
     }
@@ -82,13 +84,11 @@ public class TraderHandler extends SimpleChannelInboundHandler<HttpObject> {
                     Double.parseDouble(get(u, "down"))
             );
             if (algorithm.getSecurity().equals(tick.secuCode)) {
-                //System.out.println(tick.secuCode + " : last = " + tick.lastPrice + ", volume = " + tick.volume);
+                System.out.print(".");
                 BarInfo newBar = GeneralUtilizer.combine(bar, tick, algorithm.getResolution());
                 if (newBar != null) {
                     if (bar != null) {
-                        System.out.println("======> Generate a New Bar <======");
-                        System.out.println("   Time = " + bar.tradingTime);
-                        System.out.println("================><================");
+                        System.out.println("\nBar Time = " + bar.tradingTime.format(FMT_PRINT));
                         algorithm.onData(bar, index++);
                     }
                     bar = newBar;

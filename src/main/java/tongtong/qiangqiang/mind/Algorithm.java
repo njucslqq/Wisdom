@@ -98,9 +98,10 @@ public abstract class Algorithm {
         this.type = type;
     }
 
-    protected void setVerbose(boolean print){
+    protected void setVerbose(boolean print) {
         this.print = print;
     }
+
     protected boolean buy(String id, int share, double price) {
         String rtn = order.buy(id, share, price);
         if (!rtn.isEmpty()) {
@@ -141,7 +142,7 @@ public abstract class Algorithm {
         return false;
     }
 
-    protected void conclude(){
+    protected void conclude() {
         order.conclude();
     }
 
@@ -190,12 +191,12 @@ public abstract class Algorithm {
         onComplete();
     }
 
+    public double total() {
+        return order.totalReturn();
+    }
+    
     public String getName() {
         return name;
-    }
-
-    public double total(){
-        return order.total();
     }
 
     public String getSecurity() {

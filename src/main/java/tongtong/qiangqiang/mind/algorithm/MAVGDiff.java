@@ -13,6 +13,7 @@ import java.time.LocalDate;
 
 import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
 import static tongtong.qiangqiang.mind.MindType.State.MOCK;
+import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
 /**
  * Author: Qiangqiang Li
@@ -57,9 +58,9 @@ public class MAVGDiff extends Algorithm {
         setResolution(resolution);
         setStart(begin);
         setEnd(LocalDate.now());
-        //setModel(TRADE);
-        //setType(OrderType.MARKET);
-        //setState(MOCK);
+        setVerbose(true);
+        setModel(TRADE);
+        setState(REAL);
     }
 
     @Override
@@ -70,13 +71,12 @@ public class MAVGDiff extends Algorithm {
         double f = fast.update(price);
         double s = slow.update(price);
 
-        /*int size = 128;
-        if (close.dataSize() < size){
+        int size = 128;
+        if (close.dataSize() < size) {
             tsc.vis("HH:mm:ss", fast.primary().data.all(), slow.primary().data.all(), close.primary().data.all());
-        }
-        else {
+        } else {
             tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
-        }*/
+        }
 
         if (f < s) {
             buyClose(security, share, price + slipage);
@@ -88,7 +88,7 @@ public class MAVGDiff extends Algorithm {
     }
 
     @Override
-    public void onComplete(){
+    public void onComplete() {
         conclude();
         int size = 128;
         //tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
