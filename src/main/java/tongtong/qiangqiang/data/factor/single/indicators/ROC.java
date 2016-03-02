@@ -26,17 +26,17 @@ public class ROC extends SingleIndicator<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ROC[" + period + "]";
     }
 
     @Override
     public double update(Double input) {
-        if (previous.size() < period)
-            data.add(0.);
+        if (cache.size() < period)
+            value.push(0.);
         else
-            data.add(100 * (input - previous.first(0)) / previous.first(0));
-        previous.add(input);
-        return data.last(0);
+            value.push(100 * (input - cache.first(0)) / cache.first(0));
+        cache.push(input);
+        return value.last(0);
     }
 }

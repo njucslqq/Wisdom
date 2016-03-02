@@ -47,14 +47,14 @@ public class ASI extends WIN<BarInfo> {
     }
 
     @Override
-    public SingleIndicator<Double> primary() {
+    public SingleIndicator<Double> getPrimary() {
         return ASI;
     }
 
     @Override
     public double update(BarInfo input) {
-        BarInfo pre = previous.prev();
-        previous.add(input);
+        BarInfo pre = cache.tail();
+        cache.push(input);
 
         double a, b, c, d, e, f, g;
         a = abs(input.highPrice - pre.closePrice);
@@ -92,12 +92,12 @@ public class ASI extends WIN<BarInfo> {
             si = 50 * x * max(a, b) / (r * l);
         SI.update(si);
 
-        double asi = SI.last(SI.dataSize() < period ? SI.dataSize() : period).stream().mapToDouble(v -> v).sum();
+        double asi = SI.lastn(SI.size() < period ? SI.size() : period).stream().mapToDouble(v -> v).sum();
         return ASI.update(asi);
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ASI[" + period + "]";
     }
 }

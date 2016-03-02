@@ -26,16 +26,16 @@ public class WilliamsR extends SingleIndicator<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "WilliamR[" + period + "]";
     }
 
     @Override
     public double update(BarInfo input) {
-        previous.add(input);
-        double high = previous.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
-        double low = previous.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
-        data.add(100. * (high - input.closePrice) / (high - low));
-        return data.last(0);
+        cache.push(input);
+        double high = cache.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
+        double low = cache.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
+        value.push(100. * (high - input.closePrice) / (high - low));
+        return value.last(0);
     }
 }

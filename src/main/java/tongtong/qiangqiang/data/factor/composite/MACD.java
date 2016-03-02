@@ -73,12 +73,12 @@ public class MACD extends WIN<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "MACD[" + m + "][" + n + "][" + k + "]";
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return macd;
     }
 }

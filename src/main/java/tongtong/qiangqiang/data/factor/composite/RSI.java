@@ -38,18 +38,18 @@ public class RSI extends WIN<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "RSI[" + period + "]";
     }
 
     @Override
     public double update(Double input) {
         double u, d;
-        if (previous.isEmpty())
+        if (cache.isEmpty())
             u = d = 0.;
         else {
-            u = max(input - previous.prev(), 0);
-            d = max(previous.prev() - input, 0);
+            u = max(input - cache.tail(), 0);
+            d = max(cache.tail() - input, 0);
         }
         double eu = upper.update(u);
         double ed = down.update(d);
@@ -57,7 +57,7 @@ public class RSI extends WIN<Double> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return rsi;
     }
 }

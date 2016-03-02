@@ -1,6 +1,5 @@
 package tongtong.qiangqiang.data.factor.single.indicators;
 
-import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -10,40 +9,35 @@ import static java.lang.Integer.MAX_VALUE;
  * <p>
  * Coding is another way to meet the curiousness of a curious mind
  * <p>
- * 2016/1/30.
+ * Created on 2016-03-02.
  */
-public class SMA extends SingleIndicator<Double> implements MAVG {
+public class SUM extends SingleIndicator<Double> {
 
     public final int period;
 
-    public SMA(int period) {
+    public SUM(int period) {
         this(MAX_VALUE, period);
     }
 
-    public SMA(int valueCapacity, int period) {
+    public SUM(int valueCapacity, int period) {
         super(valueCapacity, period);
         this.period = period;
+    }
+
+    @Override
+    public String getName() {
+        return "SUM[" + period + "]";
     }
 
     @Override
     public double update(Double input) {
         if (cache.size() < period) {
             cache.push(input);
-            value.push(cache.all().stream().mapToDouble(d -> d).average().getAsDouble());
+            value.push(cache.all().stream().mapToDouble(d -> d).sum());
         } else {
-            value.push(value.tail() + (input - cache.head()) / period);
+            value.push(value.tail() - cache.head() + input);
             cache.push(input);
         }
         return value.tail();
-    }
-
-    @Override
-    public String getName() {
-        return "SMA[" + period + "]";
-    }
-
-    @Override
-    public int getPeriod() {
-        return period;
     }
 }

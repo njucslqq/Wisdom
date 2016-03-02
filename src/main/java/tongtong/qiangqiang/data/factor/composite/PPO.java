@@ -35,7 +35,7 @@ public class PPO extends WIN<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "PPO[" + period + "]";
     }
 
@@ -46,7 +46,7 @@ public class PPO extends WIN<Double> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return ppo;
     }
 }

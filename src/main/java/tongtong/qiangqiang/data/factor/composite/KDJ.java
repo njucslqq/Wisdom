@@ -39,15 +39,15 @@ public class KDJ extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "KDJ[" + period + "]";
     }
 
     @Override
     public double update(BarInfo input) {
-        previous.add(input);
-        double high = previous.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
-        double low = previous.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
+        cache.push(input);
+        double high = cache.all().stream().mapToDouble(d -> d.highPrice).max().getAsDouble();
+        double low = cache.all().stream().mapToDouble(d -> d.lowPrice).min().getAsDouble();
         double _rsv = rsv.update(100 * (input.closePrice - low) / (high - low));
         double _k = k.update(_rsv);
         double _d = d.update(_k);
@@ -55,7 +55,7 @@ public class KDJ extends WIN<BarInfo> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return j;
     }
 }

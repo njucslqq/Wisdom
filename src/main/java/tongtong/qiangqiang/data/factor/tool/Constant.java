@@ -10,4 +10,6 @@ package tongtong.qiangqiang.data.factor.tool;
 public class Constant {
 
     public final static double EPSILON = 1e-7;
+
+    public final static int MIN_CAPACITY = 8;
 }

@@ -35,38 +35,38 @@ public class MFI extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "MFI";
     }
 
     @Override
     public double update(BarInfo input) {
         double _tp = (input.highPrice + input.lowPrice + input.closePrice) / 3.;
-        if (tp.dataSize() == 0) {
+        if (tp.size() == 0) {
             tp.update(_tp);
             pmf.update(0.0);
             nmf.update(0.0);
             mfi.update(0.0);
         } else {
             double _mf = _tp * input.volume;
-            pmf.update(_tp > tp.data.last(0) ? _mf : 0.0);
-            nmf.update(_tp < tp.data.last(0) ? _mf : 0.0);
+            pmf.update(_tp > tp.value.last(0) ? _mf : 0.0);
+            nmf.update(_tp < tp.value.last(0) ? _mf : 0.0);
             double _pmf = 0.0, _nmf = 0.0;
-            if (pmf.dataSize() < period) {
-                _pmf = pmf.data.all().stream().mapToDouble(d -> d).sum();
-                _nmf = nmf.data.all().stream().mapToDouble(d -> d).sum();
+            if (pmf.size() < period) {
+                _pmf = pmf.value.all().stream().mapToDouble(d -> d).sum();
+                _nmf = nmf.value.all().stream().mapToDouble(d -> d).sum();
             } else {
-                _pmf = pmf.last(period).stream().mapToDouble(d -> d).sum();
-                _nmf = nmf.last(period).stream().mapToDouble(d -> d).sum();
+                _pmf = pmf.lastn(period).stream().mapToDouble(d -> d).sum();
+                _nmf = nmf.lastn(period).stream().mapToDouble(d -> d).sum();
             }
             mfi.update(_pmf / (_pmf + _nmf));
             tp.update(_tp);
         }
-        return mfi.data.last(0);
+        return mfi.value.last(0);
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return mfi;
     }
 }

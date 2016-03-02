@@ -38,28 +38,28 @@ public class ATR extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ATR[" + period + "]";
     }
 
     @Override
     public double update(BarInfo input) {
         double tr = input.highPrice - input.lowPrice;
-        if (previous.isEmpty()) {
+        if (cache.isEmpty()) {
             TR.update(tr);
             ATR.update(tr);
         } else {
-            BarInfo pre = previous.prev();
+            BarInfo pre = cache.tail();
             tr = max(tr, max(abs(pre.closePrice - input.highPrice), abs(pre.closePrice - input.lowPrice)));
             TR.update(tr);
             ATR.update(tr);
         }
-        previous.add(input);
-        return ATR.data.last(0);
+        cache.push(input);
+        return ATR.value.last(0);
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return ATR;
     }
 }

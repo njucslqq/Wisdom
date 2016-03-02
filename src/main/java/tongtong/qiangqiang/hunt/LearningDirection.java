@@ -123,7 +123,7 @@ public class LearningDirection {
         for (Pair<String, SingleIndicator> p : attributes)
             echo.writeln("@attribute " + p.getLeft() + " real");
         echo.writeln("@attribute direction {UP, DOWN}");
-        echo.writeln("@data");
+        echo.writeln("@value");
         return echo;
     }
 
@@ -167,7 +167,7 @@ public class LearningDirection {
     }
 
     public static void generateTrain(List<? extends BaseData> bars, List<Indicator> indicators, WaveletConfig config, String file, boolean visualize) {
-        int priori = indicators.get(0).dataSize();
+        int priori = indicators.get(0).size();
 
         List<Double> close = extract(bars, "lastPrice");
         TimeSeriesChart original = new TimeSeriesChart("Original");
@@ -191,15 +191,15 @@ public class LearningDirection {
             for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, SingleIndicator> p : attributes)
-                    line.add(p.getRight().data.first(j + i + priori));
+                    line.add(p.getRight().value.first(j + i + priori));
                 line.add(direction.get(j + gap));
                 echo.writeln(line);
             }
             if (visualize) {
                 try {
-                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.sub(from + priori, from + priori + size);
-                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.sub(from + priori, from + priori + size);
-                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.sub(from + priori, from + priori + size);
+                    List<Double> fast = ((SingleIndicator) indicators.get(0)).value.sub(from + priori, from + priori + size);
+                    List<Double> middle = ((SingleIndicator) indicators.get(2)).value.sub(from + priori, from + priori + size);
+                    List<Double> slow = ((SingleIndicator) indicators.get(5)).value.sub(from + priori, from + priori + size);
                     original.vis("HH-mm",
                             fast.subList(gap, gap + len),
                             middle.subList(gap, gap + len),

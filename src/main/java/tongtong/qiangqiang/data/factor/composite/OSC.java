@@ -42,7 +42,7 @@ public class OSC extends WIN<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "OSC[" + period + "]";
     }
 
@@ -53,7 +53,7 @@ public class OSC extends WIN<Double> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return osc;
     }
 }

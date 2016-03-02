@@ -55,14 +55,14 @@ public class ADX extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ADX[" + period + "]";
     }
 
     @Override
     public double update(BarInfo input) {
         double _atr = atr.update(input);
-        if (previous.isEmpty()) {
+        if (cache.isEmpty()) {
             posEma.update(0.);
             negEma.update(0.);
             posDI.update(0.);
@@ -71,7 +71,7 @@ public class ADX extends WIN<BarInfo> {
             adx.update(0.);
             adx100.update(0.);
         } else {
-            BarInfo prev = previous.prev();
+            BarInfo prev = cache.tail();
             double high = input.highPrice - prev.highPrice;
             double low = prev.lowPrice - input.lowPrice;
             double _pos = high > max(0., low) ? high : 0.;
@@ -81,12 +81,12 @@ public class ADX extends WIN<BarInfo> {
             double _dx = dx.update(abs(_pdi - _ndi) / (_pdi + _ndi));
             adx100.update(100 * adx.update(_dx));
         }
-        previous.add(input);
-        return adx.data.last(0);
+        cache.push(input);
+        return adx.value.last(0);
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return adx;
     }
 }

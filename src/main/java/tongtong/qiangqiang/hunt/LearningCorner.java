@@ -166,7 +166,7 @@ public class LearningCorner {
     }
 
     public static void generateTrain(List<BarInfo> bars, List<Indicator> indicators, WaveletConfig config, String file, boolean visualize) {
-        int priori = indicators.get(0).dataSize();
+        int priori = indicators.get(0).size();
 
         List<Double> close = extract(bars, "closePrice");
         TimeSeriesChart original = new TimeSeriesChart("Original");
@@ -195,16 +195,16 @@ public class LearningCorner {
             for (int j = 0; j < len; j++) {
                 List<Object> line = new ArrayList<>();
                 for (Pair<String, SingleIndicator> p : attributes)
-                    line.add(p.getRight().data.first(priori + i + gap + j));
+                    line.add(p.getRight().value.first(priori + i + gap + j));
                 line.add(stage.get(j + gap));
                 echo.writeln(line);
             }
 
             if (visualize) {
                 try {
-                    List<Double> fast = ((SingleIndicator) indicators.get(0)).data.sub(i + priori, i + priori + size);
-                    List<Double> middle = ((SingleIndicator) indicators.get(2)).data.sub(i + priori, i + priori + size);
-                    List<Double> slow = ((SingleIndicator) indicators.get(5)).data.sub(i + priori, i + priori + size);
+                    List<Double> fast = ((SingleIndicator) indicators.get(0)).value.sub(i + priori, i + priori + size);
+                    List<Double> middle = ((SingleIndicator) indicators.get(2)).value.sub(i + priori, i + priori + size);
+                    List<Double> slow = ((SingleIndicator) indicators.get(5)).value.sub(i + priori, i + priori + size);
                     original.vis("HH-mm",
                             fast.subList(gap, gap + len),
                             middle.subList(gap, gap + len),

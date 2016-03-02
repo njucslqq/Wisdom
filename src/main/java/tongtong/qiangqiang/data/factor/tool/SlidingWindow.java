@@ -12,15 +12,16 @@ import java.util.List;
  */
 public class SlidingWindow<T> {
 
-    private final LinkedList<T> window = new LinkedList<>();
+    private final LinkedList<T> window;
 
-    public final int capacity;
+    private final int capacity;
 
     public SlidingWindow(int capacity) {
         this.capacity = capacity;
+        this.window = new LinkedList<>();
     }
 
-    public void add(T data) {
+    public void push(T data) {
         window.addLast(data);
         if (window.size() > capacity)
             window.removeFirst();
@@ -38,20 +39,38 @@ public class SlidingWindow<T> {
         return window.get(index);
     }
 
-    public T prev() {
+    public T head() {
+        if (window.isEmpty())
+            throw new RuntimeException("SlidingWindow is empty");
+        return window.getFirst();
+    }
+
+    public T tail() {
         if (window.isEmpty())
             throw new RuntimeException("SlidingWindow is empty");
         return window.getLast();
     }
 
+    public List<T> lastn(int n) {
+        if (n > window.size())
+            throw new RuntimeException("required " + n + " elements, while SlidingWindow only has " + window.size() + " elements");
+        return sub(window.size() - n, window.size());
+    }
+
+    public List<T> firstn(int n) {
+        if (n > window.size())
+            throw new RuntimeException("required " + n + " elements, while SlidingWindow only has " + window.size() + " elements");
+        return sub(0, n);
+    }
+
     public List<T> sub(int from, int to) {
-        if (from < 0 || to < 0 || from > window.size() || to > window.size() || from >= to)
+        if (from < 0 || from >= window.size() || to < 1 || to > window.size() || from >= to)
             throw new RuntimeException("index is illegal");
         return window.subList(from, to);
     }
 
     public List<T> all() {
-        return sub(0, size());
+        return window;
     }
 
     public boolean isEmpty() {
@@ -60,5 +79,9 @@ public class SlidingWindow<T> {
 
     public int size() {
         return window.size();
+    }
+
+    public int capacity() {
+        return capacity;
     }
 }

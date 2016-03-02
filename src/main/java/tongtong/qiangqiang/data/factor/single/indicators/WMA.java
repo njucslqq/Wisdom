@@ -38,16 +38,16 @@ public class WMA extends SingleIndicator<Double> implements MAVG {
 
     @Override
     public double update(Double input) {
-        previous.add(input);
-        if (previous.size() < period)
-            data.add(wma(previous.all(), weights(previous.size())));
+        cache.push(input);
+        if (cache.size() < period)
+            value.push(wma(cache.all(), weights(cache.size())));
         else
-            data.add(wma(previous.all(), weights));
-        return data.last(0);
+            value.push(wma(cache.all(), weights));
+        return value.last(0);
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "WMA[" + period + "]";
     }
 

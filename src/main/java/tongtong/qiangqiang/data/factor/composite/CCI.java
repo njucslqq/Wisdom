@@ -42,7 +42,7 @@ public class CCI extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "CCI[" + period + "]";
     }
 
@@ -55,7 +55,7 @@ public class CCI extends WIN<BarInfo> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return cci;
     }
 }

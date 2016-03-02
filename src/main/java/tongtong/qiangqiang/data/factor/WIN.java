@@ -11,9 +11,9 @@ import tongtong.qiangqiang.data.factor.tool.SlidingWindow;
  */
 public abstract class WIN<T> implements Indicator<T> {
 
-    public final SlidingWindow<T> previous;
+    public final SlidingWindow<T> cache;
 
-    public WIN(int windowCapacity) {
-        previous = new SlidingWindow<>(windowCapacity);
+    public WIN(int cacheCapacity) {
+        cache = new SlidingWindow<>(cacheCapacity);
     }
 }

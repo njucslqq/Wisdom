@@ -7,12 +7,12 @@ import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.mind.Algorithm;
 import tongtong.qiangqiang.mind.MindType;
+import tongtong.qiangqiang.mind.trade.Pusher;
 import tongtong.qiangqiang.vis.TimeSeriesChart;
 
 import java.time.LocalDate;
 
 import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
-import static tongtong.qiangqiang.mind.MindType.State.MOCK;
 import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
 /**
@@ -42,14 +42,14 @@ public class MAVGDiff extends Algorithm {
 
     private final TimeSeriesChart tsc;
 
-    public MAVGDiff(String prefix, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
-        super(prefix + " - " + fast.name() + " - " + slow.name());
+    public MAVGDiff(String prefix, Pusher trader, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
+        super(prefix + " - " + fast.getName() + " - " + slow.getName(), trader);
         this.security = security;
         this.begin = begin;
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
-        tsc = new TimeSeriesChart(fast.name() + " - " + slow.name());
+        tsc = new TimeSeriesChart(fast.getName() + " - " + slow.getName());
     }
 
     @Override
@@ -64,19 +64,19 @@ public class MAVGDiff extends Algorithm {
     }
 
     @Override
-    public void onData(BaseData data, int index) {
+    public void onData(BaseData data) {
         BarInfo bar = (BarInfo) data;
         double price = bar.closePrice;
         close.update(price);
         double f = fast.update(price);
         double s = slow.update(price);
 
-        int size = 128;
-        if (close.dataSize() < size) {
-            tsc.vis("HH:mm:ss", fast.primary().data.all(), slow.primary().data.all(), close.primary().data.all());
+        /*int size = 128;
+        if (close.size() < size) {
+            tsc.vis("HH:mm:ss", fast.getPrimary().value.all(), slow.getPrimary().value.all(), close.getPrimary().value.all());
         } else {
-            tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
-        }
+            tsc.vis("HH:mm:ss", fast.lastn(size), slow.lastn(size), close.lastn(size));
+        }*/
 
         if (f < s) {
             buyClose(security, share, price + slipage);
@@ -91,6 +91,6 @@ public class MAVGDiff extends Algorithm {
     public void onComplete() {
         conclude();
         int size = 128;
-        //tsc.vis("HH:mm:ss", fast.last(size), slow.last(size), close.last(size));
+        //tsc.vis("HH:mm:ss", fast.lastn(size), slow.lastn(size), close.lastn(size));
     }
 }

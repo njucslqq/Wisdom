@@ -23,12 +23,12 @@ public class Intermediate extends SingleIndicator<Double> {
 
     @Override
     public double update(Double input) {
-        data.add(input);
-        return data.last(0);
+        value.push(input);
+        return value.last(0);
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "Intermediate";
     }
 }

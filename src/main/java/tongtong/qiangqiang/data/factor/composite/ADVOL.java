@@ -3,7 +3,6 @@ package tongtong.qiangqiang.data.factor.composite;
 import cn.quanttech.quantera.common.data.BarInfo;
 import tongtong.qiangqiang.data.factor.WIN;
 import tongtong.qiangqiang.data.factor.single.SingleIndicator;
-import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 
 import static java.lang.Integer.MAX_VALUE;
@@ -35,7 +34,7 @@ public class ADVOL extends WIN<BarInfo> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "ADVOL[" + period + "]";
     }
 
@@ -46,15 +45,15 @@ public class ADVOL extends WIN<BarInfo> {
             tmp = ((input.closePrice - input.lowPrice) - (input.highPrice - input.closePrice)) / (input.highPrice - input.lowPrice);
         adv.update(tmp * input.volume);
         double _advol = 0.0;
-        if (adv.dataSize() < period)
-            _advol = adv.data.all().stream().mapToDouble(d -> d).sum();
+        if (adv.size() < period)
+            _advol = adv.value.all().stream().mapToDouble(d -> d).sum();
         else
-            _advol = adv.last(period).stream().mapToDouble(d -> d).sum();
+            _advol = adv.lastn(period).stream().mapToDouble(d -> d).sum();
         return advol.update(_advol);
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return advol;
     }
 }

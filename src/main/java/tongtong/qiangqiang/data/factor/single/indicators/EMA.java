@@ -28,18 +28,18 @@ public class EMA extends SingleIndicator<Double> implements MAVG {
 
     @Override
     public double update(Double input) {
-        if (data.isEmpty())
-            data.add(input);
+        if (value.isEmpty())
+            value.push(input);
         else {
-            int n = min(data.size(), period);
+            int n = min(value.size(), period);
             double k = 2. / (n + 1.);
-            data.add(data.last(0) * (1 - k) + input * k);
+            value.push(value.tail() * (1 - k) + input * k);
         }
-        return data.last(0);
+        return value.last(0);
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "EMA[" + period + "]";
     }
 

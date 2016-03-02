@@ -6,7 +6,7 @@ import tongtong.qiangqiang.mind.MindType.Model;
 import tongtong.qiangqiang.mind.order.IOrder;
 import tongtong.qiangqiang.mind.order.MockOrder;
 import tongtong.qiangqiang.mind.order.RealOrder;
-import tongtong.qiangqiang.mind.trade.Trader;
+import tongtong.qiangqiang.mind.trade.Pusher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public abstract class Algorithm {
 
     private final String name;
 
-    private final int port;
+    private final Pusher trader;
 
     private final String tsAddress;
 
@@ -55,19 +55,17 @@ public abstract class Algorithm {
 
     private int index;
 
-    private Trader trader;
-
     private IOrder order;
 
-    public Algorithm(String name, int port, String tsAddress, int tsPort) {
+    public Algorithm(String name, Pusher trader, String tsAddress, int tsPort) {
         this.name = name;
-        this.port = port;
+        this.trader = trader;
         this.tsAddress = tsAddress;
         this.tsPort = tsPort;
     }
 
-    public Algorithm(String name) {
-        this(name, 8080, "localhost", 9090);
+    public Algorithm(String name, Pusher trader) {
+        this(name, trader, "localhost", 9090);
     }
 
     protected void setSecurity(String security) {
@@ -100,6 +98,10 @@ public abstract class Algorithm {
 
     protected void setVerbose(boolean print) {
         this.print = print;
+    }
+
+    protected void conclude() {
+        order.conclude();
     }
 
     protected boolean buy(String id, int share, double price) {
@@ -142,17 +144,12 @@ public abstract class Algorithm {
         return false;
     }
 
-    protected void conclude() {
-        order.conclude();
-    }
-
     private void configure() {
         switch (model) {
             case TEST:
                 order = new MockOrder(name);
                 break;
             case TRADE: {
-                trader = new Trader(this, port);
                 order = state.equals(MOCK) ? new MockOrder(name) : new RealOrder(name, tsAddress, tsPort);
                 break;
             }
@@ -179,9 +176,9 @@ public abstract class Algorithm {
         if (model.equals(TEST)) {
             List<? extends BaseData> data = download();
             for (index = 0; index < data.size(); index++)
-                onData(data.get(index), index);
+                onData(data.get(index));
         } else
-            trader.run();
+            trader.register(this);
     }
 
     public void run() {
@@ -194,7 +191,7 @@ public abstract class Algorithm {
     public double total() {
         return order.totalReturn();
     }
-    
+
     public String getName() {
         return name;
     }
@@ -213,5 +210,5 @@ public abstract class Algorithm {
 
     public abstract void init();
 
-    public abstract void onData(BaseData data, int index);
+    public abstract void onData(BaseData data);
 }

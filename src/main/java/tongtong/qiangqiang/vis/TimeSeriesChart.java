@@ -76,7 +76,7 @@ public class TimeSeriesChart extends ApplicationFrame {
                 "Time Series Data",  // title
                 "Time",             // x-axis label
                 "Price",   // y-axis label
-                dataset,            // data
+                dataset,            // value
                 true,               // create legend?
                 true,               // generate tooltips?
                 false               // generate URLs?

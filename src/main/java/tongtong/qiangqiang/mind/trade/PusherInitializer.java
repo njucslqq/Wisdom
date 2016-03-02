@@ -1,11 +1,15 @@
 package tongtong.qiangqiang.mind.trade;
 
+import cn.quanttech.quantera.common.data.BarInfo;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import tongtong.qiangqiang.mind.Algorithm;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Qiangqiang Li
@@ -14,12 +18,15 @@ import tongtong.qiangqiang.mind.Algorithm;
  * <p>
  * 2016/2/26.
  */
-public class TraderInitializer extends ChannelInitializer<SocketChannel>{
+public class PusherInitializer extends ChannelInitializer<SocketChannel> {
 
-    public final Algorithm algorithm;
+    public final Map<String, List<Algorithm>> algorithms;
 
-    public TraderInitializer(Algorithm algorithm) {
-        this.algorithm = algorithm;
+    public final Map<Algorithm, BarInfo> currentBar;
+
+    public PusherInitializer(Map<String, List<Algorithm>> algorithms, Map<Algorithm, BarInfo> currentBar) {
+        this.algorithms = algorithms;
+        this.currentBar = currentBar;
     }
 
     @Override
@@ -27,6 +34,6 @@ public class TraderInitializer extends ChannelInitializer<SocketChannel>{
         ChannelPipeline p = socketChannel.pipeline();
         p.addLast(new HttpRequestDecoder());
         p.addLast(new HttpResponseEncoder());
-        p.addLast(new TraderHandler(algorithm));
+        p.addLast(new PusherHandler(algorithms, currentBar));
     }
 }

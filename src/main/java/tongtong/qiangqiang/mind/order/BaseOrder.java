@@ -114,7 +114,7 @@ public abstract class BaseOrder implements IOrder {
         System.out.println("Short Profit: " + sDif);
         System.out.println("Long  Trading Time: " + lTime);
         System.out.println("Short Trading Time: " + sTime);
-        System.out.println("\n<==========   End   ==========>");
+        System.out.println("<==========   End   ==========>");
         profitChart.vis("HH:mm:ss", profit);
     }
 }

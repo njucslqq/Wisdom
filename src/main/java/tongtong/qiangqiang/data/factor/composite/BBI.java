@@ -40,7 +40,7 @@ public class BBI extends WIN<Double> {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "BBI[" + n1 + "][" + n2 + "][" + n3 + "][" + n4 + "]";
     }
 
@@ -54,7 +54,7 @@ public class BBI extends WIN<Double> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return bbi;
     }
 }

@@ -44,7 +44,7 @@ public class DEMA extends WIN<Double> implements MAVG {
     }
 
     @Override
-    public String name() {
+    public String getName() {
         return "DEMA[" + period + "]";
     }
 
@@ -56,7 +56,7 @@ public class DEMA extends WIN<Double> implements MAVG {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return dema;
     }
 

@@ -44,7 +44,7 @@ public class TRIX extends WIN<Double> {
 
 
     @Override
-    public String name() {
+    public String getName() {
         return "TRIX[" + m + "][" + n + "]";
     }
 
@@ -57,7 +57,7 @@ public class TRIX extends WIN<Double> {
     }
 
     @Override
-    public SingleIndicator<?> primary() {
+    public SingleIndicator<?> getPrimary() {
         return trix;
     }
 }

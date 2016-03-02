@@ -28,49 +28,31 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buy(String id, int share, double price) {
-        String query = baseUrl +
-                "type=market" +
-                "&code=" + id +
-                "&share=" + share +
-                "&price=" + price +
-                "&direction=buy" +
-                "&action=open";
+        String query = baseUrl + "type=market&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!lPos) {
             sendOrder(query);
             buyAction(price);
-            return "\n[long  open]: " + price;
+            return "\n[long   open]: " + price;
         }
         return "";
     }
 
     @Override
     public String sell(String id, int share, double price) {
-        String query = baseUrl +
-                "type=market" +
-                "&code=" + id +
-                "&share=" + share +
-                "&price=" + price +
-                "&direction=sell" +
-                "&action=close";
+        String query = baseUrl + "type=market&direction=sell&action=close" + "&code=" + id + "&share=" + share + "&price=" + price;
 
         if (lPos) {
             sendOrder(query);
             sellAction(price);
             profitChart.vis("HH:mm:ss", profit);
-            return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
+            return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
         }
         return "";
     }
 
     @Override
     public String buyClose(String id, int share, double price) {
-        String query = baseUrl +
-                "type=market" +
-                "&code=" + id +
-                "&share=" + share +
-                "&price=" + price +
-                "&direction=buy" +
-                "&action=close";
+        String query = baseUrl + "type=market&direction=buy&action=close" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (sPos) {
             sendOrder(query);
             buyCloseAction(price);
@@ -82,17 +64,11 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String sellOpen(String id, int share, double price) {
-        String query = baseUrl +
-                "type=market" +
-                "&code=" + id +
-                "&share=" + share +
-                "&price=" + price +
-                "&direction=sell" +
-                "&action=open";
+        String query = baseUrl + "type=market&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!sPos) {
             sendOrder(query);
             sellOpenAction(price);
-            return "\n[short open]: " + price;
+            return "\n[short  open]: " + price;
         }
         return "";
     }
@@ -103,7 +79,8 @@ public class RealOrder extends BaseOrder {
             HttpURLConnection con = null;
             con = (HttpURLConnection) url.openConnection();
             con.connect();
-            System.out.println(con.getResponseMessage());
+            if (con.getResponseCode() != 200)
+                System.out.println(con.getResponseMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }

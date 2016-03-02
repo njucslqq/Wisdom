@@ -15,53 +15,56 @@ import java.util.List;
 public interface Indicator<T> {
 
     default Intermediate of(Indicator another) {
-        return null;
+        return getPrimary().of(another.getPrimary());
     }
 
     default Intermediate derivative(int gap) {
-        return null;
+        return getPrimary().derivative(gap);
     }
 
     default Intermediate plus(double delta) {
-        return null;
+        return getPrimary().plus(delta);
     }
 
     default Intermediate plus(Indicator another) {
-        return null;
+        return getPrimary().plus(another.getPrimary());
     }
 
     default Intermediate minus(double delta) {
-        return null;
+        return getPrimary().minus(delta);
     }
 
     default Intermediate minus(Indicator another) {
-        return null;
+        return getPrimary().minus(another.getPrimary());
     }
 
     default Intermediate times(double coefficient) {
-        return null;
+        return getPrimary().times(coefficient);
     }
 
     default Intermediate log(double n) {
-        return null;
+        return getPrimary().log(n);
+    }
+
+    default List<Double> lastn(int n) {
+        return getPrimary().lastn(n);
+    }
+
+    default List<Double> all() {
+        return getPrimary().all();
     }
 
     default List<Double> sub(int from, int to) {
-        return primary().sub(from, to);
+        return getPrimary().sub(from, to);
     }
 
-    default List<Double> last(int length) {
-        int size = primary().dataSize();
-        return sub(size - length, size);
+    default int size() {
+        return getPrimary().size();
     }
-
-    default int dataSize() {
-        return primary().dataSize();
-    }
-
-    abstract String name();
 
     abstract double update(T input);
 
-    abstract SingleIndicator<?> primary();
+    abstract String getName();
+
+    abstract SingleIndicator<?> getPrimary();
 }
