@@ -2,7 +2,10 @@ package tongtong.qiangqiang.mind;
 
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
+import org.apache.commons.lang3.tuple.Pair;
+import org.jfree.chart.ChartPanel;
 import tongtong.qiangqiang.mind.MindType.Model;
+import tongtong.qiangqiang.mind.app.AlgorithmPanel;
 import tongtong.qiangqiang.mind.order.IOrder;
 import tongtong.qiangqiang.mind.order.MockOrder;
 import tongtong.qiangqiang.mind.order.RealOrder;
@@ -57,6 +60,8 @@ public abstract class Algorithm {
 
     private IOrder order;
 
+    private AlgorithmPanel panel;
+
     public Algorithm(String name, Pusher trader, String tsAddress, int tsPort) {
         this.name = name;
         this.trader = trader;
@@ -101,14 +106,30 @@ public abstract class Algorithm {
     }
 
     protected void conclude() {
-        order.conclude();
+        panel.writer.append(order.conclude());
+    }
+
+    protected void visPrice(Pair<String, List<Double>>...series){
+        panel.visPrice(series);
+    }
+
+    protected void visProfit(Pair<String, List<Double>> profit){
+        panel.visProfit(profit);
+    }
+
+    protected void log(String line){
+        panel.writer.append(line);
+    }
+
+    protected List<Double> profit(){
+        return order.profit();
     }
 
     protected boolean buy(String id, int share, double price) {
         String rtn = order.buy(id, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                System.out.println(rtn + " on the " + index + "th bar");
+                panel.writer.append(rtn + " on the " + index + "th bar\n");
             return true;
         }
         return false;
@@ -118,7 +139,7 @@ public abstract class Algorithm {
         String rtn = order.sell(id, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                System.out.println(rtn + " on the " + index + "th bar");
+                panel.writer.append(rtn + " on the " + index + "th bar\n");
             return true;
         }
         return false;
@@ -128,7 +149,7 @@ public abstract class Algorithm {
         String rtn = order.buyClose(id, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                System.out.println(rtn + " on the " + index + "th bar");
+                panel.writer.append(rtn + " on the " + index + "th bar\n");
             return true;
         }
         return false;
@@ -138,7 +159,7 @@ public abstract class Algorithm {
         String rtn = order.sellOpen(id, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                System.out.println(rtn + " on the " + index + "th bar");
+                panel.writer.append(rtn + " on the " + index + "th bar\n");
             return true;
         }
         return false;
@@ -186,6 +207,14 @@ public abstract class Algorithm {
         configure();
         simulate();
         onComplete();
+    }
+
+    public void setPanel(AlgorithmPanel panel){
+        this.panel = panel;
+    }
+
+    public AlgorithmPanel getPanel(){
+        return panel;
     }
 
     public double total() {

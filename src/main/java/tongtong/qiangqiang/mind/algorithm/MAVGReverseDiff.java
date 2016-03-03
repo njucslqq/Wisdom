@@ -6,12 +6,11 @@ import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.mind.Algorithm;
-import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.trade.Pusher;
-import tongtong.qiangqiang.vis.TimeSeriesChart;
 
 import java.time.LocalDate;
 
+import static org.apache.commons.lang3.tuple.Pair.of;
 import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
 import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
@@ -22,7 +21,7 @@ import static tongtong.qiangqiang.mind.MindType.State.REAL;
  * <p>
  * Created on 2016-02-26.
  */
-public class MAVGDiff extends Algorithm {
+public class MAVGReverseDiff extends Algorithm {
 
     public final MAVG fast;
 
@@ -40,16 +39,13 @@ public class MAVGDiff extends Algorithm {
 
     public final Intermediate close = new Intermediate();
 
-    private final TimeSeriesChart tsc;
-
-    public MAVGDiff(String prefix, Pusher trader, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
+    public MAVGReverseDiff(String prefix, Pusher trader, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
         super(prefix + " - " + fast.getName() + " - " + slow.getName(), trader);
         this.security = security;
         this.begin = begin;
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
-        tsc = new TimeSeriesChart(fast.getName() + " - " + slow.getName());
     }
 
     @Override
@@ -71,12 +67,12 @@ public class MAVGDiff extends Algorithm {
         double f = fast.update(price);
         double s = slow.update(price);
 
-        /*int size = 128;
+        int size = 128;
         if (close.size() < size) {
-            tsc.vis("HH:mm:ss", fast.getPrimary().value.all(), slow.getPrimary().value.all(), close.getPrimary().value.all());
+            visPrice(of(fast.getName(), fast.all()), of(slow.getName(), slow.all()), of("close", close.all()));
         } else {
-            tsc.vis("HH:mm:ss", fast.lastn(size), slow.lastn(size), close.lastn(size));
-        }*/
+            visPrice(of(fast.getName(), fast.lastn(size)), of(slow.getName(), slow.lastn(size)), of("close", close.lastn(size)));
+        }
 
         if (f < s) {
             buyClose(security, share, price + slipage);
@@ -85,12 +81,12 @@ public class MAVGDiff extends Algorithm {
             sell(security, share, price - slipage);
             sellOpen(security, share, price - slipage);
         }
+
+        visProfit(of("return", profit()));
     }
 
     @Override
     public void onComplete() {
         conclude();
-        int size = 128;
-        //tsc.vis("HH:mm:ss", fast.lastn(size), slow.lastn(size), close.lastn(size));
     }
 }

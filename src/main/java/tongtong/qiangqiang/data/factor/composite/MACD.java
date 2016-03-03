@@ -48,7 +48,6 @@ public class MACD extends WIN<Double> {
 
     public MACD(int m, int n, int k, int cacheSize) {
         super(0);
-        ;
         this.m = m;
         this.n = n;
         this.k = k;

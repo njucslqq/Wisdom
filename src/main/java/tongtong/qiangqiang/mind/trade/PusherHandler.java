@@ -81,20 +81,24 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
                     parseInt(get(para, "volume")), parseDouble(get(para, "up")), parseDouble(get(para, "down"))
             );
             sendString(ctx, "accepted", OK);
-            for (Algorithm algo : algorithms.get(tick.secuCode)) {
+
+            if(!algorithms.containsKey(tick.secuCode))
+                return;
+
+            algorithms.get(tick.secuCode).parallelStream().forEach(algo ->{
+                algo.getPanel().writer.append(".");
                 BarInfo newBar = combine(currentBar.get(algo), tick, algo.getResolution());
                 if (newBar != null) {
                     if (currentBar.get(algo) != null) {
-                        System.out.println("\nBar Time = " + currentBar.get(algo).tradingTime.format(FMT_PRINT));
+                        algo.getPanel().writer.append("\nBar Time = " + currentBar.get(algo).tradingTime.format(FMT_PRINT) + "\n");
                         algo.onData(currentBar.get(algo));
                     }
                     currentBar.remove(algo);
                     currentBar.put(algo, newBar);
                 }
-            }
+            });
         }
     }
-
     String get(Map<String, List<String>> uri, String key) {
         return uri.get(key).get(0);
     }

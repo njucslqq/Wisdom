@@ -27,5 +27,5 @@ public interface IOrder {
 
     List<Double> profit();
 
-    void conclude();
+    String conclude();
 }

@@ -44,7 +44,6 @@ public class RealOrder extends BaseOrder {
         if (lPos) {
             sendOrder(query);
             sellAction(price);
-            profitChart.vis("HH:mm:ss", profit);
             return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
         }
         return "";
@@ -56,7 +55,6 @@ public class RealOrder extends BaseOrder {
         if (sPos) {
             sendOrder(query);
             buyCloseAction(price);
-            profitChart.vis("HH:mm:ss", profit);
             return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", profit: " + sDif;
         }
         return "";

@@ -33,6 +33,7 @@ public class OBV extends WIN<BarInfo> {
     public double update(BarInfo input) {
         double pSum = pVolume.update(input.closePrice > cache.tail().closePrice ? input.volume : 0.0);
         double nSum = nVolume.update(input.closePrice < cache.tail().closePrice ? input.volume : 0.0);
+        cache.push(input);
         return obv.update(pSum - nSum);
     }
 

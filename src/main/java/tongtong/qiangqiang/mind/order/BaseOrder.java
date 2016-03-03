@@ -37,10 +37,10 @@ public abstract class BaseOrder implements IOrder {
 
     protected final LinkedList<Double> profit = new LinkedList<>();
 
-    protected final TimeSeriesChart profitChart;
+    protected final String name;
 
     public BaseOrder(String name) {
-        profitChart = new TimeSeriesChart(name);
+        this.name = name;
     }
 
     protected boolean buyAction(double price) {
@@ -108,13 +108,14 @@ public abstract class BaseOrder implements IOrder {
     }
 
     @Override
-    public void conclude() {
-        System.out.println("\n<========== Summary ==========>");
-        System.out.println("Long  Profit: " + lDif);
-        System.out.println("Short Profit: " + sDif);
-        System.out.println("Long  Trading Time: " + lTime);
-        System.out.println("Short Trading Time: " + sTime);
-        System.out.println("<==========   End   ==========>");
-        profitChart.vis("HH:mm:ss", profit);
+    public String conclude() {
+        return new StringBuilder()
+                .append("\n<========== Summary ==========>")
+                .append("\nLong  Profit: " + lDif)
+                .append("\nShort Profit: " + sDif)
+                .append("\nLong  Trading Time: " + lTime)
+                .append("\nShort Trading Time: " + sTime)
+                .append("\n<==========   End   ==========>\n")
+                .toString();
     }
 }

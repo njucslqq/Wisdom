@@ -8,7 +8,7 @@ import tongtong.qiangqiang.data.factor.composite.DEMA;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
-import tongtong.qiangqiang.mind.algorithm.MAVGDiff;
+import tongtong.qiangqiang.mind.algorithm.MAVGReverseDiff;
 import tongtong.qiangqiang.mind.trade.Pusher;
 
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ public class AlgorithmDriver {
 
         String security = "rb1605";
         TimeFrame resolution = MIN_1;
-        LocalDate begin = of(2016, 2, 15);
+        LocalDate begin = of(2016, 2, 22);
 
         List<Pair<String, Double>> results = new ArrayList<>();
         List<Algorithm> algorithms = new ArrayList<>();
@@ -46,13 +46,14 @@ public class AlgorithmDriver {
         int period = 17;
         MAVG[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
 
-        for (int i = 1; i < mavgs.length; i++)
+        /*for (int i = 1; i < mavgs.length; i++)
             for (int j = 0; j < i; j++) {
                 MAVG[] fast = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
                 MAVG[] slow = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-                algorithms.add(new MAVGDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast[i], slow[j]));
+                algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast[i], slow[j]));
             }
-
+        */
+        algorithms.add(new MAVGReverseDiff("", pusher, security, resolution, begin, new DEMA(period), new EMA(period)));// fast[i], slow[j]));
         algorithms.parallelStream().forEach(algorithm -> {
             algorithm.run();
             synchronized (results) {

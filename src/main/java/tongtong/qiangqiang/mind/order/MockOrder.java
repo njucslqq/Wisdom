@@ -24,7 +24,6 @@ public class MockOrder extends BaseOrder {
     @Override
     public String sell(String id, int share, double price) {
         if (sellAction(price)) {
-            profitChart.vis("HH:mm:ss", profit);
             return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
         } else
             return "";
@@ -33,7 +32,6 @@ public class MockOrder extends BaseOrder {
     @Override
     public String buyClose(String id, int share, double price) {
         if (buyCloseAction(price)) {
-            profitChart.vis("HH:mm:ss", profit);
             return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", profit: " + sDif;
         } else
             return "";

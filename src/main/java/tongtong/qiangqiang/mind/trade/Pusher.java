@@ -65,8 +65,8 @@ public class Pusher {
                     b.childHandler(new PusherInitializer(algorithms, currentBar));
                     b.childOption(ALLOCATOR, DEFAULT);
 
-                    Channel ch = b.bind(8080).sync().channel();
-                    System.out.println("\ntrader is now ready to accept connections on port 8080 \n");
+                    Channel ch = b.bind(port).sync().channel();
+                    System.out.println("\ntrader is now ready to accept connections on port " + port + "\n");
 
                     ch.closeFuture().sync();
                 } catch (InterruptedException e) {

@@ -25,7 +25,7 @@ public abstract class SingleIndicator<T> extends WIN<T> {
 
     @Override
     public Intermediate of(Indicator another) {
-        return getPrimary().of(another.getPrimary());
+        return null;
     }
 
     @Override
