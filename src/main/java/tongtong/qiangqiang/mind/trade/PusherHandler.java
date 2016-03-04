@@ -42,6 +42,18 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     public static final DateTimeFormatter FMT_PRINT = ofPattern("yyyy-MM-dd HH:mm");
 
+    public static final LocalTime AM_START = LocalTime.of(9, 0, 0);
+
+    public static final LocalTime AM_END = LocalTime.of(11, 30, 0);
+
+    public static final LocalTime PM_START = LocalTime.of(13, 30, 0);
+
+    public static final LocalTime PM_END = LocalTime.of(15, 0, 0);
+
+    public static final LocalTime NIGHT_START = LocalTime.of(21, 0, 0);
+
+    public static final LocalTime NIGHT_END = LocalTime.of(2, 0, 0);
+
     public final Map<String, List<Algorithm>> algorithms;
 
     public final Map<Algorithm, BarInfo> currentBar;
@@ -68,7 +80,7 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
-        sendString(ctx, "denied", BAD_REQUEST);
+        sendString(ctx, "exception caught", OK);
     }
 
     @Override
@@ -76,29 +88,42 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
         if (msg instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) msg;
             Map<String, List<String>> para = new QueryStringDecoder(request.getUri()).parameters();
+
+            if (para == null || para.isEmpty()) {
+                sendString(ctx, "empty url", OK);
+                return;
+            }
+
+            LocalTime now = LocalTime.now();
+            if ((now.isAfter(NIGHT_END) && now.isBefore(AM_START)) || (now.isAfter(AM_END) && now.isBefore(PM_START)) || (now.isAfter(PM_END) && now.isBefore(NIGHT_START))) {
+                sendString(ctx, "not trading time", OK);
+                return;
+            }
+
             TickInfo tick = new TickInfo(get(para, "code"), null, of(now(), parse(get(para, "time"), FMT_TICK)), null,
                     parseDouble(get(para, "last")), parseDouble(get(para, "ask")), parseDouble(get(para, "bid")),
                     parseInt(get(para, "volume")), parseDouble(get(para, "up")), parseDouble(get(para, "down"))
             );
             sendString(ctx, "accepted", OK);
 
-            if(!algorithms.containsKey(tick.secuCode))
+            if (!algorithms.containsKey(tick.secuCode))
                 return;
 
-            algorithms.get(tick.secuCode).parallelStream().forEach(algo ->{
-                algo.getPanel().writer.append(".");
-                BarInfo newBar = combine(currentBar.get(algo), tick, algo.getResolution());
+            algorithms.get(tick.secuCode).parallelStream().forEach(a -> {
+                a.getPanel().writer.append(".");
+                BarInfo newBar = combine(currentBar.get(a), tick, a.getResolution());
                 if (newBar != null) {
-                    if (currentBar.get(algo) != null) {
-                        algo.getPanel().writer.append("\nBar Time = " + currentBar.get(algo).tradingTime.format(FMT_PRINT) + "\n");
-                        algo.onData(currentBar.get(algo));
+                    if (currentBar.get(a) != null) {
+                        a.getPanel().writer.append("\nBar Time = " + currentBar.get(a).tradingTime.format(FMT_PRINT) + "\n");
+                        a.onData(currentBar.get(a));
                     }
-                    currentBar.remove(algo);
-                    currentBar.put(algo, newBar);
+                    currentBar.remove(a);
+                    currentBar.put(a, newBar);
                 }
             });
         }
     }
+
     String get(Map<String, List<String>> uri, String key) {
         return uri.get(key).get(0);
     }

@@ -234,7 +234,7 @@ public abstract class Algorithm {
     }
 
     public void onComplete() {
-        order.conclude();
+        conclude();
     }
 
     public abstract void init();

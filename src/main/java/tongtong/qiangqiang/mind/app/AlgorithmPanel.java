@@ -44,7 +44,6 @@ public class AlgorithmPanel extends JPanel {
     public final JPanel log;
 
     public final JTextArea writer = new JTextArea();
-    ;
 
     private final JScrollPane scroll = new JScrollPane(writer);
 
@@ -54,6 +53,11 @@ public class AlgorithmPanel extends JPanel {
 
         price = new ChartPanel(createChart("Price Change", "Time", "Price"));
         profit = new ChartPanel(createChart("Profit Change", "Time", "Profit"));
+        price.setFillZoomRectangle(true);
+        price.setMouseWheelEnabled(true);
+        profit.setFillZoomRectangle(true);
+        profit.setMouseWheelEnabled(true);
+
         log = createLog();
 
         add(price);
