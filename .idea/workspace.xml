@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
     </list>
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,21 +82,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IOrder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java">
+      <file leaf-file-name="PriceChange.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/PriceChange.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
-              <folding />
+            <state vertical-scroll-proportion="2.627551">
+              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PriceChange.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/PriceChange.java">
+      <file leaf-file-name="AlgorithmPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -119,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+              <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,15 +138,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PusherHandler.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PusherHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4642857">
+            <state vertical-scroll-proportion="0.0">
               <caret line="99" column="23" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
               <folding>
                 <element signature="e#4760#4761#0" expanded="true" />
                 <element signature="e#4802#4803#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ADX.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/ADX.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -241,9 +250,9 @@
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/PriceChange.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
       </list>
     </option>
   </component>
@@ -1130,7 +1139,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1264,14 +1273,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/ADX.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/KDJ.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1298,6 +1299,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1423,6 +1425,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1507,17 +1510,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="51" column="41" selection-start-line="50" selection-start-column="8" selection-end-line="51" selection-end-column="41" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#2441#2442#0" expanded="false" />
-            <element signature="e#2523#2524#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1620,14 +1612,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/PriceChange.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/BIAS.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1660,33 +1644,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <caret line="99" column="23" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#4760#4761#0" expanded="true" />
+            <element signature="e#4802#4803#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/ADX.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="0" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <caret line="58" column="10" selection-start-line="58" selection-start-column="10" selection-end-line="58" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/trade/PusherHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4642857">
-          <caret line="99" column="23" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
           <folding>
-            <element signature="e#4760#4761#0" expanded="true" />
-            <element signature="e#4802#4803#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/PriceChange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.627551">
+          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

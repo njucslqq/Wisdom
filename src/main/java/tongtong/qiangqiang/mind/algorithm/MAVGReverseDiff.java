@@ -55,8 +55,8 @@ public class MAVGReverseDiff extends Algorithm {
         setStart(begin);
         setEnd(LocalDate.now());
         setVerbose(true);
-        setModel(TRADE);
-        setState(REAL);
+        //setModel(TRADE);
+        //setState(REAL);
     }
 
     @Override
