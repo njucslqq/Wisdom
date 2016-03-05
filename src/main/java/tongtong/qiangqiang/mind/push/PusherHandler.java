@@ -1,4 +1,4 @@
-package tongtong.qiangqiang.mind.trade;
+package tongtong.qiangqiang.mind.push;
 
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.TickInfo;
@@ -7,24 +7,19 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.QueryStringDecoder;
-import tongtong.qiangqiang.func.GeneralUtilizer;
 import tongtong.qiangqiang.mind.Algorithm;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.netty.handler.codec.http.HttpResponseStatus.BAD_GATEWAY;
-import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
-import static java.time.LocalDate.now;
 import static java.time.LocalDateTime.of;
+import static java.time.LocalTime.now;
 import static java.time.LocalTime.parse;
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static tongtong.qiangqiang.func.GeneralUtilizer.combine;
@@ -89,43 +84,48 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
         if (msg instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) msg;
             Map<String, List<String>> para = new QueryStringDecoder(request.getUri()).parameters();
-
-            if (para == null || para.isEmpty()) {
-                sendString(ctx, "empty url", OK);
-                return;
+            if (isTradingTime()) {
+                TickInfo tick = parseTick(para);
+                if (tick != null) {
+                    if (algorithms.containsKey(tick.secuCode)) {
+                        algorithms.get(tick.secuCode).parallelStream().forEach(a -> {
+                            a.getPanel().writer.append(".");
+                            BarInfo newBar = combine(currentBar.get(a), tick, a.getResolution());
+                            if (newBar != null) {
+                                if (currentBar.get(a) != null) {
+                                    a.getPanel().writer.append("\nBar Time = " + currentBar.get(a).tradingTime.format(FMT_PRINT) + "\n");
+                                    a.onData(currentBar.get(a));
+                                }
+                                currentBar.remove(a);
+                                currentBar.put(a, newBar);
+                            }
+                        });
+                    }
+                }
             }
+        }
+        sendString(ctx, "accepted", OK);
+    }
 
-            LocalTime now = LocalTime.now();
-            if ((now.isAfter(NIGHT_END) && now.isBefore(AM_START)) || (now.isAfter(AM_END) && now.isBefore(PM_START)) || (now.isAfter(PM_END) && now.isBefore(NIGHT_START))) {
-                sendString(ctx, "not trading time", OK);
-                return;
-            }
+    private String get(Map<String, List<String>> uri, String key) {
+        return uri.get(key).get(0);
+    }
 
-            TickInfo tick = new TickInfo(get(para, "code"), null, of(now(), parse(get(para, "time"), FMT_TICK)), null,
+    private boolean isTradingTime() {
+        return !((now().isAfter(NIGHT_END) && now().isBefore(AM_START)) ||
+                (now().isAfter(AM_END) && now().isBefore(PM_START)) ||
+                (now().isAfter(PM_END) && now().isBefore(NIGHT_START)));
+    }
+
+    private TickInfo parseTick(Map<String, List<String>> para) {
+        try {
+            return new TickInfo(get(para, "code"), null, of(LocalDate.now(), parse(get(para, "time"), FMT_TICK)), null,
                     parseDouble(get(para, "last")), parseDouble(get(para, "ask")), parseDouble(get(para, "bid")),
                     parseInt(get(para, "volume")), parseDouble(get(para, "up")), parseDouble(get(para, "down"))
             );
-            sendString(ctx, "accepted", OK);
-
-            if (!algorithms.containsKey(tick.secuCode))
-                return;
-
-            algorithms.get(tick.secuCode).parallelStream().forEach(a -> {
-                a.getPanel().writer.append(".");
-                BarInfo newBar = combine(currentBar.get(a), tick, a.getResolution());
-                if (newBar != null) {
-                    if (currentBar.get(a) != null) {
-                        a.getPanel().writer.append("\nBar Time = " + currentBar.get(a).tradingTime.format(FMT_PRINT) + "\n");
-                        a.onData(currentBar.get(a));
-                    }
-                    currentBar.remove(a);
-                    currentBar.put(a, newBar);
-                }
-            });
+        } catch (Exception exc) {
+            exc.printStackTrace();
+            return null;
         }
-    }
-
-    String get(Map<String, List<String>> uri, String key) {
-        return uri.get(key).get(0);
     }
 }

@@ -1,18 +1,26 @@
 package tongtong.qiangqiang.mind.algorithm;
 
+import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.composite.DEMA;
+import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
+import tongtong.qiangqiang.data.factor.single.indicators.SMA;
+import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.Algorithm;
-import tongtong.qiangqiang.mind.trade.Pusher;
+import tongtong.qiangqiang.mind.app.AlgorithmManager;
+import tongtong.qiangqiang.mind.push.Pusher;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
+import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 import static org.apache.commons.lang3.tuple.Pair.of;
-import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
-import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
 /**
  * Author: Qiangqiang Li
@@ -55,8 +63,8 @@ public class MAVGReverseDiff extends Algorithm {
         setStart(begin);
         setEnd(LocalDate.now());
         setVerbose(true);
-        setModel(TRADE);
-        setState(REAL);
+        //setModel(TRADE);
+        //setState(REAL);
     }
 
     @Override
@@ -85,8 +93,26 @@ public class MAVGReverseDiff extends Algorithm {
         visProfit(of("return", profit()));
     }
 
-    @Override
-    public void onComplete() {
-        conclude();
+    public static void main(String[] args) {
+        setNetDomain(CONST.OUTRA_QUANDIS_URL);
+
+        Pusher pusher = new Pusher(8080);
+        pusher.run();
+
+        int period = 17;
+        String security = "rb1605";
+        TimeFrame resolution = MIN_1;
+        LocalDate begin = LocalDate.of(2016, 2, 22);
+
+        List<Algorithm> algorithms = new ArrayList<>();
+        MAVG[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
+        for (int i = 1; i < mavgs.length; i++)
+            for (int j = 0; j < i; j++) {
+                MAVG[] fast = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
+                MAVG[] slow = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
+                algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast[i], slow[j]));
+            }
+
+        new AlgorithmManager(algorithms).vis();
     }
 }

@@ -1,4 +1,4 @@
-package tongtong.qiangqiang.mind.trade;
+package tongtong.qiangqiang.mind.push;
 
 import cn.quanttech.quantera.common.data.BarInfo;
 import io.netty.channel.ChannelInitializer;

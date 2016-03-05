@@ -41,11 +41,11 @@ public class AlgorithmPanel extends JPanel {
 
     public final ChartPanel profit;
 
-    public final JPanel log;
-
     public final JTextArea writer = new JTextArea();
 
     private final JScrollPane scroll = new JScrollPane(writer);
+
+    private final JPanel log = new JPanel();
 
     public AlgorithmPanel(Algorithm algorithm) {
         super(new GridLayout(3, 1), false);
@@ -58,26 +58,14 @@ public class AlgorithmPanel extends JPanel {
         profit.setFillZoomRectangle(true);
         profit.setMouseWheelEnabled(true);
 
-        log = createLog();
-
-        add(price);
-        add(profit);
-        add(log);
-
-        this.algorithm.setPanel(this);
-    }
-
-    private JPanel createLog() {
         writer.setTabSize(4);
         writer.setLineWrap(true);
         writer.setWrapStyleWord(true);
         writer.setBackground(Color.white);
         writer.setEditable(false);
         writer.getDocument().addDocumentListener(new DocumentListener() {
-
             @Override
             public void changedUpdate(DocumentEvent e) {
-
             }
 
             @Override
@@ -87,7 +75,6 @@ public class AlgorithmPanel extends JPanel {
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-
             }
         });
 
@@ -96,11 +83,15 @@ public class AlgorithmPanel extends JPanel {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        JPanel logPanel = new JPanel();
-        logPanel.setBorder(BorderFactory.createTitledBorder("Logs"));
-        logPanel.setLayout(new GridLayout(1, 1));
-        logPanel.add(scroll);
-        return logPanel;
+        log.setBorder(BorderFactory.createTitledBorder("Logs"));
+        log.setLayout(new GridLayout(1, 1));
+        log.add(scroll);
+
+        add(price);
+        add(profit);
+        add(log);
+
+        algorithm.setPanel(this);
     }
 
     public void visPrice(Pair<String, List<Double>>... series) {

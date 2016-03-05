@@ -4,23 +4,18 @@ import cn.quanttech.quantera.CONST;
 import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
-import tongtong.qiangqiang.data.factor.MAVG;
-import tongtong.qiangqiang.data.factor.composite.DEMA;
 import tongtong.qiangqiang.data.factor.composite.MACD;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
-import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.Algorithm;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
-import tongtong.qiangqiang.mind.trade.Pusher;
+import tongtong.qiangqiang.mind.push.Pusher;
 
-import javax.swing.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_5;
 import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 import static org.apache.commons.lang3.tuple.Pair.of;
@@ -87,7 +82,7 @@ public class PriceChange extends Algorithm {
 
         SMA dea = (SMA) macd.dea;
         if (dea.size() >= 2) {
-            if (dea.value.tail() > dea.value.last(1)){
+            if (dea.value.tail() > dea.value.last(1)) {
                 buyClose(security, share, price + slipage);
                 buy(security, share, price + slipage);
             } else {
@@ -100,25 +95,20 @@ public class PriceChange extends Algorithm {
     }
 
     public static void main(String[] args) {
-        setNetDomain(CONST.INTRA_QUANDIS_URL);
+        setNetDomain(CONST.OUTRA_QUANDIS_URL);
 
-        //Pusher pusher = new Pusher(8080);
-        //pusher.run();
+        Pusher pusher = new Pusher(8080);
+        pusher.run();
 
         int period = 31;
-        List<Algorithm> algorithms = new ArrayList<>();
-
         String security = "rb1605";
         TimeFrame resolution = MIN_5;
         LocalDate begin = LocalDate.of(2016, 1, 1);
 
+        List<Algorithm> algorithms = new ArrayList<>();
         MACD macd = new MACD(new EMA(period), new SMA(period), new SMA(13));
-        algorithms.add(new PriceChange("Difference Change", null, macd, security, resolution, begin));
+        algorithms.add(new PriceChange("Difference Change", pusher, macd, security, resolution, begin));
 
-        JFrame frame = new JFrame("AlgorithmManager");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new AlgorithmManager(algorithms));
-        frame.pack();
-        frame.setVisible(true);
+        new AlgorithmManager(algorithms).vis();
     }
 }

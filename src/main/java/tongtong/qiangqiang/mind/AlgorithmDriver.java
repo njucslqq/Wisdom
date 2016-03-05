@@ -9,7 +9,7 @@ import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.algorithm.MAVGReverseDiff;
-import tongtong.qiangqiang.mind.trade.Pusher;
+import tongtong.qiangqiang.mind.push.Pusher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
