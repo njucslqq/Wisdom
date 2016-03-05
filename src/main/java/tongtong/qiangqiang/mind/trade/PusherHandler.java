@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.netty.handler.codec.http.HttpResponseStatus.BAD_GATEWAY;
 import static io.netty.handler.codec.http.HttpResponseStatus.BAD_REQUEST;
 import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static java.lang.Double.parseDouble;
@@ -65,12 +66,12 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        //System.out.println("tick coming");
+        System.out.println("[Recieve Tick, Processing]");
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
-        //System.out.println("closed");
+        System.out.println("[Finished, Close Connection]\n");
     }
 
     @Override
@@ -80,7 +81,7 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();
-        sendString(ctx, "exception caught", OK);
+        sendString(ctx, "======> Catch Exception in Handler, Abort", OK);
     }
 
     @Override
