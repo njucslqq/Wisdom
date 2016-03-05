@@ -74,11 +74,11 @@ public class RealOrder extends BaseOrder {
     private void sendOrder(String query) {
         try {
             URL url = new URL(query);
-            HttpURLConnection con = null;
-            con = (HttpURLConnection) url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.connect();
             if (con.getResponseCode() != 200)
                 System.out.println(con.getResponseMessage());
+            con.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         }

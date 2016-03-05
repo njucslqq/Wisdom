@@ -109,13 +109,11 @@ public abstract class BaseOrder implements IOrder {
 
     @Override
     public String conclude() {
-        return new StringBuilder()
-                .append("\n<========== Summary ==========>")
-                .append("\nLong  Profit: " + lDif)
-                .append("\nShort Profit: " + sDif)
-                .append("\nLong  Trading Time: " + lTime)
-                .append("\nShort Trading Time: " + sTime)
-                .append("\n<==========   End   ==========>\n")
-                .toString();
+        return "\n<========== Summary ==========>" +
+                "\nLong  Profit: " + lDif +
+                "\nShort Profit: " + sDif +
+                "\nLong  Trading Time: " + lTime +
+                "\nShort Trading Time: " + sTime +
+                "\n<==========   End   ==========>\n";
     }
 }
