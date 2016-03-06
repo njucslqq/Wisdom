@@ -102,7 +102,7 @@ public class MAVGReverseDiff extends Algorithm {
         int period = 17;
         String security = "rb1605";
         TimeFrame resolution = MIN_1;
-        LocalDate begin = LocalDate.of(2016, 2, 22);
+        LocalDate begin = LocalDate.of(2016, 2, 1);
 
         List<Algorithm> algorithms = new ArrayList<>();
         MAVG[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};

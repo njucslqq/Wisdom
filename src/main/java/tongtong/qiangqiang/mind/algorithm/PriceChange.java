@@ -84,7 +84,7 @@ public class PriceChange extends Algorithm {
 
         double fd = fast_dif.update(macd.dif.value.tail());
         double sd = slow_dif.update(macd.dif.value.tail());
-        dif_dif.update(fd-sd);
+        dif_dif.update(fd - sd);
 
         int size = 128;
         if (close.size() < size) {
@@ -95,8 +95,8 @@ public class PriceChange extends Algorithm {
             //visProfit(of("DIF_DIF", dif_dif.lastn(size)));
         }
 
-        if (dif_dif.size()>1){
-            if (macd.dif.value.last(0) < macd.dif.value.last(1)){
+        if (dif_dif.size() > 1) {
+            if (macd.dif.value.last(0) < macd.dif.value.last(1)) {
                 buyClose(security, share, price + slipage);
                 buy(security, share, price + slipage);
             } else {
@@ -117,7 +117,7 @@ public class PriceChange extends Algorithm {
         int period = 25;
         String security = "rb1605";
         TimeFrame resolution = MIN_1;
-        LocalDate begin = LocalDate.of(2016, 2,22);
+        LocalDate begin = LocalDate.of(2016, 2, 1);
 
         Class<?>[] clazz = {SMA.class, EMA.class, WMA.class, DEMA.class};
         List<Algorithm> algorithms = new ArrayList<>();
