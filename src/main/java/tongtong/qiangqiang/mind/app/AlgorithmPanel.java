@@ -98,7 +98,7 @@ public class AlgorithmPanel extends JPanel {
         price.setChart(createChart("Price Change", "time", "price", series));
     }
 
-    public void visProfit(Pair<String, List<Double>> value) {
+    public void visProfit(Pair<String, List<Double>>... value) {
         profit.setChart(createChart("Profit Change", "time", "profit", value));
     }
 

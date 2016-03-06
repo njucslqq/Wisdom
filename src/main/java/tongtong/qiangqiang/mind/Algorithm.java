@@ -112,7 +112,7 @@ public abstract class Algorithm {
         panel.visPrice(series);
     }
 
-    protected void visProfit(Pair<String, List<Double>> profit){
+    protected void visProfit(Pair<String, List<Double>>... profit){
         panel.visProfit(profit);
     }
 
