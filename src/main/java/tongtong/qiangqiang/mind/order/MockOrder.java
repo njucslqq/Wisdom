@@ -9,8 +9,8 @@ package tongtong.qiangqiang.mind.order;
  */
 public class MockOrder extends BaseOrder {
 
-    public MockOrder(String name) {
-        super(name);
+    public MockOrder(Double commision) {
+        super(commision);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MockOrder extends BaseOrder {
     @Override
     public String sell(String id, int share, double price) {
         if (sellAction(price)) {
-            return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
+            return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
         } else
             return "";
     }
@@ -32,7 +32,7 @@ public class MockOrder extends BaseOrder {
     @Override
     public String buyClose(String id, int share, double price) {
         if (buyCloseAction(price)) {
-            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", profit: " + sDif;
+            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
         } else
             return "";
     }

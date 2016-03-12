@@ -50,6 +50,8 @@ public abstract class Algorithm {
 
     private final String name;
 
+    private final double commision;
+
     private final Pusher trader;
 
     private final String tsAddress;
@@ -62,15 +64,16 @@ public abstract class Algorithm {
 
     private AlgorithmPanel panel;
 
-    public Algorithm(String name, Pusher trader, String tsAddress, int tsPort) {
+    public Algorithm(String name, double commision, Pusher trader, String tsAddress, int tsPort) {
         this.name = name;
+        this.commision = commision;
         this.trader = trader;
         this.tsAddress = tsAddress;
         this.tsPort = tsPort;
     }
 
-    public Algorithm(String name, Pusher trader) {
-        this(name, trader, "localhost", 9090);
+    public Algorithm(String name, double commision, Pusher trader) {
+        this(name, commision, trader, "localhost", 9090);
     }
 
     protected void setSecurity(String security) {
@@ -186,10 +189,10 @@ public abstract class Algorithm {
     private void configure() {
         switch (model) {
             case TEST:
-                order = new MockOrder(name);
+                order = new MockOrder(commision);
                 break;
             case TRADE: {
-                order = state.equals(MOCK) ? new MockOrder(name) : new RealOrder(name, tsAddress, tsPort);
+                order = state.equals(MOCK) ? new MockOrder(commision) : new RealOrder(commision, tsAddress, tsPort);
                 break;
             }
         }

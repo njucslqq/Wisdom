@@ -3,6 +3,7 @@ package tongtong.qiangqiang.mind.order;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 
 /**
  * Author: Qiangqiang Li
@@ -19,8 +20,8 @@ public class RealOrder extends BaseOrder {
 
     public final String baseUrl;
 
-    public RealOrder(String name, String tsIP, int tsPort) {
-        super(name);
+    public RealOrder(double commision, String tsIP, int tsPort) {
+        super(commision);
         this.tsIP = tsIP;
         this.tsPort = tsPort;
         this.baseUrl = "http://" + tsIP + ":" + tsPort + "/?";
@@ -28,7 +29,7 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buy(String id, int share, double price) {
-        String query = baseUrl + "type=market&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
+        String query = baseUrl + "type=limit&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!lPos) {
             sendOrder(query);
             buyAction(price);
@@ -39,30 +40,31 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String sell(String id, int share, double price) {
-        String query = baseUrl + "type=market&direction=sell&action=close" + "&code=" + id + "&share=" + share + "&price=" + price;
-
+        String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
+        String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         if (lPos) {
             sendOrder(query);
             sellAction(price);
-            return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", profit: " + lDif;
+            return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
         }
         return "";
     }
 
     @Override
     public String buyClose(String id, int share, double price) {
-        String query = baseUrl + "type=market&direction=buy&action=close" + "&code=" + id + "&share=" + share + "&price=" + price;
+        String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
+        String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         if (sPos) {
             sendOrder(query);
             buyCloseAction(price);
-            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", profit: " + sDif;
+            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
         }
         return "";
     }
 
     @Override
     public String sellOpen(String id, int share, double price) {
-        String query = baseUrl + "type=market&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
+        String query = baseUrl + "type=limit&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!sPos) {
             sendOrder(query);
             sellOpenAction(price);

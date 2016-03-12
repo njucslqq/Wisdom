@@ -5,10 +5,7 @@ import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
-import tongtong.qiangqiang.data.factor.MAVGFactory;
 import tongtong.qiangqiang.data.factor.composite.DEMA;
-import tongtong.qiangqiang.data.factor.composite.MACD;
-import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
@@ -24,8 +21,6 @@ import java.util.List;
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 import static org.apache.commons.lang3.tuple.Pair.of;
-import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
-import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
 /**
  * Author: Qiangqiang Li
@@ -46,16 +41,19 @@ public class MAVGReverseDiff extends Algorithm {
 
     public final LocalDate begin;
 
+    public final LocalDate end;
+
     public final int share = 1;
 
     public final double slipage = 0.0;
 
     public final Intermediate close = new Intermediate();
 
-    public MAVGReverseDiff(String prefix, Pusher trader, String security, TimeFrame resolution, LocalDate begin, MAVG fast, MAVG slow) {
-        super(prefix + " - " + fast.getName() + " - " + slow.getName(), trader);
+    public MAVGReverseDiff(String prefix, Pusher trader, double commision, String security, TimeFrame resolution, LocalDate begin, LocalDate end, MAVG fast, MAVG slow) {
+        super(prefix + " - " + fast.getName() + " - " + slow.getName(), commision, trader);
         this.security = security;
         this.begin = begin;
+        this.end = end;
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
@@ -66,26 +64,23 @@ public class MAVGReverseDiff extends Algorithm {
         setSecurity(security);
         setResolution(resolution);
         setStart(begin);
-        setEnd(LocalDate.now());
+        setEnd(end);
         setVerbose(true);
-        //setModel(TRADE);
-        //setState(REAL);
+        setModel(MindType.Model.TRADE);
+        setState(MindType.State.REAL);
     }
 
     @Override
     public void onData(BaseData data) {
         BarInfo bar = (BarInfo) data;
         double price = bar.closePrice;
+
         close.update(price);
         double f = fast.update(price);
         double s = slow.update(price);
 
         int size = 128;
-        if (close.size() < size) {
-            visPrice(of(fast.getName(), fast.all()), of(slow.getName(), slow.all()), of("close", close.all()));
-        } else {
-            visPrice(of(fast.getName(), fast.lastn(size)), of(slow.getName(), slow.lastn(size)), of("close", close.lastn(size)));
-        }
+        visPrice(size, fast, slow, close);
 
         if (fast.size() > 17) {
             if (f < s) {
@@ -101,30 +96,50 @@ public class MAVGReverseDiff extends Algorithm {
     }
 
     public static void main(String[] args) {
-        setNetDomain(CONST.INTRA_QUANDIS_URL);
+        setNetDomain(CONST.OUTRA_QUANDIS_URL);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
+        List<Algorithm> p1 = portfolio1(pusher);
+        new AlgorithmManager(p1).vis();
+    }
+
+    private static List<Algorithm> portfolio1(Pusher pusher) {
         int period = 17;
-        String security = "m1609";
+        String security = "";
+        MAVG fast = null;
+        MAVG slow = null;
         TimeFrame resolution = MIN_1;
-        LocalDate begin = LocalDate.of(2016, 3, 9);
+        LocalDate begin = LocalDate.of(2016, 1, 1);
+        LocalDate end = LocalDate.of(2016, 3, 1);
 
         List<Algorithm> algorithms = new ArrayList<>();
 
-        Class<?>[] clazz = {SMA.class, EMA.class, WMA.class, DEMA.class};
-        for (int i = 1; i < clazz.length; i++)
-            for (int j = 0; j < i; j++) {
-                MAVG fast = MAVGFactory.create(clazz[i], period);
-                MAVG slow = MAVGFactory.create(clazz[j], period);
-                algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast, slow));
-            }
+        /**
+         * add two algorithms for bu1606
+         */
+        security = "bu1606";
+        fast = new WMA(period);
+        slow = new SMA(period);
+        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
+        fast = new DEMA(period);
+        slow = new SMA(period);
+        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
-        //MAVG fast = new WMA(period);
-        //MAVG slow = new SMA(period);
-        //algorithms.add(new MAVGReverseDiff("Diff-" + security + "-", pusher, security, resolution, begin, fast, slow));
-        new AlgorithmManager(algorithms).vis();
+        /**
+         * add two algorithms for m1609
+         */
+        security = "m1609";
+        fast = new WMA(period);
+        slow = new SMA(period);
+        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+
+        fast = new DEMA(period);
+        slow = new WMA(period);
+        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+
+        return algorithms;
     }
 }

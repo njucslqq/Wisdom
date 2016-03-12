@@ -12,7 +12,6 @@ import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.Algorithm;
-import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
@@ -54,8 +53,8 @@ public class DifferenceChange extends Algorithm {
 
     public final Intermediate dif_dif;
 
-    public DifferenceChange(String name, Pusher trader, MACD macd, String security, TimeFrame resolution, LocalDate begin) {
-        super(name, trader);
+    public DifferenceChange(String name, double commision, Pusher trader, MACD macd, String security, TimeFrame resolution, LocalDate begin) {
+        super(name, commision, trader);
         this.macd = macd;
         this.resolution = resolution;
         this.security = security;
@@ -89,13 +88,7 @@ public class DifferenceChange extends Algorithm {
         dif_dif.update(fd - sd);
 
         int size = 128;
-        if (close.size() < size) {
-            visPrice(of(macd.fast.getName(), macd.fast.all()), of(macd.slow.getName(), macd.slow.all()), of("close", close.all()));
-            //visProfit(of("DIF_DIF", dif_dif.all()));
-        } else {
-            visPrice(of(macd.fast.getName(), macd.fast.lastn(size)), of(macd.slow.getName(), macd.slow.lastn(size)), of("close", close.lastn(size)));
-            //visProfit(of("DIF_DIF", dif_dif.lastn(size)));
-        }
+        visPrice(size, macd.fast, macd.slow, close);
 
         if (dif_dif.size() > 25) {
             if (macd.dif.value.last(0) < macd.dif.value.last(1)) {
@@ -128,7 +121,7 @@ public class DifferenceChange extends Algorithm {
                 MAVG fast = create(clazz[i], period);
                 MAVG slow = create(clazz[j], period);
                 MACD macd = new MACD(fast, slow, new SMA(5));
-                algorithms.add(new DifferenceChange(fast.getName() + "-" + slow.getName(), pusher, macd, security, resolution, begin));
+                algorithms.add(new DifferenceChange(fast.getName() + "-" + slow.getName(), 0.2, pusher, macd, security, resolution, begin));
             }
         /*
         MAVG fast = new DEMA(period);

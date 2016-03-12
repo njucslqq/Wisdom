@@ -53,7 +53,7 @@ public class AlgorithmDriver {
                 algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast[i], slow[j]));
             }
         */
-        algorithms.add(new MAVGReverseDiff("", pusher, security, resolution, begin, new DEMA(period), new EMA(period)));// fast[i], slow[j]));
+        algorithms.add(new MAVGReverseDiff("", pusher, 0.2, security, resolution, begin, null, new DEMA(period), new EMA(period)));// fast[i], slow[j]));
         algorithms.parallelStream().forEach(algorithm -> {
             algorithm.run();
             synchronized (results) {

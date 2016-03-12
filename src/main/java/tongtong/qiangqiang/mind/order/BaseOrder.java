@@ -1,8 +1,6 @@
 package tongtong.qiangqiang.mind.order;
 
-import tongtong.qiangqiang.vis.TimeSeriesChart;
-
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +16,10 @@ public abstract class BaseOrder implements IOrder {
     protected boolean lPos = false;
 
     protected boolean sPos = false;
+
+    protected LocalDate lDate = null;
+
+    protected LocalDate sDate = null;
 
     protected double lPrice = 0.;
 
@@ -35,17 +37,18 @@ public abstract class BaseOrder implements IOrder {
 
     protected final LinkedList<Double> shortProfit = new LinkedList<>();
 
-    protected final LinkedList<Double> profit = new LinkedList<>();
+    protected final LinkedList<Double> totalProfit = new LinkedList<>();
 
-    protected final String name;
+    protected final double commision;
 
-    public BaseOrder(String name) {
-        this.name = name;
+    public BaseOrder(double commision) {
+        this.commision = commision;
     }
 
     protected boolean buyAction(double price) {
         if (!lPos) {
             lPos = true;
+            lDate = LocalDate.now();
             lPrice = price;
             lTime++;
             return true;
@@ -56,10 +59,10 @@ public abstract class BaseOrder implements IOrder {
     protected boolean sellAction(double price) {
         if (lPos) {
             lPos = false;
-            double delta = (price - lPrice) - 0.2;
+            double delta = (price - lPrice) - commision;
             lDif += delta;
             longProfit.add(delta);
-            profit.add(lDif + sDif);
+            totalProfit.add(lDif + sDif);
             return true;
         }
         return false;
@@ -68,10 +71,10 @@ public abstract class BaseOrder implements IOrder {
     protected boolean buyCloseAction(double price) {
         if (sPos) {
             sPos = false;
-            double delta = (sPrice - price) - 0.2;
+            double delta = (sPrice - price) - commision;
             sDif += delta;
             shortProfit.add(delta);
-            profit.add(lDif + sDif);
+            totalProfit.add(lDif + sDif);
             return true;
         }
         return false;
@@ -80,6 +83,7 @@ public abstract class BaseOrder implements IOrder {
     protected boolean sellOpenAction(double price) {
         if (!sPos) {
             sPos = true;
+            sDate = LocalDate.now();
             sPrice = price;
             sTime++;
             return true;
@@ -104,7 +108,7 @@ public abstract class BaseOrder implements IOrder {
 
     @Override
     public List<Double> profit() {
-        return profit;
+        return totalProfit;
     }
 
     @Override
