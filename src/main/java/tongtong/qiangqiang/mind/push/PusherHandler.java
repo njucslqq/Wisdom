@@ -112,9 +112,7 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
     }
 
     private boolean isTradingTime() {
-        return !((now().isAfter(NIGHT_END) && now().isBefore(AM_START)) ||
-                (now().isAfter(AM_END) && now().isBefore(PM_START)) ||
-                (now().isAfter(PM_END) && now().isBefore(NIGHT_START)));
+        return (!now().isBefore(AM_START) && !now().isAfter(AM_END)) || (!now().isBefore(PM_START) && !now().isAfter(PM_END));
     }
 
     private TickInfo parseTick(Map<String, List<String>> para) {
