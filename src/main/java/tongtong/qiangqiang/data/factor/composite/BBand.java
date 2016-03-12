@@ -12,8 +12,7 @@ import tongtong.qiangqiang.data.factor.single.SingleIndicator;
  * Created on 2016-03-03.
  */
 public class BBand extends WIN<BarInfo> {
-
-
+    
     public BBand(int cacheCapacity) {
         super(cacheCapacity);
     }

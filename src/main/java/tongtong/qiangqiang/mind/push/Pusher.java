@@ -7,10 +7,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import tongtong.qiangqiang.mind.Algorithm;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static io.netty.buffer.PooledByteBufAllocator.DEFAULT;
 import static io.netty.channel.ChannelOption.ALLOCATOR;
@@ -41,8 +38,11 @@ public class Pusher {
         currentBar.put(algorithm, null);
         if (algorithms.containsKey(algorithm.getSecurity()))
             algorithms.get(algorithm.getSecurity()).add(algorithm);
-        else
-            algorithms.put(algorithm.getSecurity(), Arrays.asList(algorithm));
+        else {
+            List<Algorithm> lst = new ArrayList<>();
+            lst.add(algorithm);
+            algorithms.put(algorithm.getSecurity(), lst);
+        }
     }
 
     public int getPort() {

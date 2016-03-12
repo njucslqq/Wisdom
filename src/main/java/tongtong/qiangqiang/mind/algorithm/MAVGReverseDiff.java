@@ -5,12 +5,15 @@ import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
+import tongtong.qiangqiang.data.factor.MAVGFactory;
 import tongtong.qiangqiang.data.factor.composite.DEMA;
+import tongtong.qiangqiang.data.factor.composite.MACD;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
 import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.Algorithm;
+import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
@@ -21,6 +24,8 @@ import java.util.List;
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
 import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 import static org.apache.commons.lang3.tuple.Pair.of;
+import static tongtong.qiangqiang.mind.MindType.Model.TRADE;
+import static tongtong.qiangqiang.mind.MindType.State.REAL;
 
 /**
  * Author: Qiangqiang Li
@@ -82,37 +87,44 @@ public class MAVGReverseDiff extends Algorithm {
             visPrice(of(fast.getName(), fast.lastn(size)), of(slow.getName(), slow.lastn(size)), of("close", close.lastn(size)));
         }
 
-        if (f < s) {
-            buyClose(security, share, price + slipage);
-            buy(security, share, price + slipage);
-        } else {
-            sell(security, share, price - slipage);
-            sellOpen(security, share, price - slipage);
+        if (fast.size() > 17) {
+            if (f < s) {
+                buyClose(security, share, price + slipage);
+                buy(security, share, price + slipage);
+            } else {
+                sell(security, share, price - slipage);
+                sellOpen(security, share, price - slipage);
+            }
         }
 
         visProfit(of("return", profit()));
     }
 
     public static void main(String[] args) {
-        setNetDomain(CONST.OUTRA_QUANDIS_URL);
+        setNetDomain(CONST.INTRA_QUANDIS_URL);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
         int period = 17;
-        String security = "rb1605";
+        String security = "m1609";
         TimeFrame resolution = MIN_1;
-        LocalDate begin = LocalDate.of(2016, 2, 1);
+        LocalDate begin = LocalDate.of(2016, 3, 9);
 
         List<Algorithm> algorithms = new ArrayList<>();
-        MAVG[] mavgs = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-        for (int i = 1; i < mavgs.length; i++)
+
+        Class<?>[] clazz = {SMA.class, EMA.class, WMA.class, DEMA.class};
+        for (int i = 1; i < clazz.length; i++)
             for (int j = 0; j < i; j++) {
-                MAVG[] fast = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-                MAVG[] slow = {new SMA(period), new EMA(period), new WMA(period), new DEMA(period), new DEMA(new WMA(period), new WMA(period))};
-                algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast[i], slow[j]));
+                MAVG fast = MAVGFactory.create(clazz[i], period);
+                MAVG slow = MAVGFactory.create(clazz[j], period);
+                algorithms.add(new MAVGReverseDiff("[" + i + "," + j + "]", pusher, security, resolution, begin, fast, slow));
             }
 
+
+        //MAVG fast = new WMA(period);
+        //MAVG slow = new SMA(period);
+        //algorithms.add(new MAVGReverseDiff("Diff-" + security + "-", pusher, security, resolution, begin, fast, slow));
         new AlgorithmManager(algorithms).vis();
     }
 }

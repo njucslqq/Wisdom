@@ -3,6 +3,7 @@ package tongtong.qiangqiang.mind;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import org.apache.commons.lang3.tuple.Pair;
+import tongtong.qiangqiang.data.factor.Indicator;
 import tongtong.qiangqiang.mind.MindType.Model;
 import tongtong.qiangqiang.mind.app.AlgorithmPanel;
 import tongtong.qiangqiang.mind.order.IOrder;
@@ -108,19 +109,37 @@ public abstract class Algorithm {
         panel.writer.append(order.conclude());
     }
 
-    protected void visPrice(Pair<String, List<Double>>...series){
+    protected void visPrice(Pair<String, List<Double>>... series) {
         panel.visPrice(series);
     }
 
-    protected void visProfit(Pair<String, List<Double>>... profit){
+    protected void visProfit(Pair<String, List<Double>>... profit) {
         panel.visProfit(profit);
     }
 
-    protected void log(String line){
+    protected void visPrice(int lastn, Indicator<?>... indicators) {
+        visPrice(toNameValuePair(lastn, indicators));
+    }
+
+    protected void visProfit(int lastn, Indicator<?>...indicators){
+        visProfit(toNameValuePair(lastn, indicators));
+    }
+
+    private Pair[] toNameValuePair(int lastn, Indicator<?>...indicators){
+        Pair[] args = new Pair[indicators.length];
+        for (int i = 0; i < indicators.length; i++)
+            if (indicators[i].size() >= lastn)
+                args[i] = Pair.of(indicators[i].getName(), indicators[i].getPrimary().lastn(lastn));
+            else
+                args[i] = Pair.of(indicators[i].getName(), indicators[i].getPrimary().all());
+        return args;
+    }
+
+    protected void log(String line) {
         panel.writer.append(line);
     }
 
-    protected List<Double> profit(){
+    protected List<Double> profit() {
         return order.profit();
     }
 
@@ -208,11 +227,11 @@ public abstract class Algorithm {
         onComplete();
     }
 
-    public void setPanel(AlgorithmPanel panel){
+    public void setPanel(AlgorithmPanel panel) {
         this.panel = panel;
     }
 
-    public AlgorithmPanel getPanel(){
+    public AlgorithmPanel getPanel() {
         return panel;
     }
 

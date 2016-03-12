@@ -5,7 +5,6 @@ import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import tongtong.qiangqiang.data.factor.MAVG;
-import tongtong.qiangqiang.data.factor.MAVGFactory;
 import tongtong.qiangqiang.data.factor.composite.DEMA;
 import tongtong.qiangqiang.data.factor.composite.MACD;
 import tongtong.qiangqiang.data.factor.single.indicators.EMA;
@@ -13,6 +12,7 @@ import tongtong.qiangqiang.data.factor.single.indicators.Intermediate;
 import tongtong.qiangqiang.data.factor.single.indicators.SMA;
 import tongtong.qiangqiang.data.factor.single.indicators.WMA;
 import tongtong.qiangqiang.mind.Algorithm;
+import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cn.quanttech.quantera.common.data.TimeFrame.MIN_1;
-import static cn.quanttech.quantera.common.data.TimeFrame.MIN_5;
 import static cn.quanttech.quantera.datacenter.DataCenterUtil.setNetDomain;
 import static org.apache.commons.lang3.tuple.Pair.of;
 import static tongtong.qiangqiang.data.factor.MAVGFactory.create;
@@ -33,7 +32,7 @@ import static tongtong.qiangqiang.data.factor.MAVGFactory.create;
  * <p>
  * Created on 2016-03-03.
  */
-public class PriceChange extends Algorithm {
+public class DifferenceChange extends Algorithm {
 
     public final MACD macd;
 
@@ -47,7 +46,7 @@ public class PriceChange extends Algorithm {
 
     public final int share = 1;
 
-    public final double slipage = 0.0;
+    public final double slipage = 1.0;
 
     public final MAVG fast_dif;
 
@@ -55,7 +54,7 @@ public class PriceChange extends Algorithm {
 
     public final Intermediate dif_dif;
 
-    public PriceChange(String name, Pusher trader, MACD macd, String security, TimeFrame resolution, LocalDate begin) {
+    public DifferenceChange(String name, Pusher trader, MACD macd, String security, TimeFrame resolution, LocalDate begin) {
         super(name, trader);
         this.macd = macd;
         this.resolution = resolution;
@@ -72,6 +71,9 @@ public class PriceChange extends Algorithm {
         setResolution(resolution);
         setStart(begin);
         setEnd(LocalDate.now());
+        setVerbose(true);
+        //setModel(MindType.Model.TRADE);
+        //setState(MindType.State.REAL);
     }
 
     @Override
@@ -95,7 +97,7 @@ public class PriceChange extends Algorithm {
             //visProfit(of("DIF_DIF", dif_dif.lastn(size)));
         }
 
-        if (dif_dif.size() > 1) {
+        if (dif_dif.size() > 25) {
             if (macd.dif.value.last(0) < macd.dif.value.last(1)) {
                 buyClose(security, share, price + slipage);
                 buy(security, share, price + slipage);
@@ -115,7 +117,7 @@ public class PriceChange extends Algorithm {
         pusher.run();
 
         int period = 25;
-        String security = "rb1605";
+        String security = "c1609";
         TimeFrame resolution = MIN_1;
         LocalDate begin = LocalDate.of(2016, 2, 1);
 
@@ -126,8 +128,13 @@ public class PriceChange extends Algorithm {
                 MAVG fast = create(clazz[i], period);
                 MAVG slow = create(clazz[j], period);
                 MACD macd = new MACD(fast, slow, new SMA(5));
-                algorithms.add(new PriceChange(fast.getName() + "-" + slow.getName(), pusher, macd, security, resolution, begin));
+                algorithms.add(new DifferenceChange(fast.getName() + "-" + slow.getName(), pusher, macd, security, resolution, begin));
             }
+        /*
+        MAVG fast = new DEMA(period);
+        MAVG slow = new EMA(period);
+        MACD macd = new MACD(fast, slow, new SMA(5));
+        algorithms.add(new DifferenceChange(fast.getName() + "-" + slow.getName(), pusher, macd, security, resolution, begin));*/
 
         new AlgorithmManager(algorithms).vis();
     }
