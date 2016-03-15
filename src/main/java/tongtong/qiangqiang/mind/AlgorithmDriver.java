@@ -57,7 +57,7 @@ public class AlgorithmDriver {
         algorithms.parallelStream().forEach(algorithm -> {
             algorithm.run();
             synchronized (results) {
-                results.add(of(algorithm.getName(), algorithm.total()));
+                results.add(of(algorithm.getName(), algorithm.totalReturn()));
             }
         });
 

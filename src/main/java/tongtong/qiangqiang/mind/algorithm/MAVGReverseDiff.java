@@ -66,8 +66,11 @@ public class MAVGReverseDiff extends Algorithm {
         setStart(begin);
         setEnd(end);
         setVerbose(true);
-        setModel(MindType.Model.TRADE);
-        setState(MindType.State.REAL);
+        setShare(1);
+        setSlippage(1.0);
+        setStopLoss(10.0);
+        //setModel(MindType.Model.TRADE);
+        //setState(MindType.State.REAL);
     }
 
     @Override
@@ -84,11 +87,11 @@ public class MAVGReverseDiff extends Algorithm {
 
         if (fast.size() > 17) {
             if (f < s) {
-                buyClose(security, share, price + slipage);
-                buy(security, share, price + slipage);
+                buyClose(price + slipage);
+                buy(price + slipage);
             } else {
-                sell(security, share, price - slipage);
-                sellOpen(security, share, price - slipage);
+                sell(price - slipage);
+                sellOpen(price - slipage);
             }
         }
 
@@ -96,7 +99,7 @@ public class MAVGReverseDiff extends Algorithm {
     }
 
     public static void main(String[] args) {
-        setNetDomain(CONST.OUTRA_QUANDIS_URL);
+        setNetDomain(CONST.INTRA_QUANDIS_URL);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
@@ -122,11 +125,11 @@ public class MAVGReverseDiff extends Algorithm {
         security = "bu1606";
         fast = new WMA(period);
         slow = new SMA(period);
-        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+        //algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
         fast = new DEMA(period);
         slow = new SMA(period);
-        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+        //algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
         /**
          * add two algorithms for m1609
@@ -134,7 +137,7 @@ public class MAVGReverseDiff extends Algorithm {
         security = "m1609";
         fast = new WMA(period);
         slow = new SMA(period);
-        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+        //algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
         fast = new DEMA(period);
         slow = new WMA(period);

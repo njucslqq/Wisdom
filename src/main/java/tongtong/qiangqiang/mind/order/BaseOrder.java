@@ -92,6 +92,22 @@ public abstract class BaseOrder implements IOrder {
     }
 
     @Override
+    public double floatLongProfit(double lastPrice){
+        if (lPos){
+            return lastPrice - lPrice;
+        }
+        return 0.0;
+    }
+
+    @Override
+    public double floatShortProfit(double lastPrice){
+        if (sPos){
+            return sPrice - lastPrice;
+        }
+        return 0.0;
+    }
+
+    @Override
     public double longReturn() {
         return lDif;
     }

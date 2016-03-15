@@ -1,5 +1,6 @@
 package tongtong.qiangqiang.mind;
 
+import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import org.apache.commons.lang3.tuple.Pair;
@@ -40,13 +41,23 @@ public abstract class Algorithm {
 
     private LocalDate end;
 
+    private int share = 1;
+
+    private double slippage = 1.0;
+
     private Model model = TEST;
 
     private State state = MOCK;
 
-    private Order type = MARKET;
-
     private boolean print = false;
+
+    private boolean stopLoss = false;
+
+    private boolean stopWin = false;
+
+    private double lossPoint;
+
+    private double winPoint;
 
     private final String name;
 
@@ -100,12 +111,26 @@ public abstract class Algorithm {
         this.state = state;
     }
 
-    protected void setType(Order type) {
-        this.type = type;
-    }
-
     protected void setVerbose(boolean print) {
         this.print = print;
+    }
+
+    protected void setShare(int share){
+        this.share = share;
+    }
+
+    protected void setSlippage(double slippage){
+        this.slippage = slippage;
+    }
+
+    protected void setStopLoss(double lossPoint){
+        this.stopLoss = true;
+        this.lossPoint = lossPoint;
+    }
+
+    protected void setStopWin(double winPoint){
+        this.stopWin = true;
+        this.winPoint = winPoint;
     }
 
     protected void conclude() {
@@ -124,11 +149,11 @@ public abstract class Algorithm {
         visPrice(toNameValuePair(lastn, indicators));
     }
 
-    protected void visProfit(int lastn, Indicator<?>...indicators){
+    protected void visProfit(int lastn, Indicator<?>... indicators) {
         visProfit(toNameValuePair(lastn, indicators));
     }
 
-    private Pair[] toNameValuePair(int lastn, Indicator<?>...indicators){
+    private Pair[] toNameValuePair(int lastn, Indicator<?>... indicators) {
         Pair[] args = new Pair[indicators.length];
         for (int i = 0; i < indicators.length; i++)
             if (indicators[i].size() >= lastn)
@@ -138,49 +163,53 @@ public abstract class Algorithm {
         return args;
     }
 
-    protected void log(String line) {
-        panel.writer.append(line);
+    protected void log(String str) {
+        panel.writer.append(str);
+    }
+
+    protected void logl(String line) {
+        panel.writer.append(line + "\n");
     }
 
     protected List<Double> profit() {
         return order.profit();
     }
 
-    protected boolean buy(String id, int share, double price) {
-        String rtn = order.buy(id, share, price);
+    protected boolean buy(double price) {
+        String rtn = order.buy(security, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                panel.writer.append(rtn + " on the " + index + "th bar\n");
+                logl(rtn);
             return true;
         }
         return false;
     }
 
-    protected boolean sell(String id, int share, double price) {
-        String rtn = order.sell(id, share, price);
+    protected boolean sell(double price) {
+        String rtn = order.sell(security, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                panel.writer.append(rtn + " on the " + index + "th bar\n");
+                logl(rtn);
             return true;
         }
         return false;
     }
 
-    protected boolean buyClose(String id, int share, double price) {
-        String rtn = order.buyClose(id, share, price);
+    protected boolean buyClose(double price) {
+        String rtn = order.buyClose(security, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                panel.writer.append(rtn + " on the " + index + "th bar\n");
+                logl(rtn);
             return true;
         }
         return false;
     }
 
-    protected boolean sellOpen(String id, int share, double price) {
-        String rtn = order.sellOpen(id, share, price);
+    protected boolean sellOpen(double price) {
+        String rtn = order.sellOpen(security, share, price);
         if (!rtn.isEmpty()) {
             if (print)
-                panel.writer.append(rtn + " on the " + index + "th bar\n");
+                logl(rtn);
             return true;
         }
         return false;
@@ -218,7 +247,7 @@ public abstract class Algorithm {
         if (model.equals(TEST)) {
             List<? extends BaseData> data = download();
             for (index = 0; index < data.size(); index++)
-                onData(data.get(index));
+                trigger(data.get(index));
         } else
             trader.register(this);
     }
@@ -238,7 +267,7 @@ public abstract class Algorithm {
         return panel;
     }
 
-    public double total() {
+    public double totalReturn() {
         return order.totalReturn();
     }
 
@@ -256,6 +285,31 @@ public abstract class Algorithm {
 
     public void onComplete() {
         conclude();
+    }
+
+    protected void stopLosing(BaseData data){
+        BarInfo bar = (BarInfo) data;
+        double price = bar.closePrice;
+
+        if (order.floatLongProfit(price) < -lossPoint){
+            String rtn = order.sell(security, share, price - slippage);
+            logl("=> stop loss " + rtn);
+        }
+
+        if (order.floatShortProfit(price) < -lossPoint){
+            String rtn = order.buyClose(security, share, price + slippage);
+            logl("=> stop loss " + rtn);
+        }
+    }
+
+    protected void stopWinning(BaseData data){
+
+    }
+
+    public void trigger(BaseData data){
+        onData(data);
+        if (stopLoss) stopLosing(data);
+        if (stopWin) stopWinning(data);
     }
 
     public abstract void init();

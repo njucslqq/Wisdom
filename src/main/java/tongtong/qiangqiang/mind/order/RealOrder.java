@@ -40,9 +40,9 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String sell(String id, int share, double price) {
-        String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
-        String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         if (lPos) {
+            String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
+            String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             sellAction(price);
             return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
@@ -52,9 +52,9 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buyClose(String id, int share, double price) {
-        String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
-        String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         if (sPos) {
+            String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
+            String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             buyCloseAction(price);
             return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();

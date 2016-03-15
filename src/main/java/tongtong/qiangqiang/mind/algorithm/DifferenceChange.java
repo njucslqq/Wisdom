@@ -92,11 +92,11 @@ public class DifferenceChange extends Algorithm {
 
         if (dif_dif.size() > 25) {
             if (macd.dif.value.last(0) < macd.dif.value.last(1)) {
-                buyClose(security, share, price + slipage);
-                buy(security, share, price + slipage);
+                buyClose(price + slipage);
+                buy(price + slipage);
             } else {
-                sell(security, share, price - slipage);
-                sellOpen(security, share, price - slipage);
+                sell(price - slipage);
+                sellOpen(price - slipage);
             }
         }
 
