@@ -90,7 +90,10 @@ public class MAVGReverseDiff extends Algorithm {
             sell(price);
             sellOpen(price);
         }
-
+        /*
+         rb1610  10 - 14
+         bu1606  8 - 12
+          */
         if (lfp(price) < -7.0)
             sellSilent(price - slipage);
 

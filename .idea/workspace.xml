@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" />
     </list>
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,16 +39,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AlgorithmDriver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/AlgorithmDriver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Algorithm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -81,20 +66,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MAVGReverseDiff.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MAVGReverseDiff.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="90" column="28" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.41420117">
+              <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MindType.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MindType.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/MindType.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65088755">
+            <state vertical-scroll-proportion="0.0">
               <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
               <folding />
             </state>
@@ -105,7 +90,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="18" selection-start-line="114" selection-start-column="18" selection-end-line="114" selection-end-column="18" />
+              <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GeneralUtilizer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/func/GeneralUtilizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="173" column="9" selection-start-line="173" selection-start-column="9" selection-end-line="173" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -221,8 +216,8 @@
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
       </list>
     </option>
   </component>
@@ -1264,13 +1259,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/func/GeneralUtilizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33298537">
-          <caret line="154" column="26" selection-start-line="154" selection-start-column="26" selection-end-line="154" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/data/factor/composite/ADX.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1377,7 +1365,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1385,14 +1375,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33284023">
           <caret line="242" column="28" selection-start-line="242" selection-start-column="28" selection-end-line="242" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="18" selection-start-line="114" selection-start-column="18" selection-end-line="114" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#7765#7766#0" expanded="false" />
+            <element signature="e#7818#7819#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1436,14 +1422,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="90" column="28" selection-start-line="90" selection-start-column="28" selection-end-line="90" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1471,8 +1449,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/MindType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65088755">
+        <state vertical-scroll-proportion="0.0">
           <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/func/GeneralUtilizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="173" column="9" selection-start-line="173" selection-start-column="9" selection-end-line="173" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41420117">
+          <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
           <folding />
         </state>
       </provider>
