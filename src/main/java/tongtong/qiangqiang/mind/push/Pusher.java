@@ -1,6 +1,6 @@
 package tongtong.qiangqiang.mind.push;
 
-import cn.quanttech.quantera.common.data.BarInfo;
+import cn.quanttech.quantera.common.type.data.BarInfo;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.nio.NioEventLoopGroup;

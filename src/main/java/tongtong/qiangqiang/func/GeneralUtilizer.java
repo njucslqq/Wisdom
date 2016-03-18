@@ -1,9 +1,9 @@
 package tongtong.qiangqiang.func;
 
-import cn.quanttech.quantera.common.data.BarInfo;
-import cn.quanttech.quantera.common.data.BaseData;
-import cn.quanttech.quantera.common.data.TickInfo;
-import cn.quanttech.quantera.common.data.TimeFrame;
+import cn.quanttech.quantera.common.type.data.BarInfo;
+import cn.quanttech.quantera.common.type.data.BaseData;
+import cn.quanttech.quantera.common.type.data.TickInfo;
+import cn.quanttech.quantera.common.type.data.TimeFrame;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -41,9 +41,9 @@ public class GeneralUtilizer {
         if (o instanceof Number)
             v = (Double) o;
         if (o instanceof BarInfo)
-            v = ((BarInfo) o).closePrice;
+            v = ((BarInfo) o).close;
         if (o instanceof TickInfo)
-            v = ((TickInfo) o).lastPrice;
+            v = ((TickInfo) o).last;
         return v;
     }
 
@@ -158,16 +158,16 @@ public class GeneralUtilizer {
             LocalTime time = tick.tradingTime.toLocalTime();
             LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(time.getHour(), time.getMinute()));
             BarInfo newBar = new BarInfo(tick.secuCode, tick.exchangeID, dateTime, tick.tradingDay, resolution);
-            newBar.openPrice = newBar.highPrice = newBar.lowPrice = newBar.closePrice = tick.lastPrice;
+            newBar.open = newBar.high = newBar.low = newBar.close = tick.last;
             newBar.volume += tick.volume;
             return newBar;
         } else {
-            LocalDateTime endTime = bar.tradingTime.plusMinutes(bar.barTimeFrame.value());
+            LocalDateTime endTime = bar.tradingTime.plusMinutes(bar.resolution.value());
             if (tick.tradingTime.isBefore(endTime)) {
                 bar.volume += tick.volume;
-                bar.highPrice = Math.max(bar.highPrice, tick.lastPrice);
-                bar.lowPrice = Math.min(bar.lowPrice, tick.lastPrice);
-                bar.closePrice = tick.lastPrice;
+                bar.high = Math.max(bar.high, tick.last);
+                bar.low = Math.min(bar.low, tick.last);
+                bar.close = tick.last;
                 return null;
             } else
                 return combine(null, tick, resolution);

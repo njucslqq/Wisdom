@@ -1,9 +1,10 @@
 package tongtong.qiangqiang.mind;
 
-import cn.quanttech.quantera.common.data.BaseData;
-import cn.quanttech.quantera.common.data.TimeFrame;
+import cn.quanttech.quantera.common.datacenter.HistoricalData;
+import cn.quanttech.quantera.common.factor.Indicator;
+import cn.quanttech.quantera.common.type.data.BaseData;
+import cn.quanttech.quantera.common.type.data.TimeFrame;
 import org.apache.commons.lang3.tuple.Pair;
-import tongtong.qiangqiang.data.factor.Indicator;
 import tongtong.qiangqiang.mind.MindType.Model;
 import tongtong.qiangqiang.mind.app.AlgorithmPanel;
 import tongtong.qiangqiang.mind.order.IOrder;
@@ -15,8 +16,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static tongtong.qiangqiang.data.Historical.bars;
-import static tongtong.qiangqiang.data.Historical.ticks;
 import static tongtong.qiangqiang.mind.MindType.Model.TEST;
 import static tongtong.qiangqiang.mind.MindType.State;
 import static tongtong.qiangqiang.mind.MindType.State.MOCK;
@@ -172,15 +171,15 @@ public abstract class Algorithm {
         return tradingRecord(order.sellOpen(security, share, price));
     }
 
-    protected boolean sellSilent(double price){
+    protected boolean sellSilent(double price) {
         return tradingRecord(order.sellSilent(security, share, price));
     }
 
-    protected boolean buyCloseSilent(double price){
+    protected boolean buyCloseSilent(double price) {
         return tradingRecord(order.buyCloseSilent(security, share, price));
     }
 
-    private boolean tradingRecord(String record){
+    private boolean tradingRecord(String record) {
         if (!record.isEmpty()) {
             if (print)
                 logl(record);
@@ -205,12 +204,11 @@ public abstract class Algorithm {
         List<? extends BaseData> data = new ArrayList<>();
         switch (resolution) {
             case TICK:
-                data = ticks(security, start, end);
+                data = HistoricalData.ticks(security, start, end);
                 data.remove(0);
                 break;
-            case MIN_1:
-            case MIN_5:
-                data = bars(security, resolution, start, end);
+            default:
+                data = HistoricalData.bars(security, resolution, start, end);
                 break;
         }
         return data;

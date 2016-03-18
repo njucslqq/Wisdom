@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.mind.push;
 
-import cn.quanttech.quantera.common.data.BarInfo;
-import cn.quanttech.quantera.common.data.TickInfo;
+import cn.quanttech.quantera.common.type.data.BarInfo;
+import cn.quanttech.quantera.common.type.data.TickInfo;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.HttpObject;
