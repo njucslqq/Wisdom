@@ -1,6 +1,5 @@
 package tongtong.qiangqiang.mind;
 
-import cn.quanttech.quantera.common.data.BarInfo;
 import cn.quanttech.quantera.common.data.BaseData;
 import cn.quanttech.quantera.common.data.TimeFrame;
 import org.apache.commons.lang3.tuple.Pair;
@@ -19,8 +18,6 @@ import java.util.List;
 import static tongtong.qiangqiang.data.Historical.bars;
 import static tongtong.qiangqiang.data.Historical.ticks;
 import static tongtong.qiangqiang.mind.MindType.Model.TEST;
-import static tongtong.qiangqiang.mind.MindType.Order;
-import static tongtong.qiangqiang.mind.MindType.Order.MARKET;
 import static tongtong.qiangqiang.mind.MindType.State;
 import static tongtong.qiangqiang.mind.MindType.State.MOCK;
 
@@ -43,21 +40,11 @@ public abstract class Algorithm {
 
     private int share = 1;
 
-    private double slippage = 1.0;
-
     private Model model = TEST;
 
     private State state = MOCK;
 
     private boolean print = false;
-
-    private boolean stopLoss = false;
-
-    private boolean stopWin = false;
-
-    private double lossPoint;
-
-    private double winPoint;
 
     private final String name;
 
@@ -115,22 +102,8 @@ public abstract class Algorithm {
         this.print = print;
     }
 
-    protected void setShare(int share){
+    protected void setShare(int share) {
         this.share = share;
-    }
-
-    protected void setSlippage(double slippage){
-        this.slippage = slippage;
-    }
-
-    protected void setStopLoss(double lossPoint){
-        this.stopLoss = true;
-        this.lossPoint = lossPoint;
-    }
-
-    protected void setStopWin(double winPoint){
-        this.stopWin = true;
-        this.winPoint = winPoint;
     }
 
     protected void conclude() {
@@ -175,41 +148,42 @@ public abstract class Algorithm {
         return order.profit();
     }
 
+    protected double lfp(double lastPrice) {
+        return order.floatLongProfit(lastPrice);
+    }
+
+    protected double sfp(double lastPrice) {
+        return order.floatShortProfit(lastPrice);
+    }
+
     protected boolean buy(double price) {
-        String rtn = order.buy(security, share, price);
-        if (!rtn.isEmpty()) {
-            if (print)
-                logl(rtn);
-            return true;
-        }
-        return false;
+        return tradingRecord(order.buy(security, share, price));
     }
 
     protected boolean sell(double price) {
-        String rtn = order.sell(security, share, price);
-        if (!rtn.isEmpty()) {
-            if (print)
-                logl(rtn);
-            return true;
-        }
-        return false;
+        return tradingRecord(order.sell(security, share, price));
     }
 
     protected boolean buyClose(double price) {
-        String rtn = order.buyClose(security, share, price);
-        if (!rtn.isEmpty()) {
-            if (print)
-                logl(rtn);
-            return true;
-        }
-        return false;
+        return tradingRecord(order.buyClose(security, share, price));
     }
 
     protected boolean sellOpen(double price) {
-        String rtn = order.sellOpen(security, share, price);
-        if (!rtn.isEmpty()) {
+        return tradingRecord(order.sellOpen(security, share, price));
+    }
+
+    protected boolean sellSilent(double price){
+        return tradingRecord(order.sellSilent(security, share, price));
+    }
+
+    protected boolean buyCloseSilent(double price){
+        return tradingRecord(order.buyCloseSilent(security, share, price));
+    }
+
+    private boolean tradingRecord(String record){
+        if (!record.isEmpty()) {
             if (print)
-                logl(rtn);
+                logl(record);
             return true;
         }
         return false;
@@ -247,7 +221,7 @@ public abstract class Algorithm {
         if (model.equals(TEST)) {
             List<? extends BaseData> data = download();
             for (index = 0; index < data.size(); index++)
-                trigger(data.get(index));
+                onData(data.get(index));
         } else
             trader.register(this);
     }
@@ -285,31 +259,6 @@ public abstract class Algorithm {
 
     public void onComplete() {
         conclude();
-    }
-
-    protected void stopLosing(BaseData data){
-        BarInfo bar = (BarInfo) data;
-        double price = bar.closePrice;
-
-        if (order.floatLongProfit(price) < -lossPoint){
-            String rtn = order.sell(security, share, price - slippage);
-            logl("=> stop loss " + rtn);
-        }
-
-        if (order.floatShortProfit(price) < -lossPoint){
-            String rtn = order.buyClose(security, share, price + slippage);
-            logl("=> stop loss " + rtn);
-        }
-    }
-
-    protected void stopWinning(BaseData data){
-
-    }
-
-    public void trigger(BaseData data){
-        onData(data);
-        if (stopLoss) stopLosing(data);
-        if (stopWin) stopWinning(data);
     }
 
     public abstract void init();

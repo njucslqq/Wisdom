@@ -44,4 +44,14 @@ public class MockOrder extends BaseOrder {
         else
             return "";
     }
+
+    @Override
+    public String sellSilent(String id, int share, double price) {
+        return "\n=======> [long  close]: stop loss: " + floatLongProfit(price);
+    }
+
+    @Override
+    public String buyCloseSilent(String id, int share, double price) {
+        return "\n=======> [short close]: stop loss: " + floatShortProfit(price);
+    }
 }

@@ -73,6 +73,22 @@ public class RealOrder extends BaseOrder {
         return "";
     }
 
+    @Override
+    public String sellSilent(String id, int share, double price) {
+        String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
+        String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
+        sendOrder(query);
+        return "=========> [long  close]: stop loss " + floatLongProfit(price);
+    }
+
+    @Override
+    public String buyCloseSilent(String id, int share, double price) {
+        String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
+        String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
+        sendOrder(query);
+        return "=========> [short close]: stop loss " + floatShortProfit(price);
+    }
+
     private void sendOrder(String query) {
         try {
             URL url = new URL(query);

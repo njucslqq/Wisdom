@@ -31,23 +31,21 @@ import static org.apache.commons.lang3.tuple.Pair.of;
  */
 public class MAVGReverseDiff extends Algorithm {
 
+    public final Intermediate close;
+
     public final MAVG fast;
 
     public final MAVG slow;
 
-    public final TimeFrame resolution;
-
     public final String security;
+
+    public final TimeFrame resolution;
 
     public final LocalDate begin;
 
     public final LocalDate end;
 
-    public final int share = 1;
-
-    public final double slipage = 0.0;
-
-    public final Intermediate close = new Intermediate();
+    public final double slipage = 2.0;
 
     public MAVGReverseDiff(String prefix, Pusher trader, double commision, String security, TimeFrame resolution, LocalDate begin, LocalDate end, MAVG fast, MAVG slow) {
         super(prefix + " - " + fast.getName() + " - " + slow.getName(), commision, trader);
@@ -57,6 +55,7 @@ public class MAVGReverseDiff extends Algorithm {
         this.fast = fast;
         this.slow = slow;
         this.resolution = resolution;
+        this.close = new Intermediate();
     }
 
     @Override
@@ -67,10 +66,9 @@ public class MAVGReverseDiff extends Algorithm {
         setEnd(end);
         setVerbose(true);
         setShare(1);
-        setSlippage(1.0);
-        setStopLoss(10.0);
-        //setModel(MindType.Model.TRADE);
-        //setState(MindType.State.REAL);
+
+        setModel(MindType.Model.TRADE);
+        setState(MindType.State.REAL);
     }
 
     @Override
@@ -85,15 +83,19 @@ public class MAVGReverseDiff extends Algorithm {
         int size = 128;
         visPrice(size, fast, slow, close);
 
-        if (fast.size() > 17) {
-            if (f < s) {
-                buyClose(price + slipage);
-                buy(price + slipage);
-            } else {
-                sell(price - slipage);
-                sellOpen(price - slipage);
-            }
+        if (f < s) {
+            buyClose(price);
+            buy(price);
+        } else {
+            sell(price);
+            sellOpen(price);
         }
+
+        if (lfp(price) < -7.0)
+            sellSilent(price - slipage);
+
+        if (sfp(price) < -7.0)
+            buyCloseSilent(price + slipage);
 
         visProfit(of("return", profit()));
     }
@@ -125,7 +127,7 @@ public class MAVGReverseDiff extends Algorithm {
         security = "bu1606";
         fast = new WMA(period);
         slow = new SMA(period);
-        //algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
+        algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));
 
         fast = new DEMA(period);
         slow = new SMA(period);
@@ -134,7 +136,7 @@ public class MAVGReverseDiff extends Algorithm {
         /**
          * add two algorithms for m1609
          */
-        security = "m1609";
+        security = "rb1610";
         fast = new WMA(period);
         slow = new SMA(period);
         //algorithms.add(new MAVGReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow));

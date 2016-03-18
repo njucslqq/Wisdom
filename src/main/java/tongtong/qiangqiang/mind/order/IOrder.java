@@ -19,6 +19,10 @@ public interface IOrder {
 
     String sellOpen(String id, int share, double price);
 
+    String sellSilent(String id, int share, double price);
+
+    String buyCloseSilent(String id, int share, double price);
+
     double floatLongProfit(double lastPrice);
 
     double floatShortProfit(double lastPrice);
