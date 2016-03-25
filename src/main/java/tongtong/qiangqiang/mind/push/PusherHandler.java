@@ -24,6 +24,7 @@ import static java.time.LocalTime.parse;
 import static java.time.format.DateTimeFormatter.ofPattern;
 import static tongtong.qiangqiang.func.GeneralUtilizer.combine;
 import static tongtong.qiangqiang.func.GeneralUtilizer.sendString;
+import static tongtong.qiangqiang.mind.Algorithm.*;
 
 /**
  * Author: Qiangqiang Li
@@ -37,18 +38,6 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
     public static final DateTimeFormatter FMT_TICK = ofPattern("HH:mm:ss.S");
 
     public static final DateTimeFormatter FMT_PRINT = ofPattern("yyyy-MM-dd HH:mm");
-
-    public static final LocalTime AM_START = LocalTime.of(9, 0, 0);
-
-    public static final LocalTime AM_END = LocalTime.of(11, 30, 0);
-
-    public static final LocalTime PM_START = LocalTime.of(13, 30, 0);
-
-    public static final LocalTime PM_END = LocalTime.of(15, 0, 0);
-
-    public static final LocalTime NIGHT_START = LocalTime.of(21, 0, 0);
-
-    public static final LocalTime NIGHT_END = LocalTime.of(2, 0, 0);
 
     public final Map<String, List<Algorithm>> algorithms;
 
@@ -84,7 +73,7 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
         if (msg instanceof HttpRequest) {
             HttpRequest request = (HttpRequest) msg;
             Map<String, List<String>> para = new QueryStringDecoder(request.getUri()).parameters();
-            if (isTradingTime()) {
+            if (isTradingTimeAll()) {
                 TickInfo tick = parseTick(para);
                 if (tick != null) {
                     if (algorithms.containsKey(tick.secuCode)) {
@@ -111,8 +100,14 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
         return uri.get(key).get(0);
     }
 
-    private boolean isTradingTime() {
+    private boolean isTradingTimeDay() {
         return (!now().isBefore(AM_START) && !now().isAfter(AM_END)) || (!now().isBefore(PM_START) && !now().isAfter(PM_END));
+    }
+
+    private boolean isTradingTimeAll() {
+        return !((now().isAfter(NIGHT_END) && now().isBefore(AM_START)) ||
+                (now().isAfter(AM_END) && now().isBefore(PM_START)) ||
+                (now().isAfter(PM_END) && now().isBefore(NIGHT_START)));
     }
 
     private TickInfo parseTick(Map<String, List<String>> para) {

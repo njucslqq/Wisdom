@@ -1,6 +1,10 @@
 package tongtong.qiangqiang.mind.order;
 
+import tongtong.qiangqiang.mind.Algorithm;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,9 +52,9 @@ public abstract class BaseOrder implements IOrder {
     protected boolean buyAction(double price) {
         if (!lPos) {
             lPos = true;
-            lDate = LocalDate.now();
             lPrice = price;
             lTime++;
+            lDate = tradingDay();
             return true;
         }
         return false;
@@ -83,9 +87,9 @@ public abstract class BaseOrder implements IOrder {
     protected boolean sellOpenAction(double price) {
         if (!sPos) {
             sPos = true;
-            sDate = LocalDate.now();
             sPrice = price;
             sTime++;
+            sDate = tradingDay();
             return true;
         }
         return false;
@@ -135,5 +139,21 @@ public abstract class BaseOrder implements IOrder {
                 "\nLong  Trading Time: " + lTime +
                 "\nShort Trading Time: " + sTime +
                 "\n<==========   End   ==========>\n";
+    }
+
+    protected LocalDate tradingDay(){
+        LocalDate date = null;
+        if (LocalTime.now().isAfter(Algorithm.PM_END)){
+            if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.FRIDAY))
+                date = LocalDate.now().plusDays(3);
+            else
+                date = LocalDate.now().plusDays(1);
+        }else {
+            if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY))
+                date = LocalDate.now().plusDays(2);
+            else
+                date = LocalDate.now();
+        }
+        return date;
     }
 }

@@ -5,7 +5,7 @@ import cn.quanttech.quantera.common.factor.Mavg;
 import cn.quanttech.quantera.common.factor.MavgFactory;
 import cn.quanttech.quantera.common.factor.composite.DEMA;
 import cn.quanttech.quantera.common.factor.single.indicators.EMA;
-import cn.quanttech.quantera.common.factor.single.indicators.Intermediate;
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
 import cn.quanttech.quantera.common.factor.single.indicators.SMA;
 import cn.quanttech.quantera.common.factor.single.indicators.WMA;
 import cn.quanttech.quantera.common.type.data.BarInfo;
@@ -32,7 +32,7 @@ import static org.apache.commons.lang3.tuple.Pair.of;
  */
 public class MavgDifference extends Algorithm {
 
-    public final Intermediate close;
+    public final RAW close;
 
     public final Mavg fast;
 
@@ -59,7 +59,7 @@ public class MavgDifference extends Algorithm {
         this.slow = slow;
         this.resolution = resolution;
         this.stopPoint = stopPoint;
-        this.close = new Intermediate();
+        this.close = new RAW();
     }
 
     @Override
@@ -87,7 +87,7 @@ public class MavgDifference extends Algorithm {
         int size = 128;
         visPrice(size, fast, slow, close);
 
-        if (f > s) {
+        if (f < s) {
             buyClose(price + slipage);
             buy(price + slipage);
         } else {
@@ -99,7 +99,7 @@ public class MavgDifference extends Algorithm {
     }
 
     public static void main(String[] args) {
-        QuandisSource.def = new QuandisSource(QuandisSource.INTRA);
+        QuandisSource.def = new QuandisSource(QuandisSource.OUTRA);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
@@ -111,16 +111,16 @@ public class MavgDifference extends Algorithm {
     private static List<Algorithm> portfolio1(Pusher pusher) {
         int period = 21;
         String security = "rb1605";
-        LocalDate begin = LocalDate.of(2016, 3, 10);
-        LocalDate end = LocalDate.of(2016, 3, 19);
-        TimeFrame resolution = MIN_30;
+        LocalDate begin = LocalDate.of(2015, 6, 1);
+        LocalDate end = LocalDate.of(2016, 3, 1);
+        TimeFrame resolution = MIN_15;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};
         List<Algorithm> algorithms = new ArrayList<>();
-        for (int i = 1; i < c.length; i++)
-            for (int j = 0; j < i; j++) {
-                Mavg fast = create(c[i], period);
-                Mavg slow = create(c[j], period);
+        for (int i = 0; i < c.length; i++)
+            for (int j = 0; j < 1; j++) {
+                Mavg fast = create(c[i], 14);
+                Mavg slow = create(c[i], period);
                 algorithms.add(new MavgDifference(security, pusher, 0.2, 12.0, security, resolution, begin, end, fast, slow));
             }
 

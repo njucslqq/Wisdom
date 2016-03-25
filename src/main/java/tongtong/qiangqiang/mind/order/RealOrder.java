@@ -29,8 +29,8 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buy(String id, int share, double price) {
-        String query = baseUrl + "type=limit&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!lPos) {
+            String query = baseUrl + "type=limit&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             buyAction(price);
             return "\n[long   open]: " + price;
@@ -41,7 +41,7 @@ public class RealOrder extends BaseOrder {
     @Override
     public String sell(String id, int share, double price) {
         if (lPos) {
-            String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
+            String action = tradingDay().isEqual(lDate) ? "closeToday" : "close";
             String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             sellAction(price);
@@ -53,7 +53,7 @@ public class RealOrder extends BaseOrder {
     @Override
     public String buyClose(String id, int share, double price) {
         if (sPos) {
-            String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
+            String action = tradingDay().isEqual(sDate) ? "closeToday" : "close";
             String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             buyCloseAction(price);
@@ -64,8 +64,8 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String sellOpen(String id, int share, double price) {
-        String query = baseUrl + "type=limit&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
         if (!sPos) {
+            String query = baseUrl + "type=limit&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             sellOpenAction(price);
             return "\n[short  open]: " + price;
@@ -75,7 +75,7 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String sellSilent(String id, int share, double price) {
-        String action = LocalDate.now().isEqual(lDate) ? "closeToday" : "close";
+        String action = tradingDay().isEqual(lDate) ? "closeToday" : "close";
         String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         sendOrder(query);
         return "=========> [long  close]: stop loss " + floatLongProfit(price);
@@ -83,7 +83,7 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buyCloseSilent(String id, int share, double price) {
-        String action = LocalDate.now().isEqual(sDate) ? "closeToday" : "close";
+        String action = tradingDay().isEqual(sDate) ? "closeToday" : "close";
         String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
         sendOrder(query);
         return "=========> [short close]: stop loss " + floatShortProfit(price);

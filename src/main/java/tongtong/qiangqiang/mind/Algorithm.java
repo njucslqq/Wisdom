@@ -13,6 +13,7 @@ import tongtong.qiangqiang.mind.order.RealOrder;
 import tongtong.qiangqiang.mind.push.Pusher;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,18 @@ import static tongtong.qiangqiang.mind.MindType.State.MOCK;
  * 2015-12-24.
  */
 public abstract class Algorithm {
+
+    public static final LocalTime AM_START = LocalTime.of(9, 0, 0);
+
+    public static final LocalTime AM_END = LocalTime.of(11, 30, 0);
+
+    public static final LocalTime PM_START = LocalTime.of(13, 30, 0);
+
+    public static final LocalTime PM_END = LocalTime.of(15, 0, 0);
+
+    public static final LocalTime NIGHT_START = LocalTime.of(21, 0, 0);
+
+    public static final LocalTime NIGHT_END = LocalTime.of(2, 0, 0);
 
     private String security;
 
