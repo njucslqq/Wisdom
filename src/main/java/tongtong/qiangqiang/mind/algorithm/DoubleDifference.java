@@ -4,7 +4,7 @@ import cn.quanttech.quantera.common.datacenter.source.QuandisSource;
 import cn.quanttech.quantera.common.factor.Mavg;
 import cn.quanttech.quantera.common.factor.composite.DEMA;
 import cn.quanttech.quantera.common.factor.single.indicators.EMA;
-import cn.quanttech.quantera.common.factor.single.indicators.RAW;
+import cn.quanttech.quantera.common.factor.single.indicators.Intermediate;
 import cn.quanttech.quantera.common.factor.single.indicators.SMA;
 import cn.quanttech.quantera.common.factor.single.indicators.WMA;
 import cn.quanttech.quantera.common.type.data.BarInfo;
@@ -18,8 +18,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static cn.quanttech.quantera.common.factor.MavgFactory.create;
-import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_15;
+import static cn.quanttech.quantera.common.factor.MavgFactory.*;
+import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_30;
 import static org.apache.commons.lang3.tuple.Pair.of;
 
 /**
@@ -27,15 +27,17 @@ import static org.apache.commons.lang3.tuple.Pair.of;
  * <p>
  * Coding is another way to meet the curiousness of a curious mind
  * <p>
- * Created on 2016-03-18.
+ * 2016/3/19.
  */
-public class MavgDifference extends Algorithm {
+public class DoubleDifference extends Algorithm {
 
-    public final RAW close;
+    public final Intermediate close;
 
     public final Mavg fast;
 
     public final Mavg slow;
+
+    public final Intermediate dif;
 
     public final String security;
 
@@ -49,16 +51,26 @@ public class MavgDifference extends Algorithm {
 
     public final double slipage = 1.0;
 
-    public MavgDifference(String prefix, Pusher trader, double commision, double stopPoint, String security, TimeFrame resolution, LocalDate begin, LocalDate end, Mavg fast, Mavg slow) {
+    public final Mavg fast_fast;
+
+    public final Mavg slow_slow;
+
+    public final Intermediate dif_dif;
+
+    public DoubleDifference(String prefix, Pusher trader, double commision, double stopPoint, String security, TimeFrame resolution, LocalDate begin, LocalDate end, Mavg fast, Mavg slow) {
         super(prefix + " - " + fast.getName() + " - " + slow.getName(), commision, trader);
         this.security = security;
         this.begin = begin;
         this.end = end;
         this.fast = fast;
         this.slow = slow;
+        this.dif = new Intermediate();
         this.resolution = resolution;
         this.stopPoint = stopPoint;
-        this.close = new RAW();
+        this.close = new Intermediate();
+        this.fast_fast = create(fast.getClass(), fast.getPeriod());
+        this.slow_slow = create(slow.getClass(), slow.getPeriod());
+        this.dif_dif = new Intermediate();
     }
 
     @Override
@@ -82,25 +94,34 @@ public class MavgDifference extends Algorithm {
         close.update(price);
         double f = fast.update(price);
         double s = slow.update(price);
+        double d = dif.update(f-s);
 
-        int size = 128;
+        double ff = fast_fast.update(d);
+        double ss = slow_slow.update(d);
+        dif_dif.update(ff-ss);
+
+        int size = 256;
         visPrice(size, fast, slow, close);
 
-        if (f < s) {
-            buyClose(price + slipage);
-            buy(price + slipage);
-        } else {
-            sell(price - slipage);
-            sellOpen(price - slipage);
+        if (dif_dif.size()>1) {
+            if (dif_dif.last(0) > dif_dif.last(1)) {
+                buyClose(price + slipage);
+                buy(price + slipage);
+            } else {
+                sell(price - slipage);
+                sellOpen(price - slipage);
+            }
         }
+
+        //visProfit(size, dif_dif);
 
         visProfit(of("return", profit()));
 
-        /*try {
-            Thread.sleep(1);
+        try {
+            Thread.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     public static void main(String[] args) {
@@ -114,22 +135,21 @@ public class MavgDifference extends Algorithm {
     }
 
     private static List<Algorithm> portfolio1(Pusher pusher) {
-        int period = 21;
-        String security = "rb1605";
-        LocalDate begin = LocalDate.of(2015, 6, 1);
-        LocalDate end = LocalDate.of(2016, 3, 1);
-        TimeFrame resolution = MIN_15;
+        int period = 51;
+        String security = "m1609";
+        LocalDate begin = LocalDate.of(2015, 6, 10);
+        LocalDate end = LocalDate.of(2016, 3, 19);
+        TimeFrame resolution = MIN_30;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};
         List<Algorithm> algorithms = new ArrayList<>();
-        for (int i = 0; i < c.length; i++)
-            for (int j = 0; j < 1; j++) {
-                Mavg fast = create(c[i], 14);
-                Mavg slow = create(c[i], period);
-                algorithms.add(new MavgDifference(security, pusher, 0.2, 12.0, security, resolution, begin, end, fast, slow));
+        for (int i = 1; i < c.length; i++)
+            for (int j = 0; j < i; j++) {
+                Mavg fast = create(c[i], period);
+                Mavg slow = create(c[j], period);
+                algorithms.add(new DoubleDifference(security, pusher, 0.2, 12.0, security, resolution, begin, end, fast, slow));
             }
 
         return algorithms;
     }
 }
-

@@ -110,7 +110,7 @@ public class MavgReverseDiff extends Algorithm {
     }
 
     public static void main(String[] args) {
-        QuandisSource.def = new QuandisSource(QuandisSource.INTRA);
+        QuandisSource.def = new QuandisSource(QuandisSource.OUTRA);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
@@ -139,7 +139,7 @@ public class MavgReverseDiff extends Algorithm {
     }
 
     private static List<Algorithm> portfolio1(Pusher pusher) {
-        int period = 17;
+        int period = 11;
         String security = "";
         Mavg fast = null;
         Mavg slow = null;

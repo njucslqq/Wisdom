@@ -37,7 +37,7 @@ public class PusherHandler extends SimpleChannelInboundHandler<HttpObject> {
 
     public static final DateTimeFormatter FMT_TICK = ofPattern("HH:mm:ss.S");
 
-    public static final DateTimeFormatter FMT_PRINT = ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter FMT_PRINT = ofPattern("yyyy-MM-dif_dif HH:mm");
 
     public final Map<String, List<Algorithm>> algorithms;
 
