@@ -4,7 +4,7 @@ import cn.quanttech.quantera.common.datacenter.source.QuandisSource;
 import cn.quanttech.quantera.common.factor.Mavg;
 import cn.quanttech.quantera.common.factor.composite.DEMA;
 import cn.quanttech.quantera.common.factor.single.indicators.EMA;
-import cn.quanttech.quantera.common.factor.single.indicators.Intermediate;
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
 import cn.quanttech.quantera.common.factor.single.indicators.SMA;
 import cn.quanttech.quantera.common.factor.single.indicators.WMA;
 import cn.quanttech.quantera.common.type.data.BarInfo;
@@ -31,13 +31,13 @@ import static org.apache.commons.lang3.tuple.Pair.of;
  */
 public class DoubleDifference extends Algorithm {
 
-    public final Intermediate close;
+    public final RAW close;
 
     public final Mavg fast;
 
     public final Mavg slow;
 
-    public final Intermediate dif;
+    public final RAW dif;
 
     public final String security;
 
@@ -55,7 +55,7 @@ public class DoubleDifference extends Algorithm {
 
     public final Mavg slow_slow;
 
-    public final Intermediate dif_dif;
+    public final RAW dif_dif;
 
     public DoubleDifference(String prefix, Pusher trader, double commision, double stopPoint, String security, TimeFrame resolution, LocalDate begin, LocalDate end, Mavg fast, Mavg slow) {
         super(prefix + " - " + fast.getName() + " - " + slow.getName(), commision, trader);
@@ -64,13 +64,13 @@ public class DoubleDifference extends Algorithm {
         this.end = end;
         this.fast = fast;
         this.slow = slow;
-        this.dif = new Intermediate();
+        this.dif = new RAW();
         this.resolution = resolution;
         this.stopPoint = stopPoint;
-        this.close = new Intermediate();
+        this.close = new RAW();
         this.fast_fast = create(fast.getClass(), fast.getPeriod());
         this.slow_slow = create(slow.getClass(), slow.getPeriod());
-        this.dif_dif = new Intermediate();
+        this.dif_dif = new RAW();
     }
 
     @Override
