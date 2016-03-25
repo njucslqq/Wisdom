@@ -11,7 +11,6 @@ import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.BaseData;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
 import tongtong.qiangqiang.mind.Algorithm;
-import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
@@ -21,7 +20,6 @@ import java.util.List;
 
 import static cn.quanttech.quantera.common.factor.MavgFactory.create;
 import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_1;
-import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_15;
 import static org.apache.commons.lang3.tuple.Pair.of;
 
 /**
@@ -110,12 +108,12 @@ public class MavgReverseDiff extends Algorithm {
     }
 
     public static void main(String[] args) {
-        QuandisSource.def = new QuandisSource(QuandisSource.OUTRA);
+        QuandisSource.def = new QuandisSource(QuandisSource.INTRA);
 
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
-        List<Algorithm> p1 = portfolio2(pusher);
+        List<Algorithm> p1 = portfolio1(pusher);
         new AlgorithmManager(p1).vis();
     }
 
@@ -139,7 +137,7 @@ public class MavgReverseDiff extends Algorithm {
     }
 
     private static List<Algorithm> portfolio1(Pusher pusher) {
-        int period = 11;
+        int period = 17;
         String security = "";
         Mavg fast = null;
         Mavg slow = null;
@@ -155,11 +153,11 @@ public class MavgReverseDiff extends Algorithm {
         security = "bu1606";
         fast = new WMA(period);
         slow = new SMA(period);
-        algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 2.0, 12.0));
+        //algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 2.0, 12.0));
 
         fast = new DEMA(period);
         slow = new SMA(period);
-        algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 2.0, 12.0));
+        //algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 2.0, 12.0));
 
         /**
          * add two algorithms for m1609
@@ -167,11 +165,15 @@ public class MavgReverseDiff extends Algorithm {
         security = "rb1610";
         fast = new WMA(period);
         slow = new SMA(period);
-        algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 14.0));
+        //algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 14.0));
 
         fast = new DEMA(period);
         slow = new WMA(period);
-        algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 14.0));
+        //algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 14.0));
+
+        fast = new EMA(period);
+        slow = new SMA(period);
+        algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 12.0));
 
         return algorithms;
     }

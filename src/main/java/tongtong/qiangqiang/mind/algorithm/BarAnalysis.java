@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.mind.algorithm;
 
 import cn.quanttech.quantera.common.datacenter.source.QuandisSource;
-import cn.quanttech.quantera.common.factor.single.indicators.Intermediate;
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
 import cn.quanttech.quantera.common.factor.single.indicators.WMA;
 import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.BaseData;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class BarAnalysis extends Algorithm {
 
-    public final Intermediate close = new Intermediate();
+    public final RAW close = new RAW();
 
     public final WMA wma = new WMA(3);
 
