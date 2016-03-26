@@ -11,6 +11,7 @@ import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.BaseData;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
 import tongtong.qiangqiang.mind.Algorithm;
+import tongtong.qiangqiang.mind.MindType;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
@@ -71,8 +72,8 @@ public class MavgReverseDiff extends Algorithm {
         setVerbose(true);
         setShare(1);
 
-        //setModel(MindType.Model.TRADE);
-        //setState(MindType.State.REAL);
+        setModel(MindType.Model.TRADE);
+        setState(MindType.State.REAL);
     }
 
     @Override
@@ -84,9 +85,6 @@ public class MavgReverseDiff extends Algorithm {
         double f = fast.update(price);
         double s = slow.update(price);
 
-        int size = 128;
-        visPrice(size, fast, slow, close);
-
         if (f < s) {
             buyClose(price);
             buy(price);
@@ -94,16 +92,20 @@ public class MavgReverseDiff extends Algorithm {
             sell(price);
             sellOpen(price);
         }
+
         /*
          rb1610  10 - 14
          bu1606  8 - 12
           */
-        if (lfp(price) < -stopPoint)
+        /*if (lfp(price) < -stopPoint)
             sellSilent(price - slipage);
 
         if (sfp(price) < -stopPoint)
             buyCloseSilent(price + slipage);
+        */
 
+        int size = 128;
+        visPrice(size, fast, slow, close);
         visProfit(of("return", profit()));
     }
 
