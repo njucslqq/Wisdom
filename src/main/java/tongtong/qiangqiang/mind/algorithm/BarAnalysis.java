@@ -71,7 +71,7 @@ public class BarAnalysis extends Algorithm {
         int size = 128;
         visPrice(size, wma, close);
 
-        visProfit(Pair.of("return", profit()));
+        visProfit(size, profit());
 
         try {
             Thread.sleep(1000);

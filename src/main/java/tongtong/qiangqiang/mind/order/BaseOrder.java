@@ -1,5 +1,6 @@
 package tongtong.qiangqiang.mind.order;
 
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
 import tongtong.qiangqiang.mind.Algorithm;
 
 import java.time.DayOfWeek;
@@ -41,7 +42,7 @@ public abstract class BaseOrder implements IOrder {
 
     protected final LinkedList<Double> shortProfit = new LinkedList<>();
 
-    protected final LinkedList<Double> totalProfit = new LinkedList<>();
+    protected final RAW totalProfit = new RAW();
 
     protected final double commision;
 
@@ -66,7 +67,7 @@ public abstract class BaseOrder implements IOrder {
             double delta = (price - lPrice) - commision;
             lDif += delta;
             longProfit.add(delta);
-            totalProfit.add(lDif + sDif);
+            totalProfit.update(lDif + sDif);
             return true;
         }
         return false;
@@ -78,7 +79,7 @@ public abstract class BaseOrder implements IOrder {
             double delta = (sPrice - price) - commision;
             sDif += delta;
             shortProfit.add(delta);
-            totalProfit.add(lDif + sDif);
+            totalProfit.update(lDif + sDif);
             return true;
         }
         return false;
@@ -127,7 +128,7 @@ public abstract class BaseOrder implements IOrder {
     }
 
     @Override
-    public List<Double> profit() {
+    public RAW profit() {
         return totalProfit;
     }
 

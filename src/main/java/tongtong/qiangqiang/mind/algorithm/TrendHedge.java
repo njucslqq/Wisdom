@@ -70,7 +70,7 @@ public class TrendHedge extends Algorithm {
             sellOpen(price - slipage);
         }
 
-        visProfit(of("return", profit()));
+        visProfit(size, profit());
     }
 
     public static void main(String[] args) {

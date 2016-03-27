@@ -2,6 +2,7 @@ package tongtong.qiangqiang.mind;
 
 import cn.quanttech.quantera.common.datacenter.HistoricalData;
 import cn.quanttech.quantera.common.factor.Indicator;
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
 import cn.quanttech.quantera.common.type.data.BaseData;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
 import org.apache.commons.lang3.tuple.Pair;
@@ -156,7 +157,7 @@ public abstract class Algorithm {
         panel.writer.append(line + "\n");
     }
 
-    protected List<Double> profit() {
+    protected RAW profit() {
         return order.profit();
     }
 

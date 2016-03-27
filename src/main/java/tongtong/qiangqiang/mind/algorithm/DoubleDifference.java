@@ -115,7 +115,7 @@ public class DoubleDifference extends Algorithm {
 
         //visProfit(size, dif_dif);
 
-        visProfit(of("return", profit()));
+        visProfit(size, profit());
 
         try {
             Thread.sleep(2);

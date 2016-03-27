@@ -94,7 +94,7 @@ public class MavgDifference extends Algorithm {
             sellOpen(price - slipage);
         }
 
-        visProfit(of("return", profit()));
+        visProfit(size, profit());
 
         /*try {
             Thread.sleep(1);

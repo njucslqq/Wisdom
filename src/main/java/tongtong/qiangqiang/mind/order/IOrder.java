@@ -1,5 +1,7 @@
 package tongtong.qiangqiang.mind.order;
 
+import cn.quanttech.quantera.common.factor.single.indicators.RAW;
+
 import java.util.List;
 
 /**
@@ -33,7 +35,7 @@ public interface IOrder {
 
     double totalReturn();
 
-    List<Double> profit();
+    RAW profit();
 
     String conclude();
 }

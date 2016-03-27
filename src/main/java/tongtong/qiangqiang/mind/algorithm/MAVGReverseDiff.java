@@ -72,8 +72,8 @@ public class MavgReverseDiff extends Algorithm {
         setVerbose(true);
         setShare(2);
 
-        setModel(MindType.Model.TRADE);
-        setState(MindType.State.REAL);
+        //setModel(MindType.Model.TRADE);
+        //setState(MindType.State.REAL);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class MavgReverseDiff extends Algorithm {
 
         int size = 128;
         visPrice(size, fast, slow, close);
-        visProfit(of("return", profit()));
+        visProfit(size, profit());
     }
 
     public static void main(String[] args) {
@@ -115,15 +115,15 @@ public class MavgReverseDiff extends Algorithm {
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
-        List<Algorithm> p1 = portfolio1(pusher);
+        List<Algorithm> p1 = portfolio2(pusher);
         new AlgorithmManager(p1).vis();
     }
 
     private static List<Algorithm> portfolio2(Pusher pusher) {
         int period = 17;
-        String security = "rb1610";
-        LocalDate begin = LocalDate.of(2016, 1, 1);
-        LocalDate end = LocalDate.of(2016, 3, 1);
+        String security = "ru1609";
+        LocalDate begin = LocalDate.of(2015, 9, 1);
+        LocalDate end = LocalDate.of(2016, 3, 25);
         TimeFrame resolution = MIN_1;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};
@@ -144,8 +144,8 @@ public class MavgReverseDiff extends Algorithm {
         Mavg fast = null;
         Mavg slow = null;
         TimeFrame resolution = TimeFrame.MIN_1;
-        LocalDate begin = LocalDate.of(2016, 3, 12);
-        LocalDate end = LocalDate.of(2016, 3, 26);
+        LocalDate begin = LocalDate.of(2016, 3, 7);
+        LocalDate end = LocalDate.of(2016, 3, 11);
 
         List<Algorithm> algorithms = new ArrayList<>();
 
