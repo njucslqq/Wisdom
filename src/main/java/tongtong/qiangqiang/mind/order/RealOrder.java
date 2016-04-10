@@ -29,7 +29,7 @@ public class RealOrder extends BaseOrder {
 
     @Override
     public String buy(String id, int share, double price) {
-        if (!lPos) {
+        if (!stop && !lPos) {
             String query = baseUrl + "type=limit&direction=buy&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             buyAction(price);
@@ -45,7 +45,7 @@ public class RealOrder extends BaseOrder {
             String query = baseUrl + "type=limit&direction=sell&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             sellAction(price);
-            return "[long  close]: " + price + ", delta: " + longProfit.getLast() + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
+            return "[long  close]: " + price + ", delta: " + longProfit.last(0) + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
         }
         return "";
     }
@@ -57,14 +57,14 @@ public class RealOrder extends BaseOrder {
             String query = baseUrl + "type=limit&direction=buy&action=" + action + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             buyCloseAction(price);
-            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
+            return "[short close]: " + price + ", delta: " + shortProfit.last(0) + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
         }
         return "";
     }
 
     @Override
     public String sellOpen(String id, int share, double price) {
-        if (!sPos) {
+        if (!stop && !sPos) {
             String query = baseUrl + "type=limit&direction=sell&action=open" + "&code=" + id + "&share=" + share + "&price=" + price;
             sendOrder(query);
             sellOpenAction(price);

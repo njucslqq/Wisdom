@@ -122,8 +122,8 @@ public class MavgReverseDiff extends Algorithm {
     private static List<Algorithm> portfolio2(Pusher pusher) {
         int period = 17;
         String security = "ru1609";
-        LocalDate begin = LocalDate.of(2015, 9, 1);
-        LocalDate end = LocalDate.of(2016, 3, 25);
+        LocalDate begin = LocalDate.of(2016, 3, 10);
+        LocalDate end = LocalDate.of(2016, 4, 25);
         TimeFrame resolution = MIN_1;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};

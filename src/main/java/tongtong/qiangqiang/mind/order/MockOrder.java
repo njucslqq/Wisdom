@@ -24,7 +24,7 @@ public class MockOrder extends BaseOrder {
     @Override
     public String sell(String id, int share, double price) {
         if (sellAction(price)) {
-            return "[long close]: " + price + ", delta: " + longProfit.getLast() + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
+            return "[long close]: " + price + ", delta: " + longProfit.last(0) + ", longProfit: " + lDif + ", totalProfit: " + totalReturn();
         } else
             return "";
     }
@@ -32,7 +32,7 @@ public class MockOrder extends BaseOrder {
     @Override
     public String buyClose(String id, int share, double price) {
         if (buyCloseAction(price)) {
-            return "[short close]: " + price + ", delta: " + shortProfit.getLast() + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
+            return "[short close]: " + price + ", delta: " + shortProfit.last(0) + ", shortProfit: " + sDif + ", totalProfit: " + totalReturn();
         } else
             return "";
     }

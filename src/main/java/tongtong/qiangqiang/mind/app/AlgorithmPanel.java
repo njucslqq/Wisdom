@@ -18,6 +18,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -47,9 +49,15 @@ public class AlgorithmPanel extends JPanel {
 
     private final JPanel log = new JPanel();
 
+    private final JButton stopStart = new JButton("停止策略");
+
+    private boolean stop = false;
+
     public AlgorithmPanel(Algorithm algorithm) {
-        super(new GridLayout(3, 1), false);
+        //super(new GridBagLayout(), false);
         this.algorithm = algorithm;
+
+        JPanel right = new JPanel(new GridLayout(3, 1));
 
         price = new ChartPanel(createChart("Price Change", "Time", "Price"));
         profit = new ChartPanel(createChart("Profit Change", "Time", "Profit"));
@@ -87,9 +95,47 @@ public class AlgorithmPanel extends JPanel {
         log.setLayout(new GridLayout(1, 1));
         log.add(scroll);
 
-        add(price);
-        add(profit);
-        add(log);
+        right.add(price);
+        right.add(profit);
+        right.add(log);
+
+        JPanel left = new JPanel();
+        stopStart.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                stop = !stop;
+                if (stop){
+                    algorithm.stop();
+                    stopStart.setText("启动策略");
+                }
+                else {
+                    algorithm.resume();
+                    stopStart.setText("停止策略");
+                }
+            }
+        });
+
+        JPanel info = new JPanel();
+
+        left.add(stopStart);
+        left.add(info);
+
+        GridBagLayout layout = new GridBagLayout();
+        setLayout(layout);
+        add(left);
+        add(right);
+
+        GridBagConstraints s= new GridBagConstraints();
+        s.fill = GridBagConstraints.BOTH;
+        s.gridwidth=2;
+        s.weightx = 0;
+        s.weighty=0;
+        layout.setConstraints(left, s);
+
+        s.gridwidth=6;
+        s.weightx = 1;
+        s.weighty=1;
+        layout.setConstraints(right, s);
 
         algorithm.setPanel(this);
     }

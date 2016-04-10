@@ -35,6 +35,10 @@ public interface IOrder {
 
     double totalReturn();
 
+    void stop();
+
+    void resume();
+
     RAW profit();
 
     String conclude();

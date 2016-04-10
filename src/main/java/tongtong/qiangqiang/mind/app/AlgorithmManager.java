@@ -25,7 +25,7 @@ public class AlgorithmManager extends JFrame {
         final JTabbedPane tp = new JTabbedPane();
         tp.setPreferredSize(new Dimension(888, 1000));
         tp.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        tp.setTabPlacement(JTabbedPane.LEFT);
+        tp.setTabPlacement(JTabbedPane.NORTH);
         for (Algorithm a : algorithms) {
             tp.addTab(a.getName(), null, new AlgorithmPanel(a), a.getName());
         }

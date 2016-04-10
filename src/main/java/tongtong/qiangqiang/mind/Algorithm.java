@@ -273,6 +273,14 @@ public abstract class Algorithm {
         conclude();
     }
 
+    public void stop(){
+        order.stop();
+    }
+
+    public void resume(){
+        order.resume();
+    }
+
     public abstract void init();
 
     public abstract void onData(BaseData data);

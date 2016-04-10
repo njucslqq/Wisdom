@@ -18,6 +18,8 @@ import java.util.List;
  */
 public abstract class BaseOrder implements IOrder {
 
+    protected boolean stop = false;
+
     protected boolean lPos = false;
 
     protected boolean sPos = false;
@@ -38,9 +40,9 @@ public abstract class BaseOrder implements IOrder {
 
     protected int sTime = 0;
 
-    protected final LinkedList<Double> longProfit = new LinkedList<>();
+    protected final RAW longProfit = new RAW();
 
-    protected final LinkedList<Double> shortProfit = new LinkedList<>();
+    protected final RAW shortProfit = new RAW();
 
     protected final RAW totalProfit = new RAW();
 
@@ -51,7 +53,7 @@ public abstract class BaseOrder implements IOrder {
     }
 
     protected boolean buyAction(double price) {
-        if (!lPos) {
+        if (!stop && !lPos) {
             lPos = true;
             lPrice = price;
             lTime++;
@@ -66,7 +68,7 @@ public abstract class BaseOrder implements IOrder {
             lPos = false;
             double delta = (price - lPrice) - commision;
             lDif += delta;
-            longProfit.add(delta);
+            longProfit.update(delta);
             totalProfit.update(lDif + sDif);
             return true;
         }
@@ -78,7 +80,7 @@ public abstract class BaseOrder implements IOrder {
             sPos = false;
             double delta = (sPrice - price) - commision;
             sDif += delta;
-            shortProfit.add(delta);
+            shortProfit.update(delta);
             totalProfit.update(lDif + sDif);
             return true;
         }
@@ -86,7 +88,7 @@ public abstract class BaseOrder implements IOrder {
     }
 
     protected boolean sellOpenAction(double price) {
-        if (!sPos) {
+        if (!stop && !sPos) {
             sPos = true;
             sPrice = price;
             sTime++;
@@ -97,16 +99,16 @@ public abstract class BaseOrder implements IOrder {
     }
 
     @Override
-    public double floatLongProfit(double lastPrice){
-        if (lPos){
+    public double floatLongProfit(double lastPrice) {
+        if (lPos) {
             return lastPrice - lPrice;
         }
         return 0.0;
     }
 
     @Override
-    public double floatShortProfit(double lastPrice){
-        if (sPos){
+    public double floatShortProfit(double lastPrice) {
+        if (sPos) {
             return sPrice - lastPrice;
         }
         return 0.0;
@@ -128,6 +130,16 @@ public abstract class BaseOrder implements IOrder {
     }
 
     @Override
+    public void stop() {
+        stop = true;
+    }
+
+    @Override
+    public void resume() {
+        stop = false;
+    }
+
+    @Override
     public RAW profit() {
         return totalProfit;
     }
@@ -142,14 +154,14 @@ public abstract class BaseOrder implements IOrder {
                 "\n<==========   End   ==========>\n";
     }
 
-    protected LocalDate tradingDay(){
+    protected LocalDate tradingDay() {
         LocalDate date = null;
-        if (LocalTime.now().isAfter(Algorithm.PM_END)){
+        if (LocalTime.now().isAfter(Algorithm.PM_END)) {
             if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.FRIDAY))
                 date = LocalDate.now().plusDays(3);
             else
                 date = LocalDate.now().plusDays(1);
-        }else {
+        } else {
             if (LocalDate.now().getDayOfWeek().equals(DayOfWeek.SATURDAY))
                 date = LocalDate.now().plusDays(2);
             else
