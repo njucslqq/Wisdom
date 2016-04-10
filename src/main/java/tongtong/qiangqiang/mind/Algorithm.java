@@ -212,6 +212,10 @@ public abstract class Algorithm {
                 break;
             }
         }
+        panel.algoName.setText(getClass().getSimpleName());
+        panel.algoResolution.setText(resolution.name());
+        panel.algoSecurity.setText(security);
+        panel.algoShare.setText(share + "");
     }
 
     private List<? extends BaseData> download() {
@@ -273,11 +277,11 @@ public abstract class Algorithm {
         conclude();
     }
 
-    public void stop(){
+    public void stop() {
         order.stop();
     }
 
-    public void resume(){
+    public void resume() {
         order.resume();
     }
 

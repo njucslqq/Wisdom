@@ -12,12 +12,14 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RectangleInsets;
+import prefuse.action.layout.*;
 import tongtong.qiangqiang.mind.Algorithm;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -52,6 +54,14 @@ public class AlgorithmPanel extends JPanel {
     private final JButton stopStart = new JButton("停止策略");
 
     private boolean stop = false;
+
+    public final JLabel algoName = new JLabel();
+
+    public final JLabel algoResolution = new JLabel();
+
+    public final JLabel algoSecurity = new JLabel();
+
+    public final JLabel algoShare = new JLabel();
 
     public AlgorithmPanel(Algorithm algorithm) {
         //super(new GridBagLayout(), false);
@@ -99,7 +109,7 @@ public class AlgorithmPanel extends JPanel {
         right.add(profit);
         right.add(log);
 
-        JPanel left = new JPanel();
+        JPanel left = new JPanel(new BorderLayout());
         stopStart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
@@ -115,10 +125,18 @@ public class AlgorithmPanel extends JPanel {
             }
         });
 
-        JPanel info = new JPanel();
+        JPanel info = new JPanel(new GridLayout(4,2));
+        info.add(new JLabel("名称："));
+        info.add(algoName);
+        info.add(new JLabel("周期："));
+        info.add(algoResolution);
+        info.add(new JLabel("标的："));
+        info.add(algoSecurity);
+        info.add(new JLabel("手数："));
+        info.add(algoShare);
 
-        left.add(stopStart);
-        left.add(info);
+        left.add(stopStart, BorderLayout.NORTH);
+        left.add(info, BorderLayout.SOUTH);
 
         GridBagLayout layout = new GridBagLayout();
         setLayout(layout);
@@ -127,7 +145,7 @@ public class AlgorithmPanel extends JPanel {
 
         GridBagConstraints s= new GridBagConstraints();
         s.fill = GridBagConstraints.BOTH;
-        s.gridwidth=2;
+        s.gridwidth=1;
         s.weightx = 0;
         s.weighty=0;
         layout.setConstraints(left, s);

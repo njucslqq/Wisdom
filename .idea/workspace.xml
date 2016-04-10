@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/BaseOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/BaseOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" />
     </list>
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="128" column="49" selection-start-line="128" selection-start-column="49" selection-end-line="128" selection-end-column="49" />
+              <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -50,13 +44,15 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="280" column="23" selection-start-line="280" selection-start-column="23" selection-end-line="280" selection-end-column="23" />
+              <caret line="218" column="5" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="5" />
               <folding>
+                <element signature="e#3067#3068#0" expanded="true" />
+                <element signature="e#3101#3102#0" expanded="true" />
                 <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-                <element signature="e#7267#7268#0" expanded="true" />
-                <element signature="e#7295#7296#0" expanded="true" />
-                <element signature="e#7322#7323#0" expanded="true" />
-                <element signature="e#7352#7353#0" expanded="true" />
+                <element signature="e#7476#7477#0" expanded="true" />
+                <element signature="e#7504#7505#0" expanded="true" />
+                <element signature="e#7532#7533#0" expanded="true" />
+                <element signature="e#7562#7563#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,21 +68,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AlgorithmPanel.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AlgorithmPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="139" column="33" selection-start-line="139" selection-start-column="33" selection-end-line="139" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.62322944">
+              <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RealOrder.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RealOrder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8016997">
-              <caret line="103" column="1" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -138,6 +134,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
               <folding>
+                <element signature="imports" expanded="false" />
                 <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
                 <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
               </folding>
@@ -150,7 +147,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -175,13 +174,13 @@
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgDifference.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/BaseOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
       </list>
     </option>
   </component>
@@ -797,7 +796,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -834,7 +835,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="75" column="13" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -852,6 +853,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
             <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
           </folding>
@@ -877,7 +879,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -913,11 +917,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="216" column="29" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
           <folding>
+            <element signature="e#3067#3068#0" expanded="true" />
+            <element signature="e#3101#3102#0" expanded="true" />
             <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7267#7268#0" expanded="true" />
-            <element signature="e#7295#7296#0" expanded="true" />
-            <element signature="e#7322#7323#0" expanded="true" />
-            <element signature="e#7352#7353#0" expanded="true" />
+            <element signature="e#7476#7477#0" expanded="true" />
+            <element signature="e#7504#7505#0" expanded="true" />
+            <element signature="e#7532#7533#0" expanded="true" />
+            <element signature="e#7562#7563#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -935,7 +941,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="80" column="5" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -945,6 +951,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="127" column="5" selection-start-line="110" selection-start-column="4" selection-end-line="127" selection-end-column="5" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
             <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
           </folding>
@@ -997,11 +1004,13 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="216" column="29" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
           <folding>
+            <element signature="e#3067#3068#0" expanded="true" />
+            <element signature="e#3101#3102#0" expanded="true" />
             <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7267#7268#0" expanded="true" />
-            <element signature="e#7295#7296#0" expanded="true" />
-            <element signature="e#7322#7323#0" expanded="true" />
-            <element signature="e#7352#7353#0" expanded="true" />
+            <element signature="e#7476#7477#0" expanded="true" />
+            <element signature="e#7504#7505#0" expanded="true" />
+            <element signature="e#7532#7533#0" expanded="true" />
+            <element signature="e#7562#7563#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1019,6 +1028,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="50" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
             <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
           </folding>
@@ -1136,7 +1146,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1145,7 +1155,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1154,6 +1166,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
           <folding>
+            <element signature="imports" expanded="false" />
             <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
             <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
           </folding>
@@ -1171,22 +1184,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="139" column="33" selection-start-line="139" selection-start-column="33" selection-end-line="139" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="128" column="49" selection-start-line="128" selection-start-column="49" selection-end-line="128" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/BaseOrder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1196,20 +1193,6 @@
             <element signature="e#2915#2916#0" expanded="true" />
             <element signature="e#2957#2958#0" expanded="true" />
             <element signature="e#2985#2986#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="280" column="23" selection-start-line="280" selection-start-column="23" selection-end-line="280" selection-end-column="23" />
-          <folding>
-            <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7267#7268#0" expanded="true" />
-            <element signature="e#7295#7296#0" expanded="true" />
-            <element signature="e#7322#7323#0" expanded="true" />
-            <element signature="e#7352#7353#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1234,8 +1217,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8016997">
-          <caret line="103" column="1" selection-start-line="103" selection-start-column="1" selection-end-line="103" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="218" column="5" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="5" />
+          <folding>
+            <element signature="e#3067#3068#0" expanded="true" />
+            <element signature="e#3101#3102#0" expanded="true" />
+            <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
+            <element signature="e#7476#7477#0" expanded="true" />
+            <element signature="e#7504#7505#0" expanded="true" />
+            <element signature="e#7532#7533#0" expanded="true" />
+            <element signature="e#7562#7563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.62322944">
+          <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
           <folding />
         </state>
       </provider>
