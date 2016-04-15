@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b3002d8f-4db3-46d6-8600-99affd2dacdf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MAVGReverseDiff.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java" afterPath="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java" />
     </list>
     <ignored path="wisdom.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +37,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
-              <folding />
+              <caret line="95" column="10" selection-start-line="95" selection-start-column="10" selection-end-line="95" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,13 +51,74 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="218" column="5" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="5" />
               <folding>
-                <element signature="e#3067#3068#0" expanded="true" />
-                <element signature="e#3101#3102#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#2374#2375#0" expanded="false" />
+                <element signature="e#2438#2439#0" expanded="false" />
+                <element signature="e#2489#2490#0" expanded="false" />
+                <element signature="e#2529#2530#0" expanded="false" />
+                <element signature="e#2587#2588#0" expanded="false" />
+                <element signature="e#2631#2632#0" expanded="false" />
+                <element signature="e#2679#2680#0" expanded="false" />
+                <element signature="e#2713#2714#0" expanded="false" />
+                <element signature="e#2757#2758#0" expanded="false" />
+                <element signature="e#2787#2788#0" expanded="false" />
+                <element signature="e#2831#2832#0" expanded="false" />
+                <element signature="e#2865#2866#0" expanded="false" />
+                <element signature="e#2909#2910#0" expanded="false" />
+                <element signature="e#2943#2944#0" expanded="false" />
+                <element signature="e#2991#2992#0" expanded="false" />
+                <element signature="e#3025#3026#0" expanded="false" />
+                <element signature="e#3067#3068#0" expanded="false" />
+                <element signature="e#3101#3102#0" expanded="false" />
+                <element signature="e#3134#3135#0" expanded="false" />
+                <element signature="e#3187#3188#0" expanded="false" />
+                <element signature="e#3256#3257#0" expanded="false" />
+                <element signature="e#3294#3295#0" expanded="false" />
+                <element signature="e#3364#3365#0" expanded="false" />
+                <element signature="e#3403#3404#0" expanded="false" />
+                <element signature="e#3473#3474#0" expanded="false" />
+                <element signature="e#3533#3534#0" expanded="false" />
+                <element signature="e#3604#3605#0" expanded="false" />
+                <element signature="e#3665#3666#0" expanded="false" />
                 <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-                <element signature="e#7476#7477#0" expanded="true" />
-                <element signature="e#7504#7505#0" expanded="true" />
-                <element signature="e#7532#7533#0" expanded="true" />
-                <element signature="e#7562#7563#0" expanded="true" />
+                <element signature="e#4169#4170#0" expanded="false" />
+                <element signature="e#4209#4210#0" expanded="false" />
+                <element signature="e#4249#4250#0" expanded="false" />
+                <element signature="e#4297#4298#0" expanded="false" />
+                <element signature="e#4327#4328#0" expanded="false" />
+                <element signature="e#4364#4365#0" expanded="false" />
+                <element signature="e#4410#4411#0" expanded="false" />
+                <element signature="e#4465#4466#0" expanded="false" />
+                <element signature="e#4511#4512#0" expanded="false" />
+                <element signature="e#4567#4568#0" expanded="false" />
+                <element signature="e#4610#4611#0" expanded="false" />
+                <element signature="e#4681#4682#0" expanded="false" />
+                <element signature="e#4725#4726#0" expanded="false" />
+                <element signature="e#4797#4798#0" expanded="false" />
+                <element signature="e#4845#4846#0" expanded="false" />
+                <element signature="e#4921#4922#0" expanded="false" />
+                <element signature="e#4969#4970#0" expanded="false" />
+                <element signature="e#5045#5046#0" expanded="false" />
+                <element signature="e#5095#5096#0" expanded="false" />
+                <element signature="e#5173#5174#0" expanded="false" />
+                <element signature="e#7016#7017#0" expanded="false" />
+                <element signature="e#7050#7051#0" expanded="false" />
+                <element signature="e#7090#7091#0" expanded="false" />
+                <element signature="e#7118#7119#0" expanded="false" />
+                <element signature="e#7153#7154#0" expanded="false" />
+                <element signature="e#7195#7196#0" expanded="false" />
+                <element signature="e#7226#7227#0" expanded="false" />
+                <element signature="e#7253#7254#0" expanded="false" />
+                <element signature="e#7288#7289#0" expanded="false" />
+                <element signature="e#7319#7320#0" expanded="false" />
+                <element signature="e#7359#7360#0" expanded="false" />
+                <element signature="e#7392#7393#0" expanded="false" />
+                <element signature="e#7424#7425#0" expanded="false" />
+                <element signature="e#7450#7451#0" expanded="false" />
+                <element signature="e#7476#7477#0" expanded="false" />
+                <element signature="e#7504#7505#0" expanded="false" />
+                <element signature="e#7532#7533#0" expanded="false" />
+                <element signature="e#7562#7563#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -63,17 +129,24 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
-              <folding />
+              <folding>
+                <element signature="e#264#265#0" expanded="false" />
+                <element signature="e#296#297#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AlgorithmPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AlgorithmPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.62322944">
-              <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="129" column="27" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#2783#2784#0" expanded="false" />
+                <element signature="e#2865#2866#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,8 +155,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
-              <folding />
+              <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -94,20 +169,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AlgorithmManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-              <folding>
-                <element signature="e#1112#1113#0" expanded="true" />
-                <element signature="e#1179#1180#0" expanded="true" />
+                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -119,37 +181,59 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="133" column="20" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
               <folding>
-                <element signature="e#2888#2889#0" expanded="true" />
-                <element signature="e#2915#2916#0" expanded="true" />
-                <element signature="e#2957#2958#0" expanded="true" />
-                <element signature="e#2985#2986#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#1081#1082#0" expanded="false" />
+                <element signature="e#1123#1124#0" expanded="false" />
+                <element signature="e#2662#2663#0" expanded="false" />
+                <element signature="e#2689#2690#0" expanded="false" />
+                <element signature="e#2738#2739#0" expanded="false" />
+                <element signature="e#2765#2766#0" expanded="false" />
+                <element signature="e#2814#2815#0" expanded="false" />
+                <element signature="e#2848#2849#0" expanded="false" />
+                <element signature="e#2888#2889#0" expanded="false" />
+                <element signature="e#2915#2916#0" expanded="false" />
+                <element signature="e#2957#2958#0" expanded="false" />
+                <element signature="e#2985#2986#0" expanded="false" />
+                <element signature="e#3026#3027#0" expanded="false" />
+                <element signature="e#3060#3061#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MavgDifference.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgDifference.java">
+      <file leaf-file-name="PusherHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
+              <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
-                <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DoubleDifference.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BarAnalysis.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="57" column="22" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
+              <folding>
+                <element signature="e#2401#2402#0" expanded="true" />
+                <element signature="e#2462#2463#0" expanded="true" />
+                <element signature="e#2515#2516#0" expanded="true" />
+                <element signature="e#2576#2577#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DoubleDifference.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.3258427">
+              <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -168,19 +252,19 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/TrendHedge.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgDifference.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/IOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/BaseOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/MockOrder.java" />
-        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/Algorithm.java" />
         <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java" />
+        <option value="$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java" />
       </list>
     </option>
   </component>
@@ -192,7 +276,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="1912" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -236,7 +320,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -246,7 +330,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -260,7 +344,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -286,7 +370,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -316,7 +400,41 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="qiangqiang" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mind" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="push" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wisdom" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -350,41 +468,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="qiangqiang" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mind" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wisdom" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Wisdom" />
+              <option name="myItemId" value="Hunter" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -414,12 +498,12 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
-  <component name="RunManager" selected="Application.MavgReverseDiff">
+  <component name="RunManager" selected="Application.DoubleDifference">
     <configuration default="false" name="MavgReverseDiff" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -428,6 +512,46 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="tongtong.qiangqiang.mind.algorithm.MavgReverseDiff" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="wisdom" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="BarAnalysis" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="tongtong.qiangqiang.mind.algorithm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="tongtong.qiangqiang.mind.algorithm.BarAnalysis" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="wisdom" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="DoubleDifference" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="tongtong.qiangqiang.mind.algorithm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="tongtong.qiangqiang.mind.algorithm.DoubleDifference" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -614,12 +738,54 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -678,14 +844,38 @@
       <listeners />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.MavgReverseDiff" />
+      <item index="1" class="java.lang.String" itemvalue="Application.BarAnalysis" />
+      <item index="2" class="java.lang.String" itemvalue="Application.DoubleDifference" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Application.MavgReverseDiff" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Application.DoubleDifference" />
+        <item index="1" class="java.lang.String" itemvalue="Application.BarAnalysis" />
+        <item index="2" class="java.lang.String" itemvalue="Application.MavgReverseDiff" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration">
@@ -701,7 +891,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -711,10 +901,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1762918" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23149113" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15906788" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23878205" sideWeight="0.49585062" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18072917" sideWeight="0.49585062" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3347548" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -788,7 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -796,9 +985,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -806,7 +993,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -826,7 +1015,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="54" column="81" selection-start-line="54" selection-start-column="81" selection-end-line="54" selection-end-column="81" />
-          <folding />
+          <folding>
+            <element signature="e#264#265#0" expanded="false" />
+            <element signature="e#296#297#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -835,7 +1027,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="75" column="13" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="e#2401#2402#0" expanded="true" />
+            <element signature="e#2462#2463#0" expanded="true" />
+            <element signature="e#2515#2516#0" expanded="true" />
+            <element signature="e#2576#2577#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -844,7 +1039,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="29" selection-start-line="25" selection-start-column="29" selection-end-line="25" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -852,11 +1049,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
-            <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -864,7 +1057,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -879,9 +1071,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -889,7 +1079,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -917,13 +1109,74 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="216" column="29" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
           <folding>
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3101#3102#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2374#2375#0" expanded="false" />
+            <element signature="e#2438#2439#0" expanded="false" />
+            <element signature="e#2489#2490#0" expanded="false" />
+            <element signature="e#2529#2530#0" expanded="false" />
+            <element signature="e#2587#2588#0" expanded="false" />
+            <element signature="e#2631#2632#0" expanded="false" />
+            <element signature="e#2679#2680#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2757#2758#0" expanded="false" />
+            <element signature="e#2787#2788#0" expanded="false" />
+            <element signature="e#2831#2832#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+            <element signature="e#2909#2910#0" expanded="false" />
+            <element signature="e#2943#2944#0" expanded="false" />
+            <element signature="e#2991#2992#0" expanded="false" />
+            <element signature="e#3025#3026#0" expanded="false" />
+            <element signature="e#3067#3068#0" expanded="false" />
+            <element signature="e#3101#3102#0" expanded="false" />
+            <element signature="e#3134#3135#0" expanded="false" />
+            <element signature="e#3187#3188#0" expanded="false" />
+            <element signature="e#3256#3257#0" expanded="false" />
+            <element signature="e#3294#3295#0" expanded="false" />
+            <element signature="e#3364#3365#0" expanded="false" />
+            <element signature="e#3403#3404#0" expanded="false" />
+            <element signature="e#3473#3474#0" expanded="false" />
+            <element signature="e#3533#3534#0" expanded="false" />
+            <element signature="e#3604#3605#0" expanded="false" />
+            <element signature="e#3665#3666#0" expanded="false" />
             <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7476#7477#0" expanded="true" />
-            <element signature="e#7504#7505#0" expanded="true" />
-            <element signature="e#7532#7533#0" expanded="true" />
-            <element signature="e#7562#7563#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="false" />
+            <element signature="e#4209#4210#0" expanded="false" />
+            <element signature="e#4249#4250#0" expanded="false" />
+            <element signature="e#4297#4298#0" expanded="false" />
+            <element signature="e#4327#4328#0" expanded="false" />
+            <element signature="e#4364#4365#0" expanded="false" />
+            <element signature="e#4410#4411#0" expanded="false" />
+            <element signature="e#4465#4466#0" expanded="false" />
+            <element signature="e#4511#4512#0" expanded="false" />
+            <element signature="e#4567#4568#0" expanded="false" />
+            <element signature="e#4610#4611#0" expanded="false" />
+            <element signature="e#4681#4682#0" expanded="false" />
+            <element signature="e#4725#4726#0" expanded="false" />
+            <element signature="e#4797#4798#0" expanded="false" />
+            <element signature="e#4845#4846#0" expanded="false" />
+            <element signature="e#4921#4922#0" expanded="false" />
+            <element signature="e#4969#4970#0" expanded="false" />
+            <element signature="e#5045#5046#0" expanded="false" />
+            <element signature="e#5095#5096#0" expanded="false" />
+            <element signature="e#5173#5174#0" expanded="false" />
+            <element signature="e#7016#7017#0" expanded="false" />
+            <element signature="e#7050#7051#0" expanded="false" />
+            <element signature="e#7090#7091#0" expanded="false" />
+            <element signature="e#7118#7119#0" expanded="false" />
+            <element signature="e#7153#7154#0" expanded="false" />
+            <element signature="e#7195#7196#0" expanded="false" />
+            <element signature="e#7226#7227#0" expanded="false" />
+            <element signature="e#7253#7254#0" expanded="false" />
+            <element signature="e#7288#7289#0" expanded="false" />
+            <element signature="e#7319#7320#0" expanded="false" />
+            <element signature="e#7359#7360#0" expanded="false" />
+            <element signature="e#7392#7393#0" expanded="false" />
+            <element signature="e#7424#7425#0" expanded="false" />
+            <element signature="e#7450#7451#0" expanded="false" />
+            <element signature="e#7476#7477#0" expanded="false" />
+            <element signature="e#7504#7505#0" expanded="false" />
+            <element signature="e#7532#7533#0" expanded="false" />
+            <element signature="e#7562#7563#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -932,7 +1185,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -941,7 +1196,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="80" column="5" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="false" />
+            <element signature="e#2401#2402#0" expanded="true" />
+            <element signature="e#2462#2463#0" expanded="true" />
+            <element signature="e#2515#2516#0" expanded="true" />
+            <element signature="e#2576#2577#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -950,11 +1208,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="127" column="5" selection-start-line="110" selection-start-column="4" selection-end-line="127" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
-            <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -962,7 +1216,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="34" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1004,13 +1260,74 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="216" column="29" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
           <folding>
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3101#3102#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2374#2375#0" expanded="false" />
+            <element signature="e#2438#2439#0" expanded="false" />
+            <element signature="e#2489#2490#0" expanded="false" />
+            <element signature="e#2529#2530#0" expanded="false" />
+            <element signature="e#2587#2588#0" expanded="false" />
+            <element signature="e#2631#2632#0" expanded="false" />
+            <element signature="e#2679#2680#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2757#2758#0" expanded="false" />
+            <element signature="e#2787#2788#0" expanded="false" />
+            <element signature="e#2831#2832#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+            <element signature="e#2909#2910#0" expanded="false" />
+            <element signature="e#2943#2944#0" expanded="false" />
+            <element signature="e#2991#2992#0" expanded="false" />
+            <element signature="e#3025#3026#0" expanded="false" />
+            <element signature="e#3067#3068#0" expanded="false" />
+            <element signature="e#3101#3102#0" expanded="false" />
+            <element signature="e#3134#3135#0" expanded="false" />
+            <element signature="e#3187#3188#0" expanded="false" />
+            <element signature="e#3256#3257#0" expanded="false" />
+            <element signature="e#3294#3295#0" expanded="false" />
+            <element signature="e#3364#3365#0" expanded="false" />
+            <element signature="e#3403#3404#0" expanded="false" />
+            <element signature="e#3473#3474#0" expanded="false" />
+            <element signature="e#3533#3534#0" expanded="false" />
+            <element signature="e#3604#3605#0" expanded="false" />
+            <element signature="e#3665#3666#0" expanded="false" />
             <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7476#7477#0" expanded="true" />
-            <element signature="e#7504#7505#0" expanded="true" />
-            <element signature="e#7532#7533#0" expanded="true" />
-            <element signature="e#7562#7563#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="false" />
+            <element signature="e#4209#4210#0" expanded="false" />
+            <element signature="e#4249#4250#0" expanded="false" />
+            <element signature="e#4297#4298#0" expanded="false" />
+            <element signature="e#4327#4328#0" expanded="false" />
+            <element signature="e#4364#4365#0" expanded="false" />
+            <element signature="e#4410#4411#0" expanded="false" />
+            <element signature="e#4465#4466#0" expanded="false" />
+            <element signature="e#4511#4512#0" expanded="false" />
+            <element signature="e#4567#4568#0" expanded="false" />
+            <element signature="e#4610#4611#0" expanded="false" />
+            <element signature="e#4681#4682#0" expanded="false" />
+            <element signature="e#4725#4726#0" expanded="false" />
+            <element signature="e#4797#4798#0" expanded="false" />
+            <element signature="e#4845#4846#0" expanded="false" />
+            <element signature="e#4921#4922#0" expanded="false" />
+            <element signature="e#4969#4970#0" expanded="false" />
+            <element signature="e#5045#5046#0" expanded="false" />
+            <element signature="e#5095#5096#0" expanded="false" />
+            <element signature="e#5173#5174#0" expanded="false" />
+            <element signature="e#7016#7017#0" expanded="false" />
+            <element signature="e#7050#7051#0" expanded="false" />
+            <element signature="e#7090#7091#0" expanded="false" />
+            <element signature="e#7118#7119#0" expanded="false" />
+            <element signature="e#7153#7154#0" expanded="false" />
+            <element signature="e#7195#7196#0" expanded="false" />
+            <element signature="e#7226#7227#0" expanded="false" />
+            <element signature="e#7253#7254#0" expanded="false" />
+            <element signature="e#7288#7289#0" expanded="false" />
+            <element signature="e#7319#7320#0" expanded="false" />
+            <element signature="e#7359#7360#0" expanded="false" />
+            <element signature="e#7392#7393#0" expanded="false" />
+            <element signature="e#7424#7425#0" expanded="false" />
+            <element signature="e#7450#7451#0" expanded="false" />
+            <element signature="e#7476#7477#0" expanded="false" />
+            <element signature="e#7504#7505#0" expanded="false" />
+            <element signature="e#7532#7533#0" expanded="false" />
+            <element signature="e#7562#7563#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1019,7 +1336,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1027,11 +1346,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="50" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
-            <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,7 +1354,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="86" column="34" selection-start-line="86" selection-start-column="34" selection-end-line="86" selection-end-column="34" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1125,39 +1442,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/TrendHedge.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="34" selection-start-line="73" selection-start-column="34" selection-end-line="73" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="32" selection-start-line="117" selection-start-column="32" selection-end-line="117" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1165,11 +1453,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1458984048369" expanded="true" signature="52:206" placeholder="..." />
-            <marker date="1458984048369" expanded="true" signature="3898:4084" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1177,10 +1461,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="44" selection-start-line="27" selection-start-column="44" selection-end-line="27" selection-end-column="44" />
-          <folding>
-            <element signature="e#1112#1113#0" expanded="true" />
-            <element signature="e#1179#1180#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1189,10 +1470,21 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="133" column="20" selection-start-line="133" selection-start-column="20" selection-end-line="133" selection-end-column="20" />
           <folding>
-            <element signature="e#2888#2889#0" expanded="true" />
-            <element signature="e#2915#2916#0" expanded="true" />
-            <element signature="e#2957#2958#0" expanded="true" />
-            <element signature="e#2985#2986#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1081#1082#0" expanded="false" />
+            <element signature="e#1123#1124#0" expanded="false" />
+            <element signature="e#2662#2663#0" expanded="false" />
+            <element signature="e#2689#2690#0" expanded="false" />
+            <element signature="e#2738#2739#0" expanded="false" />
+            <element signature="e#2765#2766#0" expanded="false" />
+            <element signature="e#2814#2815#0" expanded="false" />
+            <element signature="e#2848#2849#0" expanded="false" />
+            <element signature="e#2888#2889#0" expanded="false" />
+            <element signature="e#2915#2916#0" expanded="false" />
+            <element signature="e#2957#2958#0" expanded="false" />
+            <element signature="e#2985#2986#0" expanded="false" />
+            <element signature="e#3026#3027#0" expanded="false" />
+            <element signature="e#3060#3061#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1202,7 +1494,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1211,23 +1503,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="12" selection-start-line="52" selection-start-column="12" selection-end-line="52" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="73" column="5" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="10" selection-start-line="72" selection-start-column="10" selection-end-line="72" selection-end-column="10" />
-          <folding />
+          <folding>
+            <element signature="e#264#265#0" expanded="false" />
+            <element signature="e#296#297#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1236,21 +1515,137 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="218" column="5" selection-start-line="218" selection-start-column="5" selection-end-line="218" selection-end-column="5" />
           <folding>
-            <element signature="e#3067#3068#0" expanded="true" />
-            <element signature="e#3101#3102#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2374#2375#0" expanded="false" />
+            <element signature="e#2438#2439#0" expanded="false" />
+            <element signature="e#2489#2490#0" expanded="false" />
+            <element signature="e#2529#2530#0" expanded="false" />
+            <element signature="e#2587#2588#0" expanded="false" />
+            <element signature="e#2631#2632#0" expanded="false" />
+            <element signature="e#2679#2680#0" expanded="false" />
+            <element signature="e#2713#2714#0" expanded="false" />
+            <element signature="e#2757#2758#0" expanded="false" />
+            <element signature="e#2787#2788#0" expanded="false" />
+            <element signature="e#2831#2832#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+            <element signature="e#2909#2910#0" expanded="false" />
+            <element signature="e#2943#2944#0" expanded="false" />
+            <element signature="e#2991#2992#0" expanded="false" />
+            <element signature="e#3025#3026#0" expanded="false" />
+            <element signature="e#3067#3068#0" expanded="false" />
+            <element signature="e#3101#3102#0" expanded="false" />
+            <element signature="e#3134#3135#0" expanded="false" />
+            <element signature="e#3187#3188#0" expanded="false" />
+            <element signature="e#3256#3257#0" expanded="false" />
+            <element signature="e#3294#3295#0" expanded="false" />
+            <element signature="e#3364#3365#0" expanded="false" />
+            <element signature="e#3403#3404#0" expanded="false" />
+            <element signature="e#3473#3474#0" expanded="false" />
+            <element signature="e#3533#3534#0" expanded="false" />
+            <element signature="e#3604#3605#0" expanded="false" />
+            <element signature="e#3665#3666#0" expanded="false" />
             <element signature="method#toNameValuePair#0;class#Algorithm#0" expanded="false" />
-            <element signature="e#7476#7477#0" expanded="true" />
-            <element signature="e#7504#7505#0" expanded="true" />
-            <element signature="e#7532#7533#0" expanded="true" />
-            <element signature="e#7562#7563#0" expanded="true" />
+            <element signature="e#4169#4170#0" expanded="false" />
+            <element signature="e#4209#4210#0" expanded="false" />
+            <element signature="e#4249#4250#0" expanded="false" />
+            <element signature="e#4297#4298#0" expanded="false" />
+            <element signature="e#4327#4328#0" expanded="false" />
+            <element signature="e#4364#4365#0" expanded="false" />
+            <element signature="e#4410#4411#0" expanded="false" />
+            <element signature="e#4465#4466#0" expanded="false" />
+            <element signature="e#4511#4512#0" expanded="false" />
+            <element signature="e#4567#4568#0" expanded="false" />
+            <element signature="e#4610#4611#0" expanded="false" />
+            <element signature="e#4681#4682#0" expanded="false" />
+            <element signature="e#4725#4726#0" expanded="false" />
+            <element signature="e#4797#4798#0" expanded="false" />
+            <element signature="e#4845#4846#0" expanded="false" />
+            <element signature="e#4921#4922#0" expanded="false" />
+            <element signature="e#4969#4970#0" expanded="false" />
+            <element signature="e#5045#5046#0" expanded="false" />
+            <element signature="e#5095#5096#0" expanded="false" />
+            <element signature="e#5173#5174#0" expanded="false" />
+            <element signature="e#7016#7017#0" expanded="false" />
+            <element signature="e#7050#7051#0" expanded="false" />
+            <element signature="e#7090#7091#0" expanded="false" />
+            <element signature="e#7118#7119#0" expanded="false" />
+            <element signature="e#7153#7154#0" expanded="false" />
+            <element signature="e#7195#7196#0" expanded="false" />
+            <element signature="e#7226#7227#0" expanded="false" />
+            <element signature="e#7253#7254#0" expanded="false" />
+            <element signature="e#7288#7289#0" expanded="false" />
+            <element signature="e#7319#7320#0" expanded="false" />
+            <element signature="e#7359#7360#0" expanded="false" />
+            <element signature="e#7392#7393#0" expanded="false" />
+            <element signature="e#7424#7425#0" expanded="false" />
+            <element signature="e#7450#7451#0" expanded="false" />
+            <element signature="e#7476#7477#0" expanded="false" />
+            <element signature="e#7504#7505#0" expanded="false" />
+            <element signature="e#7532#7533#0" expanded="false" />
+            <element signature="e#7562#7563#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/app/AlgorithmPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.62322944">
-          <caret line="132" column="36" selection-start-line="132" selection-start-column="36" selection-end-line="132" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="129" column="27" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#2783#2784#0" expanded="false" />
+            <element signature="e#2865#2866#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/MavgReverseDiff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="95" column="10" selection-start-line="95" selection-start-column="10" selection-end-line="95" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/order/RealOrder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/push/PusherHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/BarAnalysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="22" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
+          <folding>
+            <element signature="e#2401#2402#0" expanded="true" />
+            <element signature="e#2462#2463#0" expanded="true" />
+            <element signature="e#2515#2516#0" expanded="true" />
+            <element signature="e#2576#2577#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/tongtong/qiangqiang/mind/algorithm/DoubleDifference.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3258427">
+          <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
           <folding />
         </state>
       </provider>

@@ -28,7 +28,7 @@ public class BarAnalysis extends Algorithm {
 
     public final RAW close = new RAW();
 
-    public final WMA wma = new WMA(3);
+    public final WMA wma = new WMA(7);
 
     public final ArrayList<BarInfo> bars = new ArrayList<>();
 
@@ -40,10 +40,10 @@ public class BarAnalysis extends Algorithm {
 
     @Override
     public void init() {
-        setSecurity("rb1610");
-        setResolution(TimeFrame.MIN_5);
-        setStart(LocalDate.of(2016, 3, 13));
-        setEnd(LocalDate.of(2016, 3, 25));
+        setSecurity("rb1605");
+        setResolution(TimeFrame.MIN_10);
+        setStart(LocalDate.of(2015, 6, 10));
+        setEnd(LocalDate.of(2016, 3, 1));
         setVerbose(true);
         setShare(1);
     }
@@ -57,27 +57,36 @@ public class BarAnalysis extends Algorithm {
         wma.update(tp);
         bars.add(bar);
 
-        if (bars.size() > 1){
-            BarInfo pre = bars.get(bars.size()-2);
-            if (pre.close > pre.open && bar.close > bar.open){
-                buyClose(bar.close + slippage);
+        double gap = 1;
+        if (bars.size() > 1) {
+            BarInfo pre = bars.get(bars.size() - 2);
+            if (pBar(pre, gap) && pBar(bar, gap)) {
+                //buyClose(bar.close + slippage);
                 buy(bar.close + slippage);
-            }
-            else if (pre.close < pre.open && bar.close < bar.open){
+            } else if (nBar(pre, 0) && nBar(bar, 0)) {
                 sell(bar.close - slippage);
-                sellOpen(bar.close - slippage);
+                //sellOpen(bar.close - slippage);
             }
         }
+
         int size = 128;
         visPrice(size, wma, close);
 
-        visProfit(size, profit());
+        visProfit(size * 120, profit());
 
-        try {
+        /*try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
+    }
+
+    private boolean pBar(BarInfo bar, double gap) {
+        return (bar.close - bar.open) > Math.abs(gap);
+    }
+
+    private boolean nBar(BarInfo bar, double gap) {
+        return (bar.open - bar.close) > Math.abs(gap);
     }
 
     public static void main(String[] args) {
