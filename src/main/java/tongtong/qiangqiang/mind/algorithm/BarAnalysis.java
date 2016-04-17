@@ -69,7 +69,7 @@ public class BarAnalysis extends Algorithm {
             if (pBar(bars.get(1), gap) && pBar(bars.get(0), gap)) {
                 beep(3, 1000);
             } else if (nBar(bars.get(1), gap) && nBar(bars.get(0), gap)) {
-                beep(9, 250);
+                beep(15, 150);
             }
         }
 
