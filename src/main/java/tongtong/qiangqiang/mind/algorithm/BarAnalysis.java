@@ -6,16 +6,15 @@ import cn.quanttech.quantera.common.factor.single.indicators.WMA;
 import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.BaseData;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
-import org.apache.commons.lang3.tuple.Pair;
 import tongtong.qiangqiang.mind.Algorithm;
 import tongtong.qiangqiang.mind.app.AlgorithmManager;
 import tongtong.qiangqiang.mind.push.Pusher;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+
+import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_10;
 
 /**
  * Author: Qiangqiang Li
@@ -26,59 +25,56 @@ import java.util.List;
  */
 public class BarAnalysis extends Algorithm {
 
-    public final RAW close = new RAW();
-
-    public final WMA wma = new WMA(7);
-
     public final ArrayList<BarInfo> bars = new ArrayList<>();
 
-    private double slippage = 1.0;
+    public final RAW close = new RAW();
 
-    public BarAnalysis(Pusher pusher) {
+    public final double gap;
+
+    public final String security;
+
+    public final TimeFrame resolution;
+
+    public BarAnalysis(Pusher pusher, double gap, String security, TimeFrame resolution) {
         super("BarAnalysis", 0.2, pusher);
+        this.gap = gap;
+        this.security = security;
+        this.resolution = resolution;
     }
 
     @Override
     public void init() {
-        setSecurity("rb1605");
-        setResolution(TimeFrame.MIN_10);
-        setStart(LocalDate.of(2015, 6, 10));
-        setEnd(LocalDate.of(2016, 3, 1));
-        setVerbose(true);
-        setShare(1);
+        setSecurity(security);
+        setResolution(resolution);
+        setStart(LocalDate.of(2016, 4, 1));
+        setEnd(LocalDate.of(2016, 4, 30));
+
+        //setModel(MindType.Model.TRADE);
+        //setState(MindType.State.REAL);
     }
 
     @Override
     public void onData(BaseData data) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         BarInfo bar = (BarInfo) data;
-        double tp = (bar.high + bar.close + bar.low) / 3.0;
-
+        bars.add(0, bar);
         close.update(bar.close);
-        wma.update(tp);
-        bars.add(bar);
 
-        double gap = 1;
         if (bars.size() > 1) {
-            BarInfo pre = bars.get(bars.size() - 2);
-            if (pBar(pre, gap) && pBar(bar, gap)) {
-                //buyClose(bar.close + slippage);
-                buy(bar.close + slippage);
-            } else if (nBar(pre, 0) && nBar(bar, 0)) {
-                sell(bar.close - slippage);
-                //sellOpen(bar.close - slippage);
+            if (pBar(bars.get(1), gap) && pBar(bars.get(0), gap)) {
+                beep(3, 1000);
+            } else if (nBar(bars.get(1), gap) && nBar(bars.get(0), gap)) {
+                beep(9, 250);
             }
         }
 
         int size = 128;
-        visPrice(size, wma, close);
-
-        visProfit(size * 120, profit());
-
-        /*try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
+        visPrice(size, close);
     }
 
     private boolean pBar(BarInfo bar, double gap) {
@@ -95,6 +91,6 @@ public class BarAnalysis extends Algorithm {
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
-        new AlgorithmManager(Collections.singletonList(new BarAnalysis(pusher))).vis();
+        new AlgorithmManager(Collections.singletonList(new BarAnalysis(pusher, 0.9, "rb1610", MIN_10))).vis();
     }
 }

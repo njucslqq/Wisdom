@@ -13,6 +13,7 @@ import tongtong.qiangqiang.mind.order.MockOrder;
 import tongtong.qiangqiang.mind.order.RealOrder;
 import tongtong.qiangqiang.mind.push.Pusher;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -191,6 +192,18 @@ public abstract class Algorithm {
 
     protected boolean buyCloseSilent(double price) {
         return tradingRecord(order.buyCloseSilent(security, share, price));
+    }
+
+    protected void beep(int n, long ms) {
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        for (int i = 0; i < n; i++) {
+            tk.beep();
+            try {
+                Thread.sleep(ms);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private boolean tradingRecord(String record) {
