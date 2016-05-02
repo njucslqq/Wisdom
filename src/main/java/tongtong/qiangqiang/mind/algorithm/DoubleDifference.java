@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cn.quanttech.quantera.common.factor.MavgFactory.*;
-import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_30;
-import static cn.quanttech.quantera.common.type.data.TimeFrame.MIN_5;
+import static cn.quanttech.quantera.common.type.data.TimeFrame.*;
 import static org.apache.commons.lang3.tuple.Pair.of;
 
 /**
@@ -102,7 +101,7 @@ public class DoubleDifference extends Algorithm {
         dif_dif.update(ff-ss);
 
         int size = 128;
-        visPrice(size, fast, slow, close);
+        visPrice(size, dif);
 
         if (dif_dif.size()>1) {
             if (dif_dif.last(0) > dif_dif.last(1)) {
@@ -136,11 +135,11 @@ public class DoubleDifference extends Algorithm {
     }
 
     private static List<Algorithm> portfolio1(Pusher pusher) {
-        int period = 37;
+        int period = 47;
         String security = "rb1605";
         LocalDate begin = LocalDate.of(2015, 6, 10);
         LocalDate end = LocalDate.of(2016, 3, 10);
-        TimeFrame resolution = MIN_5;
+        TimeFrame resolution = MIN_10;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};
         List<Algorithm> algorithms = new ArrayList<>();

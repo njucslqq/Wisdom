@@ -72,8 +72,8 @@ public class MavgReverseDiff extends Algorithm {
         setVerbose(true);
         setShare(3);
 
-        setModel(MindType.Model.TRADE);
-        setState(MindType.State.REAL);
+        //setModel(MindType.Model.TRADE);
+        //setState(MindType.State.REAL);
     }
 
     @Override
@@ -115,15 +115,15 @@ public class MavgReverseDiff extends Algorithm {
         Pusher pusher = new Pusher(8080);
         pusher.run();
 
-        List<Algorithm> p1 = portfolio1(pusher);
+        List<Algorithm> p1 = portfolio2(pusher);
         new AlgorithmManager(p1).vis();
     }
 
     private static List<Algorithm> portfolio2(Pusher pusher) {
         int period = 17;
-        String security = "rb1610";
-        LocalDate begin = LocalDate.of(2016, 1, 1);
-        LocalDate end = LocalDate.of(2016, 3, 1);
+        String security = "pp1609";
+        LocalDate begin = LocalDate.of(2015, 10, 1);
+        LocalDate end = LocalDate.of(2016, 4, 25);
         TimeFrame resolution = MIN_1;
 
         Class<?>[] c = {SMA.class, EMA.class, WMA.class, DEMA.class};
@@ -132,7 +132,7 @@ public class MavgReverseDiff extends Algorithm {
             for (int j = 0; j < i; j++) {
                 Mavg fast = create(c[i], period);
                 Mavg slow = create(c[j], period);
-                algorithms.add(new MavgReverseDiff(security, pusher, 0.2, security, resolution, begin, end, fast, slow, 1.0, 12.0));
+                algorithms.add(new MavgReverseDiff(security, pusher, 0., security, resolution, begin, end, fast, slow, 1.0, 12.0));
             }
 
         return algorithms;

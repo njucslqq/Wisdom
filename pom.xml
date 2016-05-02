@@ -12,6 +12,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <nd4j.version>0.4-rc3.8</nd4j.version>
+        <dl4j.version>0.4-rc3.8</dl4j.version>
+        <canova.version>0.0.0.14</canova.version>
     </properties>
 
     <build>
@@ -74,6 +77,24 @@
             <groupId>nz.ac.waikato.cms.weka</groupId>
             <artifactId>weka-dev</artifactId>
             <version>3.7.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.deeplearning4j</groupId>
+            <artifactId>deeplearning4j-core</artifactId>
+            <version>${dl4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.nd4j</groupId>
+            <artifactId>nd4j-x86</artifactId>
+            <version>${nd4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <artifactId>canova-api</artifactId>
+            <groupId>org.nd4j</groupId>
+            <version>${canova.version}</version>
         </dependency>
     </dependencies>
 </project>
