@@ -108,7 +108,7 @@ public class RNN {
                     BarInfo begin = new BarInfo(null,null,null,null,null);
                     begin.open = 2100;
                     begin.high = 2104;
-                    begin.low = 2080;
+                    begin.low = 2096;
                     begin.close = 2101;
 
                     toShow(begin, predicts);
@@ -124,7 +124,7 @@ public class RNN {
     public static BarIterator getBarIterator(int miniBatchSize, int exampleLength, Random rng) {
         QuandisSource.def = new QuandisSource(QuandisSource.OUTRA);
 
-        List<BarInfo> bars = HistoricalData.bars("rb1605", TimeFrame.MIN_1, LocalDate.of(2015, 6, 1), LocalDate.of(2016, 6, 1));
+        List<BarInfo> bars = HistoricalData.bars("rb1605", TimeFrame.MIN_1, LocalDate.of(2015, 6, 1), LocalDate.of(2016, 3, 1));
         ArrayList<BarInfo> barDiff = new ArrayList<>();
         for (int i = 1; i < bars.size(); i++) {
             BarInfo pre = bars.get(i - 1);
