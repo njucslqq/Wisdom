@@ -7,7 +7,6 @@ import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.dataset.api.DataSetPreProcessor;
 import org.nd4j.linalg.factory.Nd4j;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -39,11 +38,12 @@ public class BarIterator implements DataSetIterator {
         this.exampleLength = exampleLength;
         this.rng = rng;
 
-        inputColums = 5;
+        inputColums = 4;
 
         numExamples = barDiff.size() / exampleLength;
         for (int i = 0; i < numExamples; i++)
             exampleStartOffsets.add(i * exampleLength);
+
         Collections.shuffle(exampleStartOffsets, rng);
     }
 
@@ -54,13 +54,6 @@ public class BarIterator implements DataSetIterator {
 
         int currMiniBatchSize = Math.min(num, exampleStartOffsets.size());
 
-        //Allocate space:
-        //Note the order here:
-        // dimension 0 = number of examples in minibatch
-        // dimension 1 = size of each vector (i.e., number of characters)
-        // dimension 2 = length of each time series/example
-
-        // five input for: open, high, low, close and volume
         INDArray input = Nd4j.zeros(currMiniBatchSize, inputColums, exampleLength);
         INDArray label = Nd4j.zeros(currMiniBatchSize, inputColums, exampleLength);
 
@@ -73,16 +66,14 @@ public class BarIterator implements DataSetIterator {
                 input.putScalar(new int[]{i, 1, c}, barDiff.get(j).high);
                 input.putScalar(new int[]{i, 2, c}, barDiff.get(j).low);
                 input.putScalar(new int[]{i, 3, c}, barDiff.get(j).close);
-                input.putScalar(new int[]{i, 4, c}, barDiff.get(j).volume);
 
-                label.putScalar(new int[]{i, 0, c}, barDiff.get(j + 1).open);
-                label.putScalar(new int[]{i, 1, c}, barDiff.get(j + 1).high);
-                label.putScalar(new int[]{i, 2, c}, barDiff.get(j + 1).low);
-                label.putScalar(new int[]{i, 3, c}, barDiff.get(j + 1).close);
-                label.putScalar(new int[]{i, 4, c}, barDiff.get(j + 1).volume);
+                int offset = (j + 1) % barDiff.size();
+                label.putScalar(new int[]{i, 0, c}, barDiff.get(offset).open);
+                label.putScalar(new int[]{i, 1, c}, barDiff.get(offset).high);
+                label.putScalar(new int[]{i, 2, c}, barDiff.get(offset).low);
+                label.putScalar(new int[]{i, 3, c}, barDiff.get(offset).close);
             }
         }
-
         return new DataSet(input, label);
     }
 
@@ -116,7 +107,7 @@ public class BarIterator implements DataSetIterator {
 
     @Override
     public int cursor() {
-        return totalExamples()-exampleStartOffsets.size();
+        return totalExamples() - exampleStartOffsets.size();
     }
 
     @Override
