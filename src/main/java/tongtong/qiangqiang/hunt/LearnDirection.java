@@ -6,8 +6,8 @@ import cn.quanttech.quantera.common.factor.Indicator;
 import cn.quanttech.quantera.common.factor.IndicatorIdentity;
 import cn.quanttech.quantera.common.factor.composite.*;
 import cn.quanttech.quantera.common.factor.single.indicators.*;
-import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
+import cn.quanttech.quantera.common.type.quotation.BarInfo;
 import com.google.common.collect.ImmutableList;
 import jwave.Transform;
 import jwave.transforms.FastWaveletTransform;
@@ -44,7 +44,15 @@ public class LearnDirection {
     }
 
     public enum Direction {
-        UP, DOWN
+        UP(0), DOWN(1);
+
+        private int value;
+
+        Direction(int value){
+            this.value = value;
+        }
+
+        public int value(){return value;}
     }
 
     public static class WaveletConfig {
@@ -293,7 +301,6 @@ public class LearnDirection {
 
 
                 new OSC(11), new OSC(17), new OSC(27), new OSC(39), new OSC(59), new OSC(87),
-                new PPO(11), new PPO(17), new PPO(27), new PPO(39), new PPO(59), new PPO(87),
                 //new PSY(11), new PSY(17), new PSY(27), new PSY(39), new PSY(59), new PSY(87),
                 new RSI(11), new RSI(17), new RSI(27), new RSI(39), new RSI(59), new RSI(87),
                 new VOSC(12, 26), new VOSC(27, 49)
@@ -311,7 +318,7 @@ public class LearnDirection {
                 new ATR(11), new ATR(17), new ATR(27), new ATR(39), new ATR(59), new ATR(87),
                 new CCI(11), new CCI(17), new CCI(27), new CCI(39), new CCI(59), new CCI(87),
                 new CR(11), new CR(17), new CR(27), new CR(39), new CR(59), new CR(87),
-                new KDJ(11), new KDJ(17), new KDJ(27), new KDJ(39), new KDJ(59), new KDJ(87),
+
                 //new MFI(11), new MFI(17), new MFI(27), new MFI(39), new MFI(59), new MFI(87),
                 new PVT(11), new PVT(17), new PVT(27), new PVT(39), new PVT(59), new PVT(87)
                 //new VR(11), new VR(17), new VR(27), new VR(39), new VR(59), new VR(87),

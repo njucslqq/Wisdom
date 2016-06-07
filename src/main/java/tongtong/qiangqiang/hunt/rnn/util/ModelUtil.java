@@ -1,7 +1,7 @@
 package tongtong.qiangqiang.hunt.rnn.util;
 
 import cn.quanttech.quantera.common.datacenter.HistoricalData;
-import cn.quanttech.quantera.common.type.data.BarInfo;
+import cn.quanttech.quantera.common.type.quotation.BarInfo;
 import org.apache.commons.io.FileUtils;
 import org.deeplearning4j.nn.api.Updater;
 import org.deeplearning4j.nn.conf.MultiLayerConfiguration;
@@ -102,7 +102,7 @@ public class ModelUtil {
         for (int i = 1; i < bars.size(); i++) {
             BarInfo pre = bars.get(i - 1);
             BarInfo cur = bars.get(i);
-            BarInfo b = new BarInfo(null, null, null, null, null);
+            BarInfo b = new BarInfo();
             b.open = logNorm(cur.open - pre.open);
             b.high = logNorm(cur.high - pre.high);
             b.low = logNorm(cur.low - pre.low);
@@ -128,7 +128,7 @@ public class ModelUtil {
         INDArray input = getOneInput(begin, iter);
         for (int i = 0; i < bars.size(); i++) {
             INDArray output = net.rnnTimeStep(input);
-            BarInfo dif = new BarInfo(null, null, null, null, null);
+            BarInfo dif = new BarInfo();
             dif.open = output.getDouble(new int[]{0, 0});
             dif.high = output.getDouble(new int[]{0, 1});
             dif.low = output.getDouble(new int[]{0, 2});
@@ -141,7 +141,7 @@ public class ModelUtil {
         BarInfo start = bars.get(0);
         for (BarInfo d : diffs){
             predictBars.add(start);
-            BarInfo newDif = new BarInfo(null, null, null, null, null);
+            BarInfo newDif = new BarInfo();
             newDif.open = start.open + logDenorm(d.open);
             newDif.high = start.high + logDenorm(d.high);
             newDif.low = start.low + logDenorm(d.low);

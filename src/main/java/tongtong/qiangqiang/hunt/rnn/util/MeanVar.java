@@ -1,8 +1,8 @@
 package tongtong.qiangqiang.hunt.rnn.util;
 
 import cn.quanttech.quantera.common.datacenter.HistoricalData;
-import cn.quanttech.quantera.common.type.data.BarInfo;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
+import cn.quanttech.quantera.common.type.quotation.BarInfo;
 import org.apache.commons.math3.util.Pair;
 
 import java.time.LocalDate;

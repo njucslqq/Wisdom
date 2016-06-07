@@ -1,9 +1,9 @@
 package tongtong.qiangqiang.func;
 
-import cn.quanttech.quantera.common.type.data.BarInfo;
-import cn.quanttech.quantera.common.type.data.BaseData;
-import cn.quanttech.quantera.common.type.data.TickInfo;
 import cn.quanttech.quantera.common.type.data.TimeFrame;
+import cn.quanttech.quantera.common.type.quotation.BarInfo;
+import cn.quanttech.quantera.common.type.quotation.TickInfo;
+import cn.quanttech.quantera.common.type.quotation.TimeUnit;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -43,7 +43,7 @@ public class GeneralUtilizer {
         if (o instanceof BarInfo)
             v = ((BarInfo) o).close;
         if (o instanceof TickInfo)
-            v = ((TickInfo) o).last;
+            v = ((TickInfo) o).price();
         return v;
     }
 
@@ -136,7 +136,7 @@ public class GeneralUtilizer {
         return price.stream().min(Double::compareTo).get();
     }
 
-    public static List<Double> extract(List<? extends BaseData> data, String field) {
+    public static List<Double> extract(List<? extends TimeUnit> data, String field) {
         List<Double> res = new ArrayList<>();
         data.stream().forEach(b -> {
             Class c = b.getClass();
@@ -157,17 +157,17 @@ public class GeneralUtilizer {
             LocalDate date = tick.tradingTime.toLocalDate();
             LocalTime time = tick.tradingTime.toLocalTime();
             LocalDateTime dateTime = LocalDateTime.of(date, LocalTime.of(time.getHour(), time.getMinute()));
-            BarInfo newBar = new BarInfo(tick.secuCode, tick.exchangeID, dateTime, tick.tradingDay, resolution);
-            newBar.open = newBar.high = newBar.low = newBar.close = tick.last;
+            BarInfo newBar = new BarInfo();
+            newBar.open = newBar.high = newBar.low = newBar.close = tick.price();
             newBar.volume += tick.volume;
             return newBar;
         } else {
             LocalDateTime endTime = bar.tradingTime.plusMinutes(bar.resolution.value());
             if (tick.tradingTime.isBefore(endTime)) {
                 bar.volume += tick.volume;
-                bar.high = Math.max(bar.high, tick.last);
-                bar.low = Math.min(bar.low, tick.last);
-                bar.close = tick.last;
+                bar.high = Math.max(bar.high, tick.price());
+                bar.low = Math.min(bar.low, tick.price());
+                bar.close = tick.price();
                 return null;
             } else
                 return combine(null, tick, resolution);
